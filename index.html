@@ -91,6 +91,39 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        .countdown-container {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+
+        .countdown-label {
+            font-size: 0.7rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .countdown-timer {
+            font-size: 1.2rem;
+            color: var(--text);
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.05rem;
+        }
+
+        .countdown-timer span {
+            color: var(--primary);
+        }
+
         header.scrolled {
             padding: 1rem 2rem;
             background: rgba(17, 17, 17, 0.95);
@@ -457,11 +490,29 @@
             .section {
                 padding: 2rem;
             }
+
+            .countdown-container {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 0 auto 1rem auto;
+                max-width: 200px;
+            }
+
+            .countdown-timer {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
+        <div class="countdown-container">
+            <div class="countdown-label">Server Launch</div>
+            <div class="countdown-timer" id="countdown">
+                <span>00d</span> <span>00h</span> <span>00m</span> <span>00s</span>
+            </div>
+        </div>
         <div class="logo">0xRULES</div>
         <div class="tagline">The oldest anarchy server in Hytale</div>
         <div class="nav-menu">
@@ -606,6 +657,30 @@
     </footer>
 
     <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const targetDate = new Date('2026-01-13T12:00:00+01:00'); // Polish time (CET/CEST)
+            const now = new Date();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('countdown').innerHTML = 
+                    `<span>${days}d</span> <span>${hours}h</span> <span>${minutes}m</span> <span>${seconds}s</span>`;
+            } else {
+                document.getElementById('countdown').innerHTML = 
+                    `<span style="color: var(--primary);">LIVE NOW!</span>`;
+            }
+        }
+
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
         // Handle header shrinking on scroll
         let ticking = false;
         
