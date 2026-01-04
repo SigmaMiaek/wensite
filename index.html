@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0xDEAD - The Oldest Anarchy Server in Hytale</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff41;
+            --primary-dark: #00cc33;
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --text: #e0e0e0;
+            --border: rgba(0, 255, 65, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 65, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header.scrolled {
+            padding: 1rem 2rem;
+            background: rgba(17, 17, 17, 0.95);
+        }
+
+        header.scrolled .logo {
+            font-size: 2rem;
+        }
+
+        header.scrolled .tagline {
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        header.scrolled .nav-menu {
+            margin-top: 1rem;
+            gap: 0.6rem;
+        }
+
+        header.scrolled .nav-btn {
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.5rem;
+            transition: all 0.4s ease;
+            text-shadow: 0 0 80px rgba(0, 255, 65, 0.3);
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            margin-top: 0.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.3rem;
+            font-weight: 500;
+            transition: all 0.4s ease;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            transition: all 0.4s ease;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--primary);
+            padding: 0.7rem 1.5rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            background: rgba(17, 17, 17, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            margin: 3rem 0;
+            padding: 3rem;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section:hover {
+            border-color: rgba(0, 255, 65, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 255, 65, 0.1);
+            transform: translateY(-4px);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
+        }
+
+        .server-ip {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, rgba(0, 255, 65, 0.02) 100%);
+            border: 2px solid var(--primary);
+            padding: 2rem;
+            text-align: center;
+            font-size: 2rem;
+            margin: 2rem 0;
+            letter-spacing: 0.2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .server-ip::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(0, 255, 65, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .server-ip:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .server-ip:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1) 0%, rgba(0, 255, 65, 0.05) 100%);
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+        }
+
+        .server-ip:active {
+            transform: scale(0.98);
+        }
+
+        .copy-notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #000;
+            padding: 2rem 3rem;
+            border-radius: 16px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            z-index: 10000;
+            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.4);
+            animation: fadeInOut 1.5s ease;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            80% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature:hover {
+            background: rgba(0, 255, 65, 0.05);
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0, 255, 65, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .feature h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .feature p {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .rules {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .rules li {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            margin: 0.8rem 0;
+            border-left: 3px solid var(--primary);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .rules li:hover {
+            background: rgba(0, 255, 65, 0.05);
+            padding-left: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 255, 65, 0.1);
+        }
+
+        .warning {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, rgba(255, 0, 0, 0.05) 100%);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            padding: 2rem;
+            margin: 2rem 0;
+            color: #ff4444;
+            text-align: center;
+            font-weight: 600;
+            border-radius: 12px;
+            font-size: 1.1rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-top: 0.5rem;
+            font-weight: 500;
+            letter-spacing: 0.1rem;
+        }
+
+        footer {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .terminal {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .terminal-line {
+            margin: 0.5rem 0;
+            color: var(--text);
+        }
+
+        .terminal-prompt {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 0.9rem;
+            }
+            
+            .server-ip {
+                font-size: 1.3rem;
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">0xDEAD</div>
+        <div class="tagline">The oldest anarchy server in Hytale</div>
+        <div class="nav-menu">
+            <button class="nav-btn" onclick="scrollToSection('about')">About</button>
+            <button class="nav-btn" onclick="scrollToSection('features')">Features</button>
+            <button class="nav-btn" onclick="scrollToSection('rules')">Rules</button>
+            <button class="nav-btn" onclick="scrollToSection('survival')">Survival Guide</button>
+            <button class="nav-btn" onclick="scrollToSection('support')">Support</button>
+            <button class="nav-btn" onclick="scrollToSection('join')">Join</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="server-ip" onclick="copyIP(this)">
+            play.0xdead.net
+        </div>
+
+        <div class="warning">
+            ⚠ WARNING: NO RULES - NO STAFF - NO PROTECTION ⚠
+        </div>
+
+        <div class="section" id="about">
+            <h2>About</h2>
+            <p>0xDEAD is a direct port of the legendary 2b2t to Hytale. This is the oldest anarchy server in the Hytale world, where the only limit is your imagination and the boundaries of the game itself.</p>
+            
+            <div class="terminal">
+                <div class="terminal-line"><span class="terminal-prompt">root@0xdead:~$</span> status --check</div>
+                <div class="terminal-line">[OK] Server running in anarchy mode</div>
+                <div class="terminal-line">[OK] No rules enforced</div>
+                <div class="terminal-line">[OK] Vanilla Hytale gameplay</div>
+                <div class="terminal-line">[OK] No map resets - ever</div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">RULES</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">ANARCHY</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="features">
+            <h2>Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>» Vanilla Hytale</h3>
+                    <p>Pure Hytale with no gameplay modifications. Just you and the game.</p>
+                </div>
+                <div class="feature">
+                    <h3>» No Resets</h3>
+                    <p>The map will never be reset. Your builds will survive for ages.</p>
+                </div>
+                <div class="feature">
+                    <h3>» Total Anarchy</h3>
+                    <p>No rules. No bans for gameplay. Complete freedom.</p>
+                </div>
+                <div class="feature">
+                    <h3>» No Staff</h3>
+                    <p>Administrators don't interfere with gameplay. This is your world.</p>
+                </div>
+                <div class="feature">
+                    <h3>» History</h3>
+                    <p>Every action leaves a mark. Become part of the legend.</p>
+                </div>
+                <div class="feature">
+                    <h3>» Factions</h3>
+                    <p>Build an empire or join existing ones. Or go solo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="rules">
+            <h2>Rules</h2>
+            <p>On 0xDEAD there is only one rule:</p>
+            <ul class="rules">
+                <li><strong>1.</strong> No rules (except exploits that can crash the server)</li>
+            </ul>
+            <p style="margin-top: 1.5rem;">Everything else is allowed:</p>
+            <ul class="rules">
+                <li>✓ Griefing</li>
+                <li>✓ Raiding</li>
+                <li>✓ PvP</li>
+                <li>✓ Cheating</li>
+                <li>✓ Stealing</li>
+                <li>✓ Anything within game mechanics</li>
+            </ul>
+        </div>
+
+        <div class="section" id="survival">
+            <h2>Survival Guide</h2>
+            <p><strong>New players:</strong> Spawn is the most dangerous place on the server. No one will help you. No one will give you food. The only certainty is death.</p>
+            
+            <div class="terminal" style="margin-top: 1rem;">
+                <div class="terminal-line"><span class="terminal-prompt">player@0xdead:~$</span> tips --survival</div>
+                <div class="terminal-line">[!] Trust no one</div>
+                <div class="terminal-line">[!] Escape spawn as fast as possible</div>
+                <div class="terminal-line">[!] Hide your coordinates</div>
+                <div class="terminal-line">[!] Hide bases thousands of blocks from spawn</div>
+                <div class="terminal-line">[!] Create backup stashes in multiple locations</div>
+                <div class="terminal-line">[!] Everything can be destroyed</div>
+            </div>
+        </div>
+
+        <div class="section" id="support">
+            <h2>Support the Server</h2>
+            <p>Running an anarchy server costs money. If you want to support 0xDEAD and keep it running, you can donate via PayPal. <strong>No perks, no advantages, no ranks.</strong> Just pure support for keeping the chaos alive.</p>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <form action="https://www.paypal.com/donate" method="post" target="_top" style="display: inline-block;">
+                    <input type="hidden" name="hosted_button_id" value="DXAWCA6H7JKXU" />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" style="cursor: pointer;" />
+                    <img alt="" border="0" src="https://www.paypal.com/en_PL/i/scr/pixel.gif" width="1" height="1" />
+                </form>
+            </div>
+            
+            <p style="text-align: center; margin-top: 1.5rem; color: var(--primary); font-size: 0.9rem;">
+                All donations go directly to server hosting costs
+            </p>
+        </div>
+
+        <div class="section" id="join">
+            <h2>Join the Legend</h2>
+            <p>0xDEAD is not just a server - it's an experience. It's a place where history is written by players, where every action has consequences, and every build can become a legend or a ruin.</p>
+            
+            <div class="server-ip" style="margin-top: 2rem; font-size: 1.5rem;" onclick="copyIP(this)">
+                IP: play.0xdead.net
+            </div>
+            
+            <p style="text-align: center; margin-top: 1rem; color: var(--primary);">
+                Copy the IP and join the oldest anarchy server in Hytale
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>0xDEAD © 2025 | The oldest anarchy server in Hytale</p>
+        <p style="margin-top: 0.5rem; color: var(--primary);">Inspired by the legend of 2b2t</p>
+    </footer>
+
+    <script>
+        // Handle header shrinking on scroll
+        let ticking = false;
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const header = document.querySelector('header');
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    if (scrollTop > 150) {
+                        header.classList.add('scrolled');
+                    } else if (scrollTop < 100) {
+                        header.classList.remove('scrolled');
+                    }
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        });
+
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const header = document.querySelector('header');
+                const headerHeight = header.offsetHeight;
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - headerHeight - 20;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Copy IP to clipboard
+        function copyIP(element) {
+            const ip = 'play.0xdead.net';
+            
+            navigator.clipboard.writeText(ip).then(() => {
+                const notification = document.createElement('div');
+                notification.className = 'copy-notification';
+                notification.textContent = 'IP COPIED!';
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 1500);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+    </script>
+</body>
+</html>
