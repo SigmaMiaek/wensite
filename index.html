@@ -91,6 +91,33 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        .staff-btn {
+            position: absolute;
+            top: 1rem;
+            left: 2rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--primary);
+            padding: 0.7rem 1.5rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .staff-btn:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            transform: translateY(-2px);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
         .countdown-container {
             position: absolute;
             top: 1rem;
@@ -502,11 +529,21 @@
             .countdown-timer {
                 font-size: 1rem;
             }
+
+            .staff-btn {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 0 auto 1rem auto;
+                display: block;
+                width: fit-content;
+            }
         }
     </style>
 </head>
 <body>
     <header>
+        <a href="/staff" class="staff-btn">👥 Staff</a>
         <div class="countdown-container">
             <div class="countdown-label">Server Launch</div>
             <div class="countdown-timer" id="countdown">
