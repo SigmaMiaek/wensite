@@ -476,6 +476,10 @@
             margin-top: 4rem;
         }
 
+        .mobile-countdown {
+            display: none;
+        }
+
         .terminal {
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border);
@@ -560,35 +564,23 @@
             }
 
             .countdown-container {
-                position: fixed;
-                bottom: 2rem;
-                left: 50%;
-                transform: translateX(-50%);
+                position: relative;
                 top: auto;
                 right: auto;
-                margin: 0;
+                left: auto;
+                transform: none;
+                margin: 2rem auto;
                 max-width: 200px;
-                z-index: 1000;
                 box-shadow: 0 8px 32px rgba(0, 255, 65, 0.3);
-                animation: float 3s ease-in-out infinite;
-            }
-
-            @keyframes float {
-                0%, 100% {
-                    transform: translateX(-50%) translateY(0);
-                }
-                50% {
-                    transform: translateX(-50%) translateY(-5px);
-                }
             }
 
             .countdown-label {
-                font-size: 0.6rem;
-                margin-bottom: 0.3rem;
+                font-size: 0.65rem;
+                margin-bottom: 0.4rem;
             }
 
             .countdown-timer {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
 
             .staff-btn {
@@ -600,6 +592,16 @@
                 width: fit-content;
                 padding: 0.5rem 1rem;
                 font-size: 0.75rem;
+            }
+
+            /* Hide countdown from header on mobile */
+            header .countdown-container {
+                display: none;
+            }
+
+            /* Show countdown in footer on mobile */
+            .mobile-countdown {
+                display: block !important;
             }
         }
     </style>
@@ -752,6 +754,12 @@
     </div>
 
     <footer>
+        <div class="countdown-container mobile-countdown">
+            <div class="countdown-label">Server Launch</div>
+            <div class="countdown-timer" id="countdown-mobile">
+                <span>00d</span> <span>00h</span> <span>00m</span> <span>00s</span>
+            </div>
+        </div>
         <p>0xRULES © 2026 | The oldest anarchy server in Hytale</p>
         <p style="margin-top: 0.5rem; color: var(--primary);">Inspired by the legend of 2b2t</p>
     </footer>
@@ -769,11 +777,21 @@
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-                document.getElementById('countdown').innerHTML = 
-                    `<span>${days}d</span> <span>${hours}h</span> <span>${minutes}m</span> <span>${seconds}s</span>`;
+                const countdownHTML = `<span>${days}d</span> <span>${hours}h</span> <span>${minutes}m</span> <span>${seconds}s</span>`;
+                
+                // Update both countdowns
+                const mainCountdown = document.getElementById('countdown');
+                const mobileCountdown = document.getElementById('countdown-mobile');
+                
+                if (mainCountdown) mainCountdown.innerHTML = countdownHTML;
+                if (mobileCountdown) mobileCountdown.innerHTML = countdownHTML;
             } else {
-                document.getElementById('countdown').innerHTML = 
-                    `<span style="color: var(--primary);">LIVE NOW!</span>`;
+                const liveHTML = `<span style="color: var(--primary);">LIVE NOW!</span>`;
+                const mainCountdown = document.getElementById('countdown');
+                const mobileCountdown = document.getElementById('countdown-mobile');
+                
+                if (mainCountdown) mainCountdown.innerHTML = liveHTML;
+                if (mobileCountdown) mobileCountdown.innerHTML = liveHTML;
             }
         }
 
