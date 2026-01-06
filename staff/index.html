@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Team - 0xRULES | Hytale Anarchy Server</title>
+    <meta name="description" content="Meet the team behind 0xRULES - The oldest Hytale anarchy server.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff41;
+            --primary-dark: #00cc33;
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --text: #e0e0e0;
+            --border: rgba(0, 255, 65, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 65, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--primary);
+            padding: 0.7rem 1.5rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            font-weight: 500;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            transform: translateY(-2px);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.5rem;
+            text-shadow: 0 0 80px rgba(0, 255, 65, 0.3);
+        }
+
+        .tagline {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.3rem;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .page-title p {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .staff-card {
+            background: rgba(17, 17, 17, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .staff-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
+        }
+
+        .staff-card:hover {
+            border-color: rgba(0, 255, 65, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 255, 65, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .owner-card {
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+        }
+
+        .owner-card::before {
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 50%, var(--primary) 100%);
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.2) 0%, rgba(0, 255, 65, 0.05) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .staff-card:hover .avatar {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.5);
+        }
+
+        a.staff-card:hover {
+            cursor: pointer;
+        }
+
+        .staff-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .staff-role {
+            font-size: 0.85rem;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            margin-bottom: 0;
+            padding: 0.4rem 0.8rem;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .owner-badge {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #000;
+            font-weight: 700;
+        }
+
+        .staff-info {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .info-item span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .staff-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            border-color: var(--primary);
+            background: rgba(0, 255, 65, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 255, 65, 0.3);
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(17, 17, 17, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-top: 3rem;
+        }
+
+        .coming-soon h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .coming-soon p {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .copy-notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #000;
+            padding: 1.5rem 2.5rem;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            z-index: 10000;
+            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.4);
+            animation: fadeInOut 1.5s ease;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            80% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .page-title h1 {
+                font-size: 2rem;
+            }
+
+            .staff-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .back-btn {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin-bottom: 1rem;
+            }
+
+            header {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="back-btn">← Back</a>
+        <div class="logo">0xRULES</div>
+        <div class="tagline">Staff Team</div>
+    </header>
+
+    <div class="container">
+        <div class="page-title">
+            <h1>Meet Our Team</h1>
+            <p>The people behind the oldest anarchy server in Hytale</p>
+        </div>
+
+        <div class="staff-grid">
+            <!-- Owner Card -->
+            <a href="/miaek" class="staff-card owner-card" style="text-decoration: none; color: inherit; cursor: pointer;">
+                <div class="avatar">M</div>
+                <h2 class="staff-name">Miaek</h2>
+                <div class="staff-role owner-badge">Server Owner</div>
+            </a>
+
+            <!-- Placeholder for more staff -->
+        </div>
+
+        <div class="coming-soon">
+            <h3>🚀 We're Hiring!</h3>
+            <p>More staff members will be announced soon. Stay tuned for updates!</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>0xRULES © 2026 | The oldest anarchy server in Hytale</p>
+        <p style="margin-top: 0.5rem; color: var(--primary);">Inspired by the legend of 2b2t</p>
+    </footer>
+
+    <script>
+        // Smooth entrance animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.staff-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body>
+</html>
