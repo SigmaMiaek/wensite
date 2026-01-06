@@ -119,9 +119,6 @@
         }
 
         .countdown-container {
-            position: absolute;
-            top: 1rem;
-            right: 2rem;
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border);
@@ -476,10 +473,6 @@
             margin-top: 4rem;
         }
 
-        .mobile-countdown {
-            display: none;
-        }
-
         .terminal {
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border);
@@ -564,14 +557,7 @@
             }
 
             .countdown-container {
-                position: relative;
-                top: auto;
-                right: auto;
-                left: auto;
-                transform: none;
-                margin: 2rem auto;
                 max-width: 200px;
-                box-shadow: 0 8px 32px rgba(0, 255, 65, 0.3);
             }
 
             .countdown-label {
@@ -593,28 +579,12 @@
                 padding: 0.5rem 1rem;
                 font-size: 0.75rem;
             }
-
-            /* Hide countdown from header on mobile */
-            header .countdown-container {
-                display: none;
-            }
-
-            /* Show countdown in footer on mobile */
-            .mobile-countdown {
-                display: block !important;
-            }
         }
     </style>
 </head>
 <body>
     <header>
         <a href="/staff" class="staff-btn">👥 Staff</a>
-        <div class="countdown-container">
-            <div class="countdown-label">Server Launch</div>
-            <div class="countdown-timer" id="countdown">
-                <span>00d</span> <span>00h</span> <span>00m</span> <span>00s</span>
-            </div>
-        </div>
         <div class="logo">0xRULES</div>
         <div class="tagline">The oldest anarchy server in Hytale</div>
         <div class="nav-menu">
@@ -634,6 +604,13 @@
 
         <div class="warning">
             ⚠ WARNING: NO RULES - NO STAFF - NO PROTECTION ⚠
+        </div>
+
+        <div class="countdown-container" style="position: relative; top: auto; right: auto; left: auto; transform: none; margin: 2rem auto; max-width: 300px;">
+            <div class="countdown-label">Server Launch</div>
+            <div class="countdown-timer" id="countdown-main">
+                <span>00d</span> <span>00h</span> <span>00m</span> <span>00s</span>
+            </div>
         </div>
 
         <div class="section" id="about">
@@ -754,12 +731,6 @@
     </div>
 
     <footer>
-        <div class="countdown-container mobile-countdown">
-            <div class="countdown-label">Server Launch</div>
-            <div class="countdown-timer" id="countdown-mobile">
-                <span>00d</span> <span>00h</span> <span>00m</span> <span>00s</span>
-            </div>
-        </div>
         <p>0xRULES © 2026 | The oldest anarchy server in Hytale</p>
         <p style="margin-top: 0.5rem; color: var(--primary);">Inspired by the legend of 2b2t</p>
     </footer>
@@ -779,19 +750,12 @@
 
                 const countdownHTML = `<span>${days}d</span> <span>${hours}h</span> <span>${minutes}m</span> <span>${seconds}s</span>`;
                 
-                // Update both countdowns
-                const mainCountdown = document.getElementById('countdown');
-                const mobileCountdown = document.getElementById('countdown-mobile');
-                
-                if (mainCountdown) mainCountdown.innerHTML = countdownHTML;
-                if (mobileCountdown) mobileCountdown.innerHTML = countdownHTML;
+                const countdown = document.getElementById('countdown-main');
+                if (countdown) countdown.innerHTML = countdownHTML;
             } else {
                 const liveHTML = `<span style="color: var(--primary);">LIVE NOW!</span>`;
-                const mainCountdown = document.getElementById('countdown');
-                const mobileCountdown = document.getElementById('countdown-mobile');
-                
-                if (mainCountdown) mainCountdown.innerHTML = liveHTML;
-                if (mobileCountdown) mobileCountdown.innerHTML = liveHTML;
+                const countdown = document.getElementById('countdown-main');
+                if (countdown) countdown.innerHTML = liveHTML;
             }
         }
 
