@@ -560,12 +560,26 @@
             }
 
             .countdown-container {
-                position: relative;
+                position: fixed;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%);
                 top: auto;
                 right: auto;
-                margin: 0 auto 0.8rem auto;
-                max-width: 180px;
-                padding: 0.7rem 1rem;
+                margin: 0;
+                max-width: 200px;
+                z-index: 1000;
+                box-shadow: 0 8px 32px rgba(0, 255, 65, 0.3);
+                animation: float 3s ease-in-out infinite;
+            }
+
+            @keyframes float {
+                0%, 100% {
+                    transform: translateX(-50%) translateY(0);
+                }
+                50% {
+                    transform: translateX(-50%) translateY(-5px);
+                }
             }
 
             .countdown-label {
