@@ -599,16 +599,13 @@
     </header>
 
     <div class="container">
-        <div class="countdown-container" style="position: relative; top: auto; right: auto; left: auto; transform: none; margin: 0 auto 2rem auto; max-width: 300px;">
-            <div class="countdown-label">Server Launch</div>
-            <div class="countdown-timer" id="countdown-main">
-                <span>00d</span> <span>00h</span> <span>00m</span> <span>00s</span>
-            </div>
-        </div>
-
         <div class="server-ip" onclick="copyIP(this)">
             play.0xrules.com:30013
         </div>
+
+        <a href="https://discord.com/invite/RURykQbqbt" target="_blank" style="display: block; background: linear-gradient(135deg, rgba(88, 101, 242, 0.2) 0%, rgba(88, 101, 242, 0.05) 100%); border: 2px solid #5865F2; color: #5865F2; padding: 1.2rem 2rem; font-family: inherit; font-size: 1.1rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase; letter-spacing: 0.1rem; font-weight: 600; border-radius: 12px; text-decoration: none; margin: 2rem auto; text-align: center; max-width: 400px;">
+            <span style="font-size: 1.3rem; margin-right: 0.5rem;">💬</span> Join Our Discord
+        </a>
 
         <div class="warning">
             ⚠ WARNING: NO RULES - NO STAFF - NO PROTECTION ⚠
@@ -737,33 +734,6 @@
     </footer>
 
     <script>
-        // Countdown Timer
-        function updateCountdown() {
-            const targetDate = new Date('2026-01-13T12:00:00+01:00'); // Polish time (CET/CEST)
-            const now = new Date();
-            const difference = targetDate - now;
-
-            if (difference > 0) {
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                const countdownHTML = `<span>${days}d</span> <span>${hours}h</span> <span>${minutes}m</span> <span>${seconds}s</span>`;
-                
-                const countdown = document.getElementById('countdown-main');
-                if (countdown) countdown.innerHTML = countdownHTML;
-            } else {
-                const liveHTML = `<span style="color: var(--primary);">LIVE NOW!</span>`;
-                const countdown = document.getElementById('countdown-main');
-                if (countdown) countdown.innerHTML = liveHTML;
-            }
-        }
-
-        // Update countdown every second
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
         // Handle header shrinking on scroll
         let ticking = false;
         
