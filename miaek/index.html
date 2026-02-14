@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miaek - Server Owner | 0xRULES</title>
+    <title>Miaek - Właściciel Serwera | 0xRULES</title>
     <link rel="icon" type="image/png" href="/favicon.png">
-    <meta name="description" content="Meet Miaek, the owner and founder of 0xRULES - The oldest Hytale anarchy server.">
+    <meta name="description" content="Poznaj Miaeka, właściciela i założyciela 0xRULES - Pierwszego polskiego serwera anarchii w Hytale.">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary: #00ff41;
             --primary-dark: #00cc33;
             --bg-dark: #0a0a0a;
-            --bg-card: #111111;
             --text: #e0e0e0;
             --border: rgba(0, 255, 65, 0.2);
         }
@@ -38,13 +33,10 @@
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 255, 65, 0.03) 0%, transparent 50%);
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0,255,65,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0,255,65,0.03) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -57,26 +49,20 @@
         }
 
         .profile-card {
-            background: rgba(17, 17, 17, 0.8);
+            background: rgba(17,17,17,0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 3rem;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 255, 65, 0.1);
+            box-shadow: 0 8px 32px rgba(0,255,65,0.1);
             animation: fadeIn 0.6s ease;
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         .avatar {
@@ -85,14 +71,14 @@
             border-radius: 50%;
             border: 3px solid var(--primary);
             margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, rgba(0, 255, 65, 0.2) 0%, rgba(0, 255, 65, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(0,255,65,0.2) 0%, rgba(0,255,65,0.05) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
             font-weight: 700;
             color: var(--primary);
-            box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 40px rgba(0,255,65,0.3);
         }
 
         .name {
@@ -122,7 +108,7 @@
         }
 
         .info-item {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0,0,0,0.3);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1rem;
@@ -130,10 +116,10 @@
         }
 
         .info-item:hover {
-            background: rgba(0, 255, 65, 0.05);
+            background: rgba(0,255,65,0.05);
             border-color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0, 255, 65, 0.2);
+            box-shadow: 0 4px 16px rgba(0,255,65,0.2);
         }
 
         .info-label {
@@ -152,7 +138,7 @@
         }
 
         .bio {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0,0,0,0.3);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
@@ -168,10 +154,7 @@
             letter-spacing: 0.1rem;
         }
 
-        .bio p {
-            color: var(--text);
-            line-height: 1.8;
-        }
+        .bio p { color: var(--text); line-height: 1.8; }
 
         .links {
             display: flex;
@@ -188,7 +171,7 @@
             font-family: inherit;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
             text-transform: uppercase;
             letter-spacing: 0.1rem;
             font-weight: 600;
@@ -205,53 +188,26 @@
         .link-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,65,0.1), transparent);
             transition: left 0.5s ease;
         }
 
-        .link-btn:hover::before {
-            left: 100%;
-        }
+        .link-btn:hover::before { left: 100%; }
 
         .link-btn:hover {
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 20px rgba(0,255,65,0.3);
             transform: translateY(-2px);
         }
 
-        .link-btn:active {
-            transform: translateY(0);
-        }
-
-        .link-icon {
-            font-size: 1.2rem;
-        }
-
-        .back-link {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .back-link a {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .back-link a:hover {
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-        }
+        .link-icon { font-size: 1.2rem; }
 
         .copy-notification {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: #000;
             padding: 1.5rem 2.5rem;
@@ -259,47 +215,22 @@
             font-size: 1.2rem;
             font-weight: 700;
             z-index: 10000;
-            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.4);
+            box-shadow: 0 20px 60px rgba(0,255,65,0.4);
             animation: fadeInOut 1.5s ease;
         }
 
         @keyframes fadeInOut {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            20% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            80% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
+            0%   { opacity: 0; transform: translate(-50%,-50%) scale(0.8); }
+            20%  { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+            80%  { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%,-50%) scale(0.8); }
         }
 
         @media (max-width: 768px) {
-            .profile-card {
-                padding: 2rem;
-            }
-
-            .name {
-                font-size: 2rem;
-            }
-
-            .avatar {
-                width: 120px;
-                height: 120px;
-                font-size: 3rem;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            .profile-card { padding: 2rem; }
+            .name { font-size: 2rem; }
+            .avatar { width: 120px; height: 120px; font-size: 3rem; }
+            .info-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -308,37 +239,32 @@
         <div class="profile-card">
             <div class="avatar">M</div>
             <h1 class="name">Miaek</h1>
-            <p class="title">Server Owner & Founder</p>
+            <p class="title">Właściciel & Założyciel</p>
 
             <div class="info-grid">
                 <div class="info-item">
-                    <div class="info-label">Age</div>
+                    <div class="info-label">Wiek</div>
                     <div class="info-value">17</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">Country</div>
-                    <div class="info-value">🇵🇱 Poland</div>
+                    <div class="info-label">Kraj</div>
+                    <div class="info-value">🇵🇱 Polska</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">Role</div>
-                    <div class="info-value">Owner</div>
+                    <div class="info-label">Rola</div>
+                    <div class="info-value">Właściciel</div>
                 </div>
             </div>
 
             <div class="bio">
-                <h3>About Me</h3>
-                <p>
-                    Hey! I'm Miaek, the founder and owner of 0xRULES - the oldest anarchy server in Hytale. 
-                    I'm passionate about creating a completely free gaming environment where players can experience 
-                    true anarchy without limitations. My goal is to bring the legendary 2b2t experience to the 
-                    Hytale community and build something that will last for years.
-                </p>
+                <h3>O mnie</h3>
+                <p>Hej! Jestem Miaek, założyciel i właściciel 0xRULES - pierwszego polskiego serwera anarchii w Hytale. Zależało mi na stworzeniu w pełni wolnego środowiska do gry, gdzie gracze mogą doświadczyć prawdziwej anarchii bez żadnych ograniczeń. Moim celem jest przeniesienie legendarnego doświadczenia 2b2t do polskiej społeczności Hytale i zbudowanie czegoś, co przetrwa latami.</p>
             </div>
 
             <div class="links">
                 <a href="https://0xrules.com" class="link-btn">
                     <span class="link-icon">🎮</span>
-                    <span>0xRULES Hytale Server</span>
+                    <span>Serwer 0xRULES Hytale</span>
                 </a>
                 <a href="#" class="link-btn" onclick="copyDiscord(event)">
                     <span class="link-icon">💬</span>
@@ -349,77 +275,34 @@
                     <span>Twitter/X</span>
                 </a>
             </div>
-
-            <div class="back-link">
-                <a href="https://0xrules.com">← Back to 0xRULES</a>
-            </div>
         </div>
     </div>
 
     <script>
-        // Copy Discord username to clipboard
         function copyDiscord(event) {
             event.preventDefault();
             const username = 'miaek';
-            
-            navigator.clipboard.writeText(username).then(() => {
-                const notification = document.createElement('div');
-                notification.className = 'copy-notification';
-                notification.textContent = 'Discord copied!';
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.remove();
-                }, 1500);
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-            });
+            const show = () => {
+                const n = document.createElement('div');
+                n.className = 'copy-notification';
+                n.textContent = 'Discord skopiowany!';
+                document.body.appendChild(n);
+                setTimeout(() => n.remove(), 1500);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(username).then(show).catch(() => fallback(username, show));
+            } else { fallback(username, show); }
         }
 
-        // Add smooth entrance animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const card = document.querySelector('.profile-card');
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-                card.style.transition = 'all 0.6s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 100);
-        });
-
-        // Add ripple effect on buttons
-        document.querySelectorAll('.link-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                const ripple = document.createElement('div');
-                ripple.style.position = 'absolute';
-                ripple.style.borderRadius = '50%';
-                ripple.style.background = 'rgba(0, 255, 65, 0.3)';
-                ripple.style.width = '20px';
-                ripple.style.height = '20px';
-                ripple.style.left = e.clientX - this.offsetLeft - 10 + 'px';
-                ripple.style.top = e.clientY - this.offsetTop - 10 + 'px';
-                ripple.style.animation = 'ripple 0.6s ease-out';
-                this.appendChild(ripple);
-                
-                setTimeout(() => ripple.remove(), 600);
-            });
-        });
-
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    width: 200px;
-                    height: 200px;
-                    opacity: 0;
-                    margin-left: -100px;
-                    margin-top: -100px;
-                }
-            }
-        `;
-        document.head.appendChild(style);
+        function fallback(text, cb) {
+            const t = document.createElement('textarea');
+            t.value = text;
+            t.style.cssText = 'position:fixed;opacity:0';
+            document.body.appendChild(t);
+            t.focus(); t.select();
+            try { document.execCommand('copy'); cb(); } catch(e) {}
+            document.body.removeChild(t);
+        }
     </script>
 </body>
 </html>
