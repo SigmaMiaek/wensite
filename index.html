@@ -1,58 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>0xRULES - The Oldest Hytale Anarchy Server | No Rules Minecraft-like Server</title>
+    <title>0xRULES - Pierwszy Polski Serwer Anarchii w Hytale</title>
     <link rel="icon" type="image/png" href="/favicon.png">
-    <meta name="description" content="Join 0xRULES - The oldest and best Hytale anarchy server. No rules, no resets, pure vanilla gameplay. Experience true freedom in Hytale's ultimate anarchy server at 0xRULES.com">
-    <meta name="keywords" content="Hytale anarchy server, Hytale server, anarchy server, Hytale no rules, Hytale 2b2t, 0xRULES, Hytale multiplayer, Hytale PvP, Hytale griefing, vanilla Hytale server">
+    <meta name="description" content="Dołącz do 0xRULES - Pierwszego polskiego serwera anarchii w Hytale. Żadnych zasad, żadnych resetów, czysta rozgrywka vanilla. Doświadcz prawdziwej wolności na play.0xrules.com:29115">
+    <meta name="keywords" content="Hytale serwer anarchii, Hytale server, serwer anarchii, Hytale bez zasad, Hytale 2b2t, 0xRULES, Hytale multiplayer, Hytale PvP, Hytale griefing, vanilla Hytale serwer, polski serwer Hytale, pierwszy polski serwer Hytale">
     <meta name="author" content="0xRULES">
     <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://0xRULES.com/">
-    <meta property="og:title" content="0xRULES - The Oldest Hytale Anarchy Server">
-    <meta property="og:description" content="Join the oldest Hytale anarchy server. No rules, no resets, pure vanilla gameplay. Experience true freedom.">
-    <meta property="og:site_name" content="0xRULES">
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://0xRULES.com/">
-    <meta name="twitter:title" content="0xRULES - The Oldest Hytale Anarchy Server">
-    <meta name="twitter:description" content="Join the oldest Hytale anarchy server. No rules, no resets, pure vanilla gameplay.">
-    
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://0xRULES.com/">
-    
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "GameServer",
       "name": "0xRULES",
-      "description": "The oldest anarchy server in Hytale. No rules, no resets, pure vanilla gameplay.",
+      "description": "Pierwszy polski serwer anarchii w Hytale. Żadnych zasad, żadnych resetów, czysta rozgrywka vanilla.",
       "url": "https://0xRULES.com",
-      "game": {
-        "@type": "VideoGame",
-        "name": "Hytale"
-      },
+      "game": { "@type": "VideoGame", "name": "Hytale" },
       "playMode": "MultiPlayer"
     }
     </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary: #00ff41;
             --primary-dark: #00cc33;
             --bg-dark: #0a0a0a;
-            --bg-card: #111111;
             --text: #e0e0e0;
             --border: rgba(0, 255, 65, 0.2);
         }
@@ -68,19 +43,17 @@
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 255, 65, 0.03) 0%, transparent 50%);
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0,255,65,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0,255,65,0.03) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
 
+        /* ── HEADER ── */
         header {
-            background: rgba(17, 17, 17, 0.8);
+            background: rgba(17,17,17,0.8);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 1px solid var(--border);
@@ -89,8 +62,14 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
         }
+
+        header.scrolled { padding: 1rem 2rem; background: rgba(17,17,17,0.95); }
+        header.scrolled .logo { font-size: 2rem; }
+        header.scrolled .tagline { font-size: 0.85rem; margin-top: 0.3rem; }
+        header.scrolled .nav-menu { margin-top: 1rem; gap: 0.6rem; }
+        header.scrolled .nav-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
 
         .staff-btn {
             position: absolute;
@@ -103,7 +82,7 @@
             font-family: inherit;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
             text-transform: uppercase;
             letter-spacing: 0.1rem;
             font-weight: 500;
@@ -114,63 +93,9 @@
 
         .staff-btn:hover {
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 20px rgba(0,255,65,0.3);
             transform: translateY(-2px);
-            background: rgba(0, 255, 65, 0.05);
-        }
-
-        .countdown-container {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            text-align: center;
-        }
-
-        .countdown-label {
-            font-size: 0.7rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .countdown-timer {
-            font-size: 1.2rem;
-            color: var(--text);
-            font-weight: 700;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 0.05rem;
-        }
-
-        .countdown-timer span {
-            color: var(--primary);
-        }
-
-        header.scrolled {
-            padding: 1rem 2rem;
-            background: rgba(17, 17, 17, 0.95);
-        }
-
-        header.scrolled .logo {
-            font-size: 2rem;
-        }
-
-        header.scrolled .tagline {
-            font-size: 0.85rem;
-            margin-top: 0.3rem;
-        }
-
-        header.scrolled .nav-menu {
-            margin-top: 1rem;
-            gap: 0.6rem;
-        }
-
-        header.scrolled .nav-btn {
-            padding: 0.5rem 1.2rem;
-            font-size: 0.85rem;
+            background: rgba(0,255,65,0.05);
         }
 
         .logo {
@@ -182,7 +107,6 @@
             background-clip: text;
             letter-spacing: 0.5rem;
             transition: all 0.4s ease;
-            text-shadow: 0 0 80px rgba(0, 255, 65, 0.3);
         }
 
         .tagline {
@@ -212,7 +136,7 @@
             font-family: inherit;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
             text-transform: uppercase;
             letter-spacing: 0.1rem;
             font-weight: 500;
@@ -224,24 +148,20 @@
         .nav-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,65,0.1), transparent);
             transition: left 0.5s ease;
         }
 
-        .nav-btn:hover::before {
-            left: 100%;
-        }
-
+        .nav-btn:hover::before { left: 100%; }
         .nav-btn:hover {
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 20px rgba(0,255,65,0.3);
             transform: translateY(-2px);
         }
 
+        /* ── CONTAINER ── */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -250,20 +170,21 @@
             z-index: 1;
         }
 
+        /* ── SECTION ── */
         .section {
-            background: rgba(17, 17, 17, 0.6);
+            background: rgba(17,17,17,0.6);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--border);
             margin: 3rem 0;
             padding: 3rem;
             border-radius: 16px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
         }
 
         .section:hover {
-            border-color: rgba(0, 255, 65, 0.4);
-            box-shadow: 0 8px 32px rgba(0, 255, 65, 0.1);
+            border-color: rgba(0,255,65,0.4);
+            box-shadow: 0 8px 32px rgba(0,255,65,0.1);
             transform: translateY(-4px);
         }
 
@@ -281,15 +202,14 @@
         h2::after {
             content: '';
             position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60%;
-            height: 3px;
+            bottom: -8px; left: 0;
+            width: 60%; height: 3px;
             background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
         }
 
+        /* ── SERVER IP ── */
         .server-ip {
-            background: linear-gradient(135deg, rgba(0, 255, 65, 0.05) 0%, rgba(0, 255, 65, 0.02) 100%);
+            background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, rgba(0,255,65,0.02) 100%);
             border: 2px solid var(--primary);
             padding: 2rem;
             text-align: center;
@@ -297,7 +217,7 @@
             margin: 2rem 0;
             letter-spacing: 0.2rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
             border-radius: 12px;
             font-weight: 600;
             color: var(--primary);
@@ -308,123 +228,62 @@
         .server-ip::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
             border-radius: 50%;
-            background: rgba(0, 255, 65, 0.1);
-            transform: translate(-50%, -50%);
+            background: rgba(0,255,65,0.1);
+            transform: translate(-50%,-50%);
             transition: width 0.6s ease, height 0.6s ease;
         }
 
-        .server-ip:hover::before {
-            width: 400px;
-            height: 400px;
-        }
-
+        .server-ip:hover::before { width: 600px; height: 600px; }
         .server-ip:hover {
-            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1) 0%, rgba(0, 255, 65, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(0,255,65,0.1) 0%, rgba(0,255,65,0.05) 100%);
             transform: scale(1.02);
-            box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 40px rgba(0,255,65,0.3);
+        }
+        .server-ip:active { transform: scale(0.98); }
+
+        .copy-hint {
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(0,255,65,0.5);
+            margin-top: -1rem;
+            margin-bottom: 1rem;
         }
 
-        .server-ip:active {
-            transform: scale(0.98);
-        }
-
-        .copy-notification {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: #000;
-            padding: 2rem 3rem;
-            border-radius: 16px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            z-index: 10000;
-            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.4);
-            animation: fadeInOut 1.5s ease;
-        }
-
-        @keyframes fadeInOut {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            20% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            80% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .feature {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .feature:hover {
-            background: rgba(0, 255, 65, 0.05);
-            border-color: var(--primary);
-            box-shadow: 0 8px 24px rgba(0, 255, 65, 0.15);
-            transform: translateY(-4px);
-        }
-
-        .feature h3 {
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
+        /* ── DISCORD ── */
+        .discord-btn {
+            display: block;
+            background: linear-gradient(135deg, rgba(88,101,242,0.2) 0%, rgba(88,101,242,0.05) 100%);
+            border: 2px solid #5865F2;
+            color: #5865F2;
+            padding: 1.2rem 2rem;
+            font-family: inherit;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
             font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            margin: 0 auto 2rem auto;
+            text-align: center;
+            max-width: 400px;
         }
 
-        .feature p {
-            color: var(--text);
-            line-height: 1.6;
+        .discord-btn:hover {
+            background: linear-gradient(135deg, rgba(88,101,242,0.35) 0%, rgba(88,101,242,0.15) 100%);
+            box-shadow: 0 0 24px rgba(88,101,242,0.4);
+            transform: translateY(-2px);
+            color: #8b9dff;
         }
 
-        .rules {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .rules li {
-            padding: 1rem 1.5rem;
-            background: rgba(0, 0, 0, 0.3);
-            margin: 0.8rem 0;
-            border-left: 3px solid var(--primary);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .rules li:hover {
-            background: rgba(0, 255, 65, 0.05);
-            padding-left: 2rem;
-            box-shadow: 0 4px 16px rgba(0, 255, 65, 0.1);
-        }
-
+        /* ── WARNING ── */
         .warning {
-            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, rgba(255, 0, 0, 0.05) 100%);
-            border: 2px solid rgba(255, 0, 0, 0.5);
+            background: linear-gradient(135deg, rgba(255,0,0,0.1) 0%, rgba(255,0,0,0.05) 100%);
+            border: 2px solid rgba(255,0,0,0.5);
             padding: 2rem;
             margin: 2rem 0;
             color: #ff4444;
@@ -434,6 +293,63 @@
             font-size: 1.1rem;
         }
 
+        /* ── FEATURES ── */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .feature:hover {
+            background: rgba(0,255,65,0.05);
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0,255,65,0.15);
+            transform: translateY(-4px);
+        }
+
+        .feature h3 { color: var(--primary); margin-bottom: 0.8rem; font-size: 1.3rem; font-weight: 600; }
+
+        /* ── RULES ── */
+        .rules { list-style: none; margin-top: 1.5rem; }
+
+        .rules li {
+            padding: 1rem 1.5rem;
+            background: rgba(0,0,0,0.3);
+            margin: 0.8rem 0;
+            border-left: 3px solid var(--primary);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .rules li:hover {
+            background: rgba(0,255,65,0.05);
+            padding-left: 2rem;
+            box-shadow: 0 4px 16px rgba(0,255,65,0.1);
+        }
+
+        /* ── TERMINAL ── */
+        .terminal {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .terminal-line { margin: 0.5rem 0; color: var(--text); }
+        .terminal-prompt { color: var(--primary); font-weight: 600; }
+
+        /* ── STATS ── */
         .stats {
             display: flex;
             justify-content: space-around;
@@ -442,11 +358,7 @@
             margin-top: 3rem;
         }
 
-        .stat {
-            text-align: center;
-            flex: 1;
-            min-width: 150px;
-        }
+        .stat { text-align: center; flex: 1; min-width: 150px; }
 
         .stat-number {
             font-size: 4rem;
@@ -465,8 +377,32 @@
             letter-spacing: 0.1rem;
         }
 
+        /* ── COPY NOTIFICATION ── */
+        .copy-notification {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #000;
+            padding: 2rem 3rem;
+            border-radius: 16px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            z-index: 10000;
+            box-shadow: 0 20px 60px rgba(0,255,65,0.4);
+            animation: fadeInOut 1.5s ease;
+        }
+
+        @keyframes fadeInOut {
+            0%   { opacity: 0; transform: translate(-50%,-50%) scale(0.8); }
+            20%  { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+            80%  { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%,-50%) scale(0.8); }
+        }
+
+        /* ── FOOTER ── */
         footer {
-            background: rgba(17, 17, 17, 0.8);
+            background: rgba(17,17,17,0.8);
             backdrop-filter: blur(20px);
             border-top: 1px solid var(--border);
             padding: 3rem 2rem;
@@ -474,320 +410,220 @@
             margin-top: 4rem;
         }
 
-        .terminal {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            font-family: 'Courier New', monospace;
-            margin: 1.5rem 0;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .terminal-line {
-            margin: 0.5rem 0;
-            color: var(--text);
-        }
-
-        .terminal-prompt {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
+        /* ── MOBILE ── */
         @media (max-width: 768px) {
-            header {
-                padding: 1rem;
-            }
-
-            header.scrolled {
-                padding: 0.5rem 1rem;
-            }
-
-            .logo {
-                font-size: 1.8rem;
-                letter-spacing: 0.3rem;
-            }
-
-            header.scrolled .logo {
-                font-size: 1.3rem;
-            }
-            
-            .tagline {
-                font-size: 0.7rem;
-                margin-top: 0.3rem;
-                letter-spacing: 0.15rem;
-            }
-
-            header.scrolled .tagline {
-                font-size: 0.65rem;
-                margin-top: 0.2rem;
-            }
-
-            .nav-menu {
-                gap: 0.4rem;
-                margin-top: 0.8rem;
-            }
-
-            header.scrolled .nav-menu {
-                margin-top: 0.5rem;
-                gap: 0.3rem;
-            }
-
-            .nav-btn {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.7rem;
-                letter-spacing: 0.05rem;
-            }
-
-            header.scrolled .nav-btn {
-                padding: 0.4rem 0.6rem;
-                font-size: 0.65rem;
-            }
-            
-            .server-ip {
-                font-size: 1.3rem;
-                padding: 1.5rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
-            .section {
-                padding: 2rem;
-            }
-
-            .countdown-container {
-                max-width: 200px;
-            }
-
-            .countdown-label {
-                font-size: 0.65rem;
-                margin-bottom: 0.4rem;
-            }
-
-            .countdown-timer {
-                font-size: 1rem;
-            }
-
+            header { padding: 1rem; }
+            header.scrolled { padding: 0.5rem 1rem; }
+            .logo { font-size: 1.8rem; letter-spacing: 0.3rem; }
+            header.scrolled .logo { font-size: 1.3rem; }
+            .tagline { font-size: 0.7rem; margin-top: 0.3rem; letter-spacing: 0.15rem; }
+            header.scrolled .tagline { font-size: 0.65rem; margin-top: 0.2rem; }
+            .nav-menu { gap: 0.4rem; margin-top: 0.8rem; }
+            header.scrolled .nav-menu { margin-top: 0.5rem; gap: 0.3rem; }
+            .nav-btn { padding: 0.5rem 0.8rem; font-size: 0.7rem; letter-spacing: 0.05rem; }
+            header.scrolled .nav-btn { padding: 0.4rem 0.6rem; font-size: 0.65rem; }
+            .server-ip { font-size: 1.1rem; padding: 1.5rem; }
+            h2 { font-size: 2rem; }
+            .section { padding: 2rem; }
             .staff-btn {
-                position: relative;
-                top: auto;
-                left: auto;
+                position: relative; top: auto; left: auto;
                 margin: 0 auto 0.8rem auto;
-                display: block;
-                width: fit-content;
-                padding: 0.5rem 1rem;
-                font-size: 0.75rem;
+                display: block; width: fit-content;
+                padding: 0.5rem 1rem; font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="/staff" class="staff-btn">👥 Staff</a>
+        <a href="/staff" class="staff-btn">👥 Ekipa</a>
         <div class="logo">0xRULES</div>
-        <div class="tagline">The oldest anarchy server in Hytale</div>
+        <div class="tagline">Pierwszy polski serwer anarchii w Hytale</div>
         <div class="nav-menu">
-            <button class="nav-btn" onclick="scrollToSection('about')">About</button>
-            <button class="nav-btn" onclick="scrollToSection('features')">Features</button>
-            <button class="nav-btn" onclick="scrollToSection('rules')">Rules</button>
-            <button class="nav-btn" onclick="scrollToSection('survival')">Survival Guide</button>
-            <button class="nav-btn" onclick="scrollToSection('support')">Support</button>
-            <button class="nav-btn" onclick="scrollToSection('join')">Join</button>
+            <button class="nav-btn" onclick="scrollTo('about')">O serwerze</button>
+            <button class="nav-btn" onclick="scrollTo('features')">Funkcje</button>
+            <button class="nav-btn" onclick="scrollTo('rules')">Zasady</button>
+            <button class="nav-btn" onclick="scrollTo('survival')">Poradnik</button>
+            <button class="nav-btn" onclick="scrollTo('support')">Wsparcie</button>
+            <button class="nav-btn" onclick="scrollTo('join')">Dołącz</button>
         </div>
     </header>
 
     <div class="container">
-        <div class="server-ip" onclick="copyIP(this)">
-            play.0xrules.com:30013
+        <div class="server-ip" onclick="copyIP()">
+            play.0xrules.com:29115
         </div>
+        <p class="copy-hint">↑ kliknij aby skopiować IP ↑</p>
 
-        <a href="https://discord.com/invite/RURykQbqbt" target="_blank" style="display: block; background: linear-gradient(135deg, rgba(88, 101, 242, 0.2) 0%, rgba(88, 101, 242, 0.05) 100%); border: 2px solid #5865F2; color: #5865F2; padding: 1.2rem 2rem; font-family: inherit; font-size: 1.1rem; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-transform: uppercase; letter-spacing: 0.1rem; font-weight: 600; border-radius: 12px; text-decoration: none; margin: 2rem auto; text-align: center; max-width: 400px;">
-            <span style="font-size: 1.3rem; margin-right: 0.5rem;">💬</span> Join Our Discord
+        <a href="https://discord.com/invite/RURykQbqbt" target="_blank" class="discord-btn">
+            💬 Dołącz na Discorda
         </a>
 
         <div class="warning">
-            ⚠ WARNING: NO RULES - NO STAFF - NO PROTECTION ⚠
+            ⚠ UWAGA: BRAK ZASAD — BRAK ADMINISTRACJI — BRAK OCHRONY ⚠
         </div>
 
         <div class="section" id="about">
-            <h2>About</h2>
-            <p>0xRULES is a direct port of the legendary 2b2t to Hytale. This is the <strong>oldest anarchy server</strong> in the Hytale world, where the only limit is your imagination and the boundaries of the game itself. Experience the ultimate <strong>Hytale anarchy server</strong> with complete freedom.</p>
-            
+            <h2>O serwerze</h2>
+            <p><strong>0xRULES to pierwszy polski serwer anarchii w Hytale</strong> i jeden z pierwszych na całym świecie. Inspirowany legendarnym 2b2t, gdzie jedynym limitem jest Twoja wyobraźnia i granice samej gry. Masz szansę być jednym z pierwszych i stać się częścią historii od samego początku.</p>
             <div class="terminal">
                 <div class="terminal-line"><span class="terminal-prompt">root@0xrules:~$</span> status --check</div>
-                <div class="terminal-line">[OK] Server running in anarchy mode</div>
-                <div class="terminal-line">[OK] No rules enforced</div>
-                <div class="terminal-line">[OK] Vanilla Hytale gameplay</div>
-                <div class="terminal-line">[OK] No map resets - ever</div>
+                <div class="terminal-line">[OK] Serwer działa w trybie anarchii</div>
+                <div class="terminal-line">[OK] Brak zasad</div>
+                <div class="terminal-line">[OK] Vanilla Hytale</div>
+                <div class="terminal-line">[OK] Mapa nigdy nie zostanie zresetowana</div>
             </div>
-
             <div class="stats">
                 <div class="stat">
                     <div class="stat-number">0</div>
-                    <div class="stat-label">RULES</div>
+                    <div class="stat-label">ZASAD</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">100%</div>
-                    <div class="stat-label">ANARCHY</div>
+                    <div class="stat-label">ANARCHIA</div>
                 </div>
             </div>
         </div>
 
         <div class="section" id="features">
-            <h2>Features</h2>
+            <h2>Funkcje</h2>
             <div class="features">
                 <div class="feature">
                     <h3>» Vanilla Hytale</h3>
-                    <p>Pure Hytale with no gameplay modifications. Just you and the game.</p>
+                    <p>Czysty Hytale bez żadnych modyfikacji rozgrywki. Tylko Ty i gra.</p>
                 </div>
                 <div class="feature">
-                    <h3>» No Resets</h3>
-                    <p>The map will never be reset. Your builds will survive for ages.</p>
+                    <h3>» Brak resetów</h3>
+                    <p>Mapa nigdy nie zostanie zresetowana. Twoje budowle przetrwają wieki.</p>
                 </div>
                 <div class="feature">
-                    <h3>» Total Anarchy</h3>
-                    <p>No rules. No bans for gameplay. Complete freedom.</p>
+                    <h3>» Totalna anarchia</h3>
+                    <p>Żadnych zasad. Żadnych banów za rozgrywkę. Pełna swoboda.</p>
                 </div>
                 <div class="feature">
-                    <h3>» No Staff</h3>
-                    <p>Administrators don't interfere with gameplay. This is your world.</p>
+                    <h3>» Brak administracji</h3>
+                    <p>Administratorzy nie ingerują w rozgrywkę. To Twój świat.</p>
                 </div>
                 <div class="feature">
-                    <h3>» History</h3>
-                    <p>Every action leaves a mark. Become part of the legend.</p>
+                    <h3>» Historia</h3>
+                    <p>Każde działanie zostawia ślad. Zostań częścią legendy od pierwszego dnia.</p>
                 </div>
                 <div class="feature">
-                    <h3>» Factions</h3>
-                    <p>Build an empire or join existing ones. Or go solo.</p>
+                    <h3>» Frakcje</h3>
+                    <p>Buduj imperium, dołącz do istniejących frakcji lub działaj solo.</p>
                 </div>
             </div>
         </div>
 
         <div class="section" id="rules">
-            <h2>Rules</h2>
-            <p>On 0xRULES there is only one rule:</p>
+            <h2>Zasady</h2>
+            <p>Na 0xRULES istnieje tylko jedna zasada:</p>
             <ul class="rules">
-                <li><strong>1.</strong> No rules (except exploits that can crash the server)</li>
+                <li><strong>1.</strong> Zakaz używania exploitów, które mogą crashować serwer</li>
             </ul>
-            <p style="margin-top: 1.5rem;">Everything else is allowed:</p>
+            <p style="margin-top:1.5rem;">Wszystko inne jest dozwolone:</p>
             <ul class="rules">
                 <li>✓ Griefing</li>
                 <li>✓ Raiding</li>
                 <li>✓ PvP</li>
-                <li>✓ Cheating</li>
-                <li>✓ Stealing</li>
-                <li>✓ Anything within game mechanics</li>
+                <li>✓ Hackowanie</li>
+                <li>✓ Kradzieże</li>
+                <li>✓ Wszystko co mieści się w mechanikach gry</li>
             </ul>
         </div>
 
         <div class="section" id="survival">
-            <h2>Survival Guide</h2>
-            <p><strong>New players:</strong> Spawn is the most dangerous place on the server. No one will help you. No one will give you food. The only certainty is death.</p>
-            
-            <div class="terminal" style="margin-top: 1rem;">
-                <div class="terminal-line"><span class="terminal-prompt">player@0xrules:~$</span> tips --survival</div>
-                <div class="terminal-line">[!] Trust no one</div>
-                <div class="terminal-line">[!] Escape spawn as fast as possible</div>
-                <div class="terminal-line">[!] Hide your coordinates</div>
-                <div class="terminal-line">[!] Hide bases thousands of blocks from spawn</div>
-                <div class="terminal-line">[!] Create backup stashes in multiple locations</div>
-                <div class="terminal-line">[!] Everything can be destroyed</div>
+            <h2>Poradnik przetrwania</h2>
+            <p><strong>Nowi gracze:</strong> Spawn to najniebezpieczniejsze miejsce na serwerze. Nikt Ci nie pomoże. Nikt nie da Ci jedzenia. Jedyną pewnością jest śmierć.</p>
+            <div class="terminal">
+                <div class="terminal-line"><span class="terminal-prompt">gracz@0xrules:~$</span> porady --przetrwanie</div>
+                <div class="terminal-line">[!] Nie ufaj nikomu</div>
+                <div class="terminal-line">[!] Uciekaj ze spawnu tak szybko jak to możliwe</div>
+                <div class="terminal-line">[!] Ukrywaj swoje koordynaty</div>
+                <div class="terminal-line">[!] Buduj bazy tysiące bloków od spawnu</div>
+                <div class="terminal-line">[!] Twórz zapasy w wielu lokalizacjach</div>
+                <div class="terminal-line">[!] Wszystko może zostać zniszczone</div>
             </div>
         </div>
 
         <div class="section" id="support">
-            <h2>Support the Server</h2>
-            <p>Running an anarchy server costs money. If you want to support 0xRULES and keep it running, you can donate via PayPal. <strong>No perks, no advantages, no ranks.</strong> Just pure support for keeping the chaos alive.</p>
-            
-            <div style="text-align: center; margin-top: 2rem;">
-                <form action="https://www.paypal.com/donate" method="post" target="_top" style="display: inline-block;">
+            <h2>Wsparcie serwera</h2>
+            <p>Utrzymanie serwera anarchii kosztuje pieniądze. Jeśli chcesz wesprzeć 0xRULES, możesz przekazać donację przez PayPal. <strong>Żadnych przywilejów, żadnych przewag, żadnych rang.</strong> Tylko czyste wsparcie dla chaosu.</p>
+            <div style="text-align:center; margin-top:2rem;">
+                <form action="https://www.paypal.com/donate" method="post" target="_top" style="display:inline-block;">
                     <input type="hidden" name="hosted_button_id" value="DXAWCA6H7JKXU" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" style="cursor: pointer;" />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Wesprzyj przez PayPal" style="cursor:pointer;" />
                     <img alt="" border="0" src="https://www.paypal.com/en_PL/i/scr/pixel.gif" width="1" height="1" />
                 </form>
             </div>
-            
-            <p style="text-align: center; margin-top: 1.5rem; color: var(--primary); font-size: 0.9rem;">
-                All donations go directly to server hosting costs
-            </p>
+            <p style="text-align:center; margin-top:1.5rem; color:var(--primary); font-size:0.9rem;">Wszystkie donacje przeznaczane są na koszty hostingu serwera</p>
         </div>
 
         <div class="section" id="join">
-            <h2>Join the Legend</h2>
-            <p>0xRULES is not just a server - it's an experience. It's a place where history is written by players, where every action has consequences, and every build can become a legend or a ruin. Join the best <strong>Hytale anarchy server</strong> today.</p>
-            
-            <div class="server-ip" style="margin-top: 2rem; font-size: 1.5rem;" onclick="copyIP(this)">
-                IP: play.0xrules.com:30013
+            <h2>Dołącz do legendy</h2>
+            <p>0xRULES to nie tylko serwer - to doświadczenie. Miejsce, gdzie historia jest pisana przez graczy, gdzie każde działanie ma konsekwencje, a każda budowla może stać się legendą lub ruiną. Dołącz do <strong>pierwszego polskiego serwera anarchii w Hytale</strong> już dziś i bądź jednym z pierwszych!</p>
+            <div class="server-ip" style="margin-top:2rem; font-size:1.5rem;" onclick="copyIP()">
+                IP: play.0xrules.com:29115
             </div>
-            
-            <p style="text-align: center; margin-top: 1rem; color: var(--primary);">
-                Copy the IP and join the oldest anarchy server in Hytale
-            </p>
+            <p style="text-align:center; margin-top:1rem; color:var(--primary);">Skopiuj IP i dołącz do pierwszego polskiego serwera anarchii w Hytale</p>
+            <a href="https://discord.com/invite/RURykQbqbt" target="_blank" class="discord-btn" style="margin-top:2rem; margin-bottom:0;">
+                💬 Dołącz na Discorda
+            </a>
         </div>
     </div>
 
     <footer>
-        <p>0xRULES © 2026 | The oldest anarchy server in Hytale</p>
-        <p style="margin-top: 0.5rem; color: var(--primary);">Inspired by the legend of 2b2t</p>
+        <p>0xRULES © 2026 | Pierwszy polski serwer anarchii w Hytale</p>
+        <p style="margin-top:0.5rem; color:var(--primary);">Inspirowany legendą 2b2t</p>
     </footer>
 
     <script>
-        // Handle header shrinking on scroll
+        // Header shrink
         let ticking = false;
-        
         window.addEventListener('scroll', () => {
             if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const header = document.querySelector('header');
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    if (scrollTop > 150) {
-                        header.classList.add('scrolled');
-                    } else if (scrollTop < 100) {
-                        header.classList.remove('scrolled');
-                    }
-                    
+                requestAnimationFrame(() => {
+                    const h = document.querySelector('header');
+                    const s = window.pageYOffset;
+                    if (s > 150) h.classList.add('scrolled');
+                    else if (s < 100) h.classList.remove('scrolled');
                     ticking = false;
                 });
-                
                 ticking = true;
             }
         });
 
-        // Smooth scroll to section
-        function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                const header = document.querySelector('header');
-                const headerHeight = header.offsetHeight;
-                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-                const offsetPosition = elementPosition - headerHeight - 20;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
+        // Smooth scroll
+        function scrollTo(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const offset = document.querySelector('header').offsetHeight + 20;
+            window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - offset, behavior: 'smooth' });
         }
 
-        // Copy IP to clipboard
-        function copyIP(element) {
-            const ip = 'play.0xrules.com:30013';
-            
-            navigator.clipboard.writeText(ip).then(() => {
-                const notification = document.createElement('div');
-                notification.className = 'copy-notification';
-                notification.textContent = 'IP COPIED!';
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.remove();
-                }, 1500);
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-            });
+        // Copy IP
+        function copyIP() {
+            const ip = 'play.0xrules.com:29115';
+            const show = () => {
+                const n = document.createElement('div');
+                n.className = 'copy-notification';
+                n.textContent = 'IP skopiowane!';
+                document.body.appendChild(n);
+                setTimeout(() => n.remove(), 1500);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(ip).then(show).catch(() => fallback(ip, show));
+            } else { fallback(ip, show); }
+        }
+
+        function fallback(text, cb) {
+            const t = document.createElement('textarea');
+            t.value = text;
+            t.style.cssText = 'position:fixed;opacity:0';
+            document.body.appendChild(t);
+            t.focus(); t.select();
+            try { document.execCommand('copy'); cb(); } catch(e) {}
+            document.body.removeChild(t);
         }
     </script>
 </body>
