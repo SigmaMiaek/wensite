@@ -76,6 +76,43 @@
             background: rgba(0,255,65,0.05);
         }
 
+        .lang-switcher {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0,0,0,0.3);
+            padding: 0.4rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .lang-btn:hover {
+            color: var(--primary);
+            background: rgba(0,255,65,0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #000;
+            font-weight: 700;
+        }
+
         .logo {
             font-size: 3rem;
             font-weight: 800;
@@ -279,43 +316,83 @@
                 position: relative; top: auto; left: auto;
                 margin-bottom: 1rem;
             }
+            .lang-switcher {
+                position: relative;
+                top: auto; right: auto;
+                margin: 0 auto 1rem auto;
+                justify-content: center;
+            }
             header { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="/" class="back-btn">← Wróć</a>
+        <a href="/" class="back-btn" data-lang-pl="← Wróć" data-lang-en="← Back">← Wróć</a>
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('pl')" data-lang="pl">PL</button>
+            <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
+        </div>
         <div class="logo">0xRULES</div>
-        <div class="tagline">Ekipa</div>
+        <div class="tagline" data-lang-pl="Ekipa" data-lang-en="Staff">Ekipa</div>
     </header>
 
     <div class="container">
         <div class="page-title">
-            <h1>Nasza Ekipa</h1>
-            <p>Ludzie stojący za pierwszym polskim serwerem anarchii w Hytale</p>
+            <h1 data-lang-pl="Nasza Ekipa" data-lang-en="Our Team">Nasza Ekipa</h1>
+            <p data-lang-pl="Ludzie stojący za pierwszym polskim serwerem anarchii w Hytale" data-lang-en="The people behind the first Polish anarchy server in Hytale">Ludzie stojący za pierwszym polskim serwerem anarchii w Hytale</p>
         </div>
 
         <div class="staff-grid">
             <a href="/miaek" class="staff-card owner-card">
                 <div class="avatar">M</div>
                 <h2 class="staff-name">Miaek</h2>
-                <div class="staff-role owner-badge">Właściciel Serwera</div>
+                <div class="staff-role owner-badge" data-lang-pl="Właściciel Serwera" data-lang-en="Server Owner">Właściciel Serwera</div>
             </a>
         </div>
 
         <div class="coming-soon">
-            <h3>🚀 Rekrutujemy!</h3>
-            <p>Więcej członków ekipy zostanie ogłoszonych wkrótce. Śledź nas na bieżąco!</p>
+            <h3 data-lang-pl="🚀 Rekrutujemy!" data-lang-en="🚀 We're Hiring!">🚀 Rekrutujemy!</h3>
+            <p data-lang-pl="Więcej członków ekipy zostanie ogłoszonych wkrótce. Śledź nas na bieżąco!" data-lang-en="More staff members will be announced soon. Stay tuned!">Więcej członków ekipy zostanie ogłoszonych wkrótce. Śledź nas na bieżąco!</p>
         </div>
     </div>
 
     <footer>
-        <p>0xRULES © 2026 | Pierwszy polski serwer anarchii w Hytale</p>
-        <p style="margin-top:0.5rem; color:var(--primary);">Inspirowany legendą 2b2t</p>
+        <p data-lang-pl="0xRULES © 2026 | Pierwszy polski serwer anarchii w Hytale" data-lang-en="0xRULES © 2026 | The first Polish anarchy server in Hytale">0xRULES © 2026 | Pierwszy polski serwer anarchii w Hytale</p>
+        <p style="margin-top:0.5rem; color:var(--primary);" data-lang-pl="Inspirowany legendą 2b2t" data-lang-en="Inspired by the legend of 2b2t">Inspirowany legendą 2b2t</p>
     </footer>
 
     <script>
+        // Language switcher
+        let currentLang = 'pl';
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('preferred-lang', lang);
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            
+            document.querySelectorAll('[data-lang-pl]').forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text) {
+                    if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'H3' || el.tagName === 'A') {
+                        el.innerHTML = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+        }
+
+        // Load saved language
+        const savedLang = localStorage.getItem('preferred-lang');
+        if (savedLang && savedLang !== 'pl') {
+            setLang(savedLang);
+        }
+
+        // Entrance animation
         document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.staff-card');
             cards.forEach((card, i) => {
