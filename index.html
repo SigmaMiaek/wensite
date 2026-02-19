@@ -98,6 +98,43 @@
             background: rgba(0,255,65,0.05);
         }
 
+        .lang-switcher {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0,0,0,0.3);
+            padding: 0.4rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .lang-btn:hover {
+            color: var(--primary);
+            background: rgba(0,255,65,0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #000;
+            font-weight: 700;
+        }
+
         .logo {
             font-size: 4rem;
             font-weight: 800;
@@ -431,21 +468,31 @@
                 display: block; width: fit-content;
                 padding: 0.5rem 1rem; font-size: 0.75rem;
             }
+            .lang-switcher {
+                position: relative;
+                top: auto; right: auto;
+                margin: 0 auto 0.8rem auto;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="/staff" class="staff-btn">👥 Ekipa</a>
+        <a href="/staff" class="staff-btn">👥 <span data-lang-pl="Ekipa" data-lang-en="Staff">Ekipa</span></a>
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('pl')" data-lang="pl">PL</button>
+            <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
+        </div>
         <div class="logo">0xRULES</div>
-        <div class="tagline">Pierwszy polski serwer anarchii w Hytale</div>
+        <div class="tagline" data-lang-pl="Pierwszy polski serwer anarchii w Hytale" data-lang-en="The first Polish anarchy server in Hytale">Pierwszy polski serwer anarchii w Hytale</div>
         <div class="nav-menu">
-            <button class="nav-btn" onclick="scrollTo('about')">O serwerze</button>
-            <button class="nav-btn" onclick="scrollTo('features')">Funkcje</button>
-            <button class="nav-btn" onclick="scrollTo('rules')">Zasady</button>
-            <button class="nav-btn" onclick="scrollTo('survival')">Poradnik</button>
-            <button class="nav-btn" onclick="scrollTo('support')">Wsparcie</button>
-            <button class="nav-btn" onclick="scrollTo('join')">Dołącz</button>
+            <button class="nav-btn" onclick="scrollTo('about')" data-lang-pl="O serwerze" data-lang-en="About">O serwerze</button>
+            <button class="nav-btn" onclick="scrollTo('features')" data-lang-pl="Funkcje" data-lang-en="Features">Funkcje</button>
+            <button class="nav-btn" onclick="scrollTo('rules')" data-lang-pl="Zasady" data-lang-en="Rules">Zasady</button>
+            <button class="nav-btn" onclick="scrollTo('survival')" data-lang-pl="Poradnik" data-lang-en="Guide">Poradnik</button>
+            <button class="nav-btn" onclick="scrollTo('support')" data-lang-pl="Wsparcie" data-lang-en="Support">Wsparcie</button>
+            <button class="nav-btn" onclick="scrollTo('join')" data-lang-pl="Dołącz" data-lang-en="Join">Dołącz</button>
         </div>
     </header>
 
@@ -453,102 +500,114 @@
         <div class="server-ip" onclick="copyIP()">
             play.0xrules.com:29115
         </div>
-        <p class="copy-hint">↑ kliknij aby skopiować IP ↑</p>
+        <p class="copy-hint" data-lang-pl="↑ kliknij aby skopiować IP ↑" data-lang-en="↑ click to copy IP ↑">↑ kliknij aby skopiować IP ↑</p>
 
         <a href="https://discord.com/invite/RURykQbqbt" target="_blank" class="discord-btn">
-            💬 Dołącz na Discorda
+            💬 <span data-lang-pl="Dołącz na Discorda" data-lang-en="Join our Discord">Dołącz na Discorda</span>
         </a>
 
-        <div class="warning">
+        <div class="warning" data-lang-pl="⚠ UWAGA: BRAK ZASAD — BRAK ADMINISTRACJI — BRAK OCHRONY ⚠" data-lang-en="⚠ WARNING: NO RULES — NO STAFF — NO PROTECTION ⚠">
             ⚠ UWAGA: BRAK ZASAD — BRAK ADMINISTRACJI — BRAK OCHRONY ⚠
         </div>
 
         <div class="section" id="about">
-            <h2>O serwerze</h2>
-            <p><strong>0xRULES to pierwszy polski serwer anarchii w Hytale</strong> i jeden z pierwszych na całym świecie. Inspirowany legendarnym 2b2t, gdzie jedynym limitem jest Twoja wyobraźnia i granice samej gry. Masz szansę być jednym z pierwszych i stać się częścią historii od samego początku.</p>
+            <h2 data-lang-pl="O serwerze" data-lang-en="About">O serwerze</h2>
+            <p>
+                <span data-lang-pl="<strong>0xRULES to pierwszy polski serwer anarchii w Hytale</strong> i jeden z pierwszych na całym świecie. Inspirowany legendarnym 2b2t, gdzie jedynym limitem jest Twoja wyobraźnia i granice samej gry. Masz szansę być jednym z pierwszych i stać się częścią historii od samego początku." data-lang-en="<strong>0xRULES is the first Polish anarchy server in Hytale</strong> and one of the first in the world. Inspired by the legendary 2b2t, where the only limit is your imagination and the boundaries of the game itself. You have a chance to be one of the first and become part of history from the very beginning.">
+                    <strong>0xRULES to pierwszy polski serwer anarchii w Hytale</strong> i jeden z pierwszych na całym świecie. Inspirowany legendarnym 2b2t, gdzie jedynym limitem jest Twoja wyobraźnia i granice samej gry. Masz szansę być jednym z pierwszych i stać się częścią historii od samego początku.
+                </span>
+            </p>
             <div class="terminal">
                 <div class="terminal-line"><span class="terminal-prompt">root@0xrules:~$</span> status --check</div>
-                <div class="terminal-line">[OK] Serwer działa w trybie anarchii</div>
-                <div class="terminal-line">[OK] Brak zasad</div>
-                <div class="terminal-line">[OK] Vanilla Hytale</div>
-                <div class="terminal-line">[OK] Mapa nigdy nie zostanie zresetowana</div>
+                <div class="terminal-line" data-lang-pl="[OK] Serwer działa w trybie anarchii" data-lang-en="[OK] Server running in anarchy mode">[OK] Serwer działa w trybie anarchii</div>
+                <div class="terminal-line" data-lang-pl="[OK] Brak zasad" data-lang-en="[OK] No rules">[OK] Brak zasad</div>
+                <div class="terminal-line" data-lang-pl="[OK] Vanilla Hytale" data-lang-en="[OK] Vanilla Hytale">[OK] Vanilla Hytale</div>
+                <div class="terminal-line" data-lang-pl="[OK] Mapa nigdy nie zostanie zresetowana" data-lang-en="[OK] Map will never be reset">[OK] Mapa nigdy nie zostanie zresetowana</div>
             </div>
             <div class="stats">
                 <div class="stat">
                     <div class="stat-number">0</div>
-                    <div class="stat-label">ZASAD</div>
+                    <div class="stat-label" data-lang-pl="ZASAD" data-lang-en="RULES">ZASAD</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">100%</div>
-                    <div class="stat-label">ANARCHIA</div>
+                    <div class="stat-label" data-lang-pl="ANARCHIA" data-lang-en="ANARCHY">ANARCHIA</div>
                 </div>
             </div>
         </div>
 
         <div class="section" id="features">
-            <h2>Funkcje</h2>
+            <h2 data-lang-pl="Funkcje" data-lang-en="Features">Funkcje</h2>
             <div class="features">
                 <div class="feature">
-                    <h3>» Vanilla Hytale</h3>
-                    <p>Czysty Hytale bez żadnych modyfikacji rozgrywki. Tylko Ty i gra.</p>
+                    <h3 data-lang-pl="» Vanilla Hytale" data-lang-en="» Vanilla Hytale">» Vanilla Hytale</h3>
+                    <p data-lang-pl="Czysty Hytale bez żadnych modyfikacji rozgrywki. Tylko Ty i gra." data-lang-en="Pure Hytale with no gameplay modifications. Just you and the game.">Czysty Hytale bez żadnych modyfikacji rozgrywki. Tylko Ty i gra.</p>
                 </div>
                 <div class="feature">
-                    <h3>» Brak resetów</h3>
-                    <p>Mapa nigdy nie zostanie zresetowana. Twoje budowle przetrwają wieki.</p>
+                    <h3 data-lang-pl="» Brak resetów" data-lang-en="» No Resets">» Brak resetów</h3>
+                    <p data-lang-pl="Mapa nigdy nie zostanie zresetowana. Twoje budowle przetrwają wieki." data-lang-en="The map will never be reset. Your builds will survive for ages.">Mapa nigdy nie zostanie zresetowana. Twoje budowle przetrwają wieki.</p>
                 </div>
                 <div class="feature">
-                    <h3>» Totalna anarchia</h3>
-                    <p>Żadnych zasad. Żadnych banów za rozgrywkę. Pełna swoboda.</p>
+                    <h3 data-lang-pl="» Totalna anarchia" data-lang-en="» Total Anarchy">» Totalna anarchia</h3>
+                    <p data-lang-pl="Żadnych zasad. Żadnych banów za rozgrywkę. Pełna swoboda." data-lang-en="No rules. No bans for gameplay. Complete freedom.">Żadnych zasad. Żadnych banów za rozgrywkę. Pełna swoboda.</p>
                 </div>
                 <div class="feature">
-                    <h3>» Brak administracji</h3>
-                    <p>Administratorzy nie ingerują w rozgrywkę. To Twój świat.</p>
+                    <h3 data-lang-pl="» Brak administracji" data-lang-en="» No Staff">» Brak administracji</h3>
+                    <p data-lang-pl="Administratorzy nie ingerują w rozgrywkę. To Twój świat." data-lang-en="Administrators don't interfere with gameplay. This is your world.">Administratorzy nie ingerują w rozgrywkę. To Twój świat.</p>
                 </div>
                 <div class="feature">
-                    <h3>» Historia</h3>
-                    <p>Każde działanie zostawia ślad. Zostań częścią legendy od pierwszego dnia.</p>
+                    <h3 data-lang-pl="» Historia" data-lang-en="» History">» Historia</h3>
+                    <p data-lang-pl="Każde działanie zostawia ślad. Zostań częścią legendy od pierwszego dnia." data-lang-en="Every action leaves a mark. Become part of the legend from day one.">Każde działanie zostawia ślad. Zostań częścią legendy od pierwszego dnia.</p>
                 </div>
                 <div class="feature">
-                    <h3>» Frakcje</h3>
-                    <p>Buduj imperium, dołącz do istniejących frakcji lub działaj solo.</p>
+                    <h3 data-lang-pl="» Frakcje" data-lang-en="» Factions">» Frakcje</h3>
+                    <p data-lang-pl="Buduj imperium, dołącz do istniejących frakcji lub działaj solo." data-lang-en="Build an empire, join existing factions or go solo.">Buduj imperium, dołącz do istniejących frakcji lub działaj solo.</p>
                 </div>
             </div>
         </div>
 
         <div class="section" id="rules">
-            <h2>Zasady</h2>
-            <p>Na 0xRULES istnieje tylko jedna zasada:</p>
+            <h2 data-lang-pl="Zasady" data-lang-en="Rules">Zasady</h2>
+            <p data-lang-pl="Na 0xRULES istnieje tylko jedna zasada:" data-lang-en="On 0xRULES there is only one rule:">Na 0xRULES istnieje tylko jedna zasada:</p>
             <ul class="rules">
-                <li><strong>1.</strong> Zakaz używania exploitów, które mogą crashować serwer</li>
+                <li data-lang-pl="<strong>1.</strong> Zakaz używania exploitów, które mogą crashować serwer" data-lang-en="<strong>1.</strong> No exploits that can crash the server"><strong>1.</strong> Zakaz używania exploitów, które mogą crashować serwer</li>
             </ul>
-            <p style="margin-top:1.5rem;">Wszystko inne jest dozwolone:</p>
+            <p style="margin-top:1.5rem;" data-lang-pl="Wszystko inne jest dozwolone:" data-lang-en="Everything else is allowed:">Wszystko inne jest dozwolone:</p>
             <ul class="rules">
-                <li>✓ Griefing</li>
-                <li>✓ Raiding</li>
-                <li>✓ PvP</li>
-                <li>✓ Hackowanie</li>
-                <li>✓ Kradzieże</li>
-                <li>✓ Wszystko co mieści się w mechanikach gry</li>
+                <li data-lang-pl="✓ Griefing" data-lang-en="✓ Griefing">✓ Griefing</li>
+                <li data-lang-pl="✓ Raiding" data-lang-en="✓ Raiding">✓ Raiding</li>
+                <li data-lang-pl="✓ PvP" data-lang-en="✓ PvP">✓ PvP</li>
+                <li data-lang-pl="✓ Hackowanie" data-lang-en="✓ Hacking">✓ Hackowanie</li>
+                <li data-lang-pl="✓ Kradzieże" data-lang-en="✓ Stealing">✓ Kradzieże</li>
+                <li data-lang-pl="✓ Wszystko co mieści się w mechanikach gry" data-lang-en="✓ Anything within game mechanics">✓ Wszystko co mieści się w mechanikach gry</li>
             </ul>
         </div>
 
         <div class="section" id="survival">
-            <h2>Poradnik przetrwania</h2>
-            <p><strong>Nowi gracze:</strong> Spawn to najniebezpieczniejsze miejsce na serwerze. Nikt Ci nie pomoże. Nikt nie da Ci jedzenia. Jedyną pewnością jest śmierć.</p>
+            <h2 data-lang-pl="Poradnik przetrwania" data-lang-en="Survival Guide">Poradnik przetrwania</h2>
+            <p>
+                <span data-lang-pl="<strong>Nowi gracze:</strong> Spawn to najniebezpieczniejsze miejsce na serwerze. Nikt Ci nie pomoże. Nikt nie da Ci jedzenia. Jedyną pewnością jest śmierć." data-lang-en="<strong>New players:</strong> Spawn is the most dangerous place on the server. No one will help you. No one will give you food. The only certainty is death.">
+                    <strong>Nowi gracze:</strong> Spawn to najniebezpieczniejsze miejsce na serwerze. Nikt Ci nie pomoże. Nikt nie da Ci jedzenia. Jedyną pewnością jest śmierć.
+                </span>
+            </p>
             <div class="terminal">
                 <div class="terminal-line"><span class="terminal-prompt">gracz@0xrules:~$</span> porady --przetrwanie</div>
-                <div class="terminal-line">[!] Nie ufaj nikomu</div>
-                <div class="terminal-line">[!] Uciekaj ze spawnu tak szybko jak to możliwe</div>
-                <div class="terminal-line">[!] Ukrywaj swoje koordynaty</div>
-                <div class="terminal-line">[!] Buduj bazy tysiące bloków od spawnu</div>
-                <div class="terminal-line">[!] Twórz zapasy w wielu lokalizacjach</div>
-                <div class="terminal-line">[!] Wszystko może zostać zniszczone</div>
+                <div class="terminal-line" data-lang-pl="[!] Nie ufaj nikomu" data-lang-en="[!] Trust no one">[!] Nie ufaj nikomu</div>
+                <div class="terminal-line" data-lang-pl="[!] Uciekaj ze spawnu tak szybko jak to możliwe" data-lang-en="[!] Escape spawn as fast as possible">[!] Uciekaj ze spawnu tak szybko jak to możliwe</div>
+                <div class="terminal-line" data-lang-pl="[!] Ukrywaj swoje koordynaty" data-lang-en="[!] Hide your coordinates">[!] Ukrywaj swoje koordynaty</div>
+                <div class="terminal-line" data-lang-pl="[!] Buduj bazy tysiące bloków od spawnu" data-lang-en="[!] Build bases thousands of blocks from spawn">[!] Buduj bazy tysiące bloków od spawnu</div>
+                <div class="terminal-line" data-lang-pl="[!] Twórz zapasy w wielu lokalizacjach" data-lang-en="[!] Create backup stashes in multiple locations">[!] Twórz zapasy w wielu lokalizacjach</div>
+                <div class="terminal-line" data-lang-pl="[!] Wszystko może zostać zniszczone" data-lang-en="[!] Everything can be destroyed">[!] Wszystko może zostać zniszczone</div>
             </div>
         </div>
 
         <div class="section" id="support">
-            <h2>Wsparcie serwera</h2>
-            <p>Utrzymanie serwera anarchii kosztuje pieniądze. Jeśli chcesz wesprzeć 0xRULES, możesz przekazać donację przez PayPal. <strong>Żadnych przywilejów, żadnych przewag, żadnych rang.</strong> Tylko czyste wsparcie dla chaosu.</p>
+            <h2 data-lang-pl="Wsparcie serwera" data-lang-en="Support the Server">Wsparcie serwera</h2>
+            <p>
+                <span data-lang-pl="Utrzymanie serwera anarchii kosztuje pieniądze. Jeśli chcesz wesprzeć 0xRULES, możesz przekazać donację przez PayPal. <strong>Żadnych przywilejów, żadnych przewag, żadnych rang.</strong> Tylko czyste wsparcie dla chaosu." data-lang-en="Running an anarchy server costs money. If you want to support 0xRULES, you can donate via PayPal. <strong>No perks, no advantages, no ranks.</strong> Just pure support for the chaos.">
+                    Utrzymanie serwera anarchii kosztuje pieniądze. Jeśli chcesz wesprzeć 0xRULES, możesz przekazać donację przez PayPal. <strong>Żadnych przywilejów, żadnych przewag, żadnych rang.</strong> Tylko czyste wsparcie dla chaosu.
+                </span>
+            </p>
             <div style="text-align:center; margin-top:2rem;">
                 <form action="https://www.paypal.com/donate" method="post" target="_top" style="display:inline-block;">
                     <input type="hidden" name="hosted_button_id" value="DXAWCA6H7JKXU" />
@@ -556,28 +615,71 @@
                     <img alt="" border="0" src="https://www.paypal.com/en_PL/i/scr/pixel.gif" width="1" height="1" />
                 </form>
             </div>
-            <p style="text-align:center; margin-top:1.5rem; color:var(--primary); font-size:0.9rem;">Wszystkie donacje przeznaczane są na koszty hostingu serwera</p>
+            <p style="text-align:center; margin-top:1.5rem; color:var(--primary); font-size:0.9rem;" data-lang-pl="Wszystkie donacje przeznaczane są na koszty hostingu serwera" data-lang-en="All donations go directly to server hosting costs">Wszystkie donacje przeznaczane są na koszty hostingu serwera</p>
         </div>
 
         <div class="section" id="join">
-            <h2>Dołącz do legendy</h2>
-            <p>0xRULES to nie tylko serwer - to doświadczenie. Miejsce, gdzie historia jest pisana przez graczy, gdzie każde działanie ma konsekwencje, a każda budowla może stać się legendą lub ruiną. Dołącz do <strong>pierwszego polskiego serwera anarchii w Hytale</strong> już dziś i bądź jednym z pierwszych!</p>
+            <h2 data-lang-pl="Dołącz do legendy" data-lang-en="Join the Legend">Dołącz do legendy</h2>
+            <p>
+                <span data-lang-pl="0xRULES to nie tylko serwer - to doświadczenie. Miejsce, gdzie historia jest pisana przez graczy, gdzie każde działanie ma konsekwencje, a każda budowla może stać się legendą lub ruiną. Dołącz do <strong>pierwszego polskiego serwera anarchii w Hytale</strong> już dziś i bądź jednym z pierwszych!" data-lang-en="0xRULES is not just a server - it's an experience. A place where history is written by players, where every action has consequences, and every build can become a legend or a ruin. Join the <strong>first Polish anarchy server in Hytale</strong> today and be one of the first!">
+                    0xRULES to nie tylko serwer - to doświadczenie. Miejsce, gdzie historia jest pisana przez graczy, gdzie każde działanie ma konsekwencje, a każda budowla może stać się legendą lub ruiną. Dołącz do <strong>pierwszego polskiego serwera anarchii w Hytale</strong> już dziś i bądź jednym z pierwszych!
+                </span>
+            </p>
             <div class="server-ip" style="margin-top:2rem; font-size:1.5rem;" onclick="copyIP()">
                 IP: play.0xrules.com:29115
             </div>
-            <p style="text-align:center; margin-top:1rem; color:var(--primary);">Skopiuj IP i dołącz do pierwszego polskiego serwera anarchii w Hytale</p>
+            <p style="text-align:center; margin-top:1rem; color:var(--primary);" data-lang-pl="Skopiuj IP i dołącz do pierwszego polskiego serwera anarchii w Hytale" data-lang-en="Copy the IP and join the first Polish anarchy server in Hytale">Skopiuj IP i dołącz do pierwszego polskiego serwera anarchii w Hytale</p>
             <a href="https://discord.com/invite/RURykQbqbt" target="_blank" class="discord-btn" style="margin-top:2rem; margin-bottom:0;">
-                💬 Dołącz na Discorda
+                💬 <span data-lang-pl="Dołącz na Discorda" data-lang-en="Join our Discord">Dołącz na Discorda</span>
             </a>
         </div>
     </div>
 
     <footer>
-        <p>0xRULES © 2026 | Pierwszy polski serwer anarchii w Hytale</p>
-        <p style="margin-top:0.5rem; color:var(--primary);">Inspirowany legendą 2b2t</p>
+        <p data-lang-pl="0xRULES © 2026 | Pierwszy polski serwer anarchii w Hytale" data-lang-en="0xRULES © 2026 | The first Polish anarchy server in Hytale">0xRULES © 2026 | Pierwszy polski serwer anarchii w Hytale</p>
+        <p style="margin-top:0.5rem; color:var(--primary);" data-lang-pl="Inspirowany legendą 2b2t" data-lang-en="Inspired by the legend of 2b2t">Inspirowany legendą 2b2t</p>
     </footer>
 
     <script>
+        // Language switcher
+        let currentLang = 'pl';
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('preferred-lang', lang);
+            
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-lang-pl]').forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text) {
+                    if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'H2' || el.tagName === 'H3' || el.tagName === 'LI') {
+                        el.innerHTML = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+            
+            // Update notification text
+            if (lang === 'en') {
+                window.copyNotificationText = 'IP copied!';
+            } else {
+                window.copyNotificationText = 'IP skopiowane!';
+            }
+        }
+
+        // Load saved language
+        window.copyNotificationText = 'IP skopiowane!';
+        const savedLang = localStorage.getItem('preferred-lang');
+        if (savedLang && savedLang !== 'pl') {
+            setLang(savedLang);
+        }
+
         // Header shrink
         let ticking = false;
         window.addEventListener('scroll', () => {
@@ -607,7 +709,7 @@
             const show = () => {
                 const n = document.createElement('div');
                 n.className = 'copy-notification';
-                n.textContent = 'IP skopiowane!';
+                n.textContent = window.copyNotificationText || 'IP skopiowane!';
                 document.body.appendChild(n);
                 setTimeout(() => n.remove(), 1500);
             };
