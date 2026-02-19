@@ -41,6 +41,44 @@
             z-index: 0;
         }
 
+        .lang-switcher {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0,0,0,0.3);
+            padding: 0.4rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .lang-btn:hover {
+            color: var(--primary);
+            background: rgba(0,255,65,0.1);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: #000;
+            font-weight: 700;
+        }
+
         .container {
             max-width: 600px;
             width: 100%;
@@ -231,40 +269,49 @@
             .name { font-size: 2rem; }
             .avatar { width: 120px; height: 120px; font-size: 3rem; }
             .info-grid { grid-template-columns: 1fr 1fr; }
+            .lang-switcher {
+                top: 1rem;
+                right: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('pl')" data-lang="pl">PL</button>
+        <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
+    </div>
+
     <div class="container">
         <div class="profile-card">
             <div class="avatar">M</div>
             <h1 class="name">Miaek</h1>
-            <p class="title">Właściciel & Założyciel</p>
+            <p class="title" data-lang-pl="Właściciel & Założyciel" data-lang-en="Owner & Founder">Właściciel & Założyciel</p>
 
             <div class="info-grid">
                 <div class="info-item">
-                    <div class="info-label">Wiek</div>
+                    <div class="info-label" data-lang-pl="Wiek" data-lang-en="Age">Wiek</div>
                     <div class="info-value">17</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">Kraj</div>
+                    <div class="info-label" data-lang-pl="Kraj" data-lang-en="Country">Kraj</div>
                     <div class="info-value">🇵🇱 Polska</div>
                 </div>
                 <div class="info-item">
-                    <div class="info-label">Rola</div>
-                    <div class="info-value">Właściciel</div>
+                    <div class="info-label" data-lang-pl="Rola" data-lang-en="Role">Rola</div>
+                    <div class="info-value" data-lang-pl="Właściciel" data-lang-en="Owner">Właściciel</div>
                 </div>
             </div>
 
             <div class="bio">
-                <h3>O mnie</h3>
-                <p>Hej! Jestem Miaek, założyciel i właściciel 0xRULES - pierwszego polskiego serwera anarchii w Hytale. Zależało mi na stworzeniu w pełni wolnego środowiska do gry, gdzie gracze mogą doświadczyć prawdziwej anarchii bez żadnych ograniczeń. Moim celem jest przeniesienie legendarnego doświadczenia 2b2t do polskiej społeczności Hytale i zbudowanie czegoś, co przetrwa latami.</p>
+                <h3 data-lang-pl="O mnie" data-lang-en="About Me">O mnie</h3>
+                <p data-lang-pl="Hej! Jestem Miaek, założyciel i właściciel 0xRULES - pierwszego polskiego serwera anarchii w Hytale. Zależało mi na stworzeniu w pełni wolnego środowiska do gry, gdzie gracze mogą doświadczyć prawdziwej anarchii bez żadnych ograniczeń. Moim celem jest przeniesienie legendarnego doświadczenia 2b2t do polskiej społeczności Hytale i zbudowanie czegoś, co przetrwa latami." data-lang-en="Hey! I'm Miaek, the founder and owner of 0xRULES - the first Polish anarchy server in Hytale. I wanted to create a completely free gaming environment where players can experience true anarchy without any limitations. My goal is to bring the legendary 2b2t experience to the Polish Hytale community and build something that will last for years.">Hej! Jestem Miaek, założyciel i właściciel 0xRULES - pierwszego polskiego serwera anarchii w Hytale. Zależało mi na stworzeniu w pełni wolnego środowiska do gry, gdzie gracze mogą doświadczyć prawdziwej anarchii bez żadnych ograniczeń. Moim celem jest przeniesienie legendarnego doświadczenia 2b2t do polskiej społeczności Hytale i zbudowanie czegoś, co przetrwa latami.</p>
             </div>
 
             <div class="links">
                 <a href="https://0xrules.com" class="link-btn">
                     <span class="link-icon">🎮</span>
-                    <span>Serwer 0xRULES Hytale</span>
+                    <span data-lang-pl="Serwer 0xRULES Hytale" data-lang-en="0xRULES Hytale Server">Serwer 0xRULES Hytale</span>
                 </a>
                 <a href="#" class="link-btn" onclick="copyDiscord(event)">
                     <span class="link-icon">💬</span>
@@ -279,13 +326,50 @@
     </div>
 
     <script>
+        // Language switcher
+        let currentLang = 'pl';
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('preferred-lang', lang);
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            
+            document.querySelectorAll('[data-lang-pl]').forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text) {
+                    if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'H3' || el.tagName === 'SPAN') {
+                        el.innerHTML = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+            
+            if (lang === 'en') {
+                window.copyNotificationText = 'Discord copied!';
+            } else {
+                window.copyNotificationText = 'Discord skopiowany!';
+            }
+        }
+
+        // Load saved language
+        window.copyNotificationText = 'Discord skopiowany!';
+        const savedLang = localStorage.getItem('preferred-lang');
+        if (savedLang && savedLang !== 'pl') {
+            setLang(savedLang);
+        }
+
+        // Copy Discord
         function copyDiscord(event) {
             event.preventDefault();
             const username = 'miaek';
             const show = () => {
                 const n = document.createElement('div');
                 n.className = 'copy-notification';
-                n.textContent = 'Discord skopiowany!';
+                n.textContent = window.copyNotificationText || 'Discord skopiowany!';
                 document.body.appendChild(n);
                 setTimeout(() => n.remove(), 1500);
             };
