@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Minecraft Cloud Finder</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#0a0a0f;
+    color:#e0e0e0;
+    font-family:'Share Tech Mono',monospace;
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center;
+    padding:24px;
+    background-image:radial-gradient(ellipse at 20% 20%,rgba(30,60,120,.15) 0%,transparent 60%),
+                     radial-gradient(ellipse at 80% 80%,rgba(10,40,80,.1) 0%,transparent 60%);
+  }
+  h1 { font-family:'Press Start 2P',monospace; font-size:13px; color:#7eb8f7; text-align:center; margin-bottom:6px; text-shadow:0 0 20px rgba(126,184,247,.4); }
+  .subtitle { font-size:11px; color:#556; text-align:center; margin-bottom:28px; }
+  .main-layout { display:flex; gap:32px; align-items:flex-start; flex-wrap:wrap; justify-content:center; }
+  .panel { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:4px; padding:16px; }
+  .panel-title { font-family:'Press Start 2P',monospace; font-size:8px; color:#7eb8f7; margin-bottom:12px; }
+  #drawCanvas { display:block; cursor:crosshair; image-rendering:pixelated; border:2px solid rgba(126,184,247,.3); background:#000; }
+  .tools { display:flex; gap:8px; margin-top:10px; align-items:center; flex-wrap:wrap; }
+  button {
+    font-family:'Press Start 2P',monospace; font-size:7px; padding:7px 12px;
+    border:1px solid rgba(126,184,247,.4); background:rgba(126,184,247,.08); color:#7eb8f7;
+    cursor:pointer; border-radius:2px; transition:all .15s;
+  }
+  button:hover { background:rgba(126,184,247,.18); border-color:#7eb8f7; }
+  button.danger { border-color:rgba(247,100,100,.4); color:#f76464; background:rgba(247,100,100,.06); }
+  button.danger:hover { background:rgba(247,100,100,.15); }
+  button.go { border-color:rgba(100,247,150,.5); color:#64f796; background:rgba(100,247,150,.08); font-size:8px; padding:9px 18px; }
+  button.go:hover { background:rgba(100,247,150,.2); }
+  #mapCanvas { display:block; image-rendering:pixelated; border:2px solid rgba(255,255,255,.08); }
+  .result-box { margin-top:16px; padding:14px 18px; background:rgba(100,247,150,.06); border:1px solid rgba(100,247,150,.25); border-radius:3px; text-align:center; }
+  .result-coord { font-family:'Press Start 2P',monospace; font-size:18px; color:#64f796; text-shadow:0 0 15px rgba(100,247,150,.5); }
+  .result-sub { font-size:10px; color:#778; margin-top:6px; }
+  .score-bar { margin-top:10px; height:4px; background:rgba(255,255,255,.06); border-radius:2px; overflow:hidden; }
+  .score-fill { height:100%; background:linear-gradient(90deg,#64f796,#7eb8f7); border-radius:2px; transition:width .4s; }
+  .hint { font-size:9px; color:#445; margin-top:8px; text-align:center; }
+  #status { font-size:9px; color:#778; margin-top:8px; min-height:14px; text-align:center; }
+  select { font-family:'Share Tech Mono',monospace; font-size:10px; background:rgba(126,184,247,.05); border:1px solid rgba(126,184,247,.3); color:#7eb8f7; padding:5px 8px; cursor:pointer; border-radius:2px; }
+  .color-btn { width:22px; height:22px; border:2px solid transparent; cursor:pointer; border-radius:2px; transition:border-color .15s; }
+  .color-btn.active { border-color:#7eb8f7 !important; }
+  .legend { font-size:9px; color:#556; margin-top:10px; line-height:1.8; }
+  .legend span { display:inline-block; width:10px; height:10px; margin-right:4px; vertical-align:middle; }
+</style>
+</head>
+<body>
+<h1>☁ MINECRAFT CLOUD FINDER ☁</h1>
+<p class="subtitle">narysuj kształt chmury → znajdź współrzędną X w MC</p>
+
+<div class="main-layout">
+  <div class="panel">
+    <div class="panel-title">✏ RYSUJ CHMURY</div>
+    <canvas id="drawCanvas"></canvas>
+    <div class="tools">
+      <div style="display:flex;gap:6px;align-items:center;">
+        <div class="color-btn active" id="colorWhite" style="background:#fff" title="Chmura (biały)" onclick="setColor(1)"></div>
+        <div class="color-btn" id="colorBlack" style="background:#111;border-color:#333" title="Powietrze (czarny)" onclick="setColor(0)"></div>
+      </div>
+      <select id="brushSize" onchange="brushSize=+this.value">
+        <option value="1">1px</option>
+        <option value="2" selected>2px</option>
+        <option value="3">3px</option>
+      </select>
+      <select id="gridSize" onchange="resizeGrid(+this.value)">
+        <option value="16">16×16</option>
+        <option value="24" selected>24×24</option>
+        <option value="32">32×32</option>
+      </select>
+      <button class="danger" onclick="clearDraw()">WYCZYŚĆ</button>
+    </div>
+    <div class="legend">
+      <span style="background:#fff"></span>biały = tu musi być chmura<br>
+      <span style="background:#111;border:1px solid #333"></span>czarny = tu musi być powietrze
+    </div>
+    <div class="hint">1 pixel = 12 bloków MC</div>
+    <div style="margin-top:12px;text-align:center;">
+      <button class="go" onclick="findMatch()">🔍 SZUKAJ</button>
+    </div>
+    <div id="status">Ładowanie mapy...</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">🗺 MAPA CHMUR</div>
+    <canvas id="mapCanvas"></canvas>
+    <div id="resultBox" class="result-box" style="display:none">
+      <div style="font-size:9px;color:#778;margin-bottom:6px;">ZNALEZIONA WSPÓŁRZĘDNA X</div>
+      <div class="result-coord" id="resultX">—</div>
+      <div class="result-sub" id="resultSub"></div>
+      <div class="score-bar"><div class="score-fill" id="scoreFill" style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Drawing canvas setup ──────────────────────────────────────────
+const drawCanvas = document.getElementById('drawCanvas');
+const dCtx = drawCanvas.getContext('2d');
+let GRID = 24;
+const CELL = 12; // display pixels per grid cell
+let drawColor = 1;
+let brushSize = 2;
+let painting = false;
+
+// Grid state: 0=black(air), 1=white(cloud), null=unset(ignored)
+// We treat unset the same as black initially
+let gridState = [];
+
+function initGrid() {
+  gridState = Array.from({length:GRID}, () => new Array(GRID).fill(0));
+  drawCanvas.width = GRID * CELL;
+  drawCanvas.height = GRID * CELL;
+  redrawCanvas();
+}
+
+function redrawCanvas() {
+  dCtx.fillStyle = '#000';
+  dCtx.fillRect(0,0,drawCanvas.width,drawCanvas.height);
+  for (let y=0;y<GRID;y++) for (let x=0;x<GRID;x++) {
+    if (gridState[y][x]===1) {
+      dCtx.fillStyle='#fff';
+      dCtx.fillRect(x*CELL, y*CELL, CELL, CELL);
+    }
+  }
+  // grid lines
+  dCtx.strokeStyle='rgba(126,184,247,0.1)';
+  dCtx.lineWidth=0.5;
+  for(let i=0;i<=GRID;i++){
+    dCtx.beginPath(); dCtx.moveTo(i*CELL,0); dCtx.lineTo(i*CELL,GRID*CELL); dCtx.stroke();
+    dCtx.beginPath(); dCtx.moveTo(0,i*CELL); dCtx.lineTo(GRID*CELL,i*CELL); dCtx.stroke();
+  }
+}
+
+function paintAt(clientX, clientY) {
+  const rect = drawCanvas.getBoundingClientRect();
+  const cx = Math.floor((clientX - rect.left) / CELL);
+  const cy = Math.floor((clientY - rect.top) / CELL);
+  const half = Math.floor(brushSize/2);
+  for (let dx=-half; dx<=half; dx++) for (let dy=-half; dy<=half; dy++) {
+    const px = cx+dx, py = cy+dy;
+    if (px>=0&&px<GRID&&py>=0&&py<GRID) gridState[py][px] = drawColor;
+  }
+  redrawCanvas();
+}
+
+function setColor(v) {
+  drawColor = v;
+  document.getElementById('colorWhite').classList.toggle('active', v===1);
+  document.getElementById('colorBlack').classList.toggle('active', v===0);
+}
+
+function resizeGrid(n) { GRID=n; initGrid(); }
+function clearDraw() { initGrid(); }
+
+drawCanvas.addEventListener('mousedown', e=>{painting=true; paintAt(e.clientX,e.clientY);});
+drawCanvas.addEventListener('mousemove', e=>{if(painting) paintAt(e.clientX,e.clientY);});
+window.addEventListener('mouseup', ()=>painting=false);
+drawCanvas.addEventListener('touchstart', e=>{e.preventDefault();painting=true;paintAt(e.touches[0].clientX,e.touches[0].clientY);},{passive:false});
+drawCanvas.addEventListener('touchmove', e=>{e.preventDefault();if(painting)paintAt(e.touches[0].clientX,e.touches[0].clientY);},{passive:false});
+window.addEventListener('touchend', ()=>painting=false);
+
+// ── Map loading ───────────────────────────────────────────────────
+const mapCanvas = document.getElementById('mapCanvas');
+const mCtx = mapCanvas.getContext('2d');
+const MAP_SCALE = 2;
+let mapBinary = null; // flat Uint8Array, row-major
+let mapW = 0, mapH = 0;
+let mapImg = null;
+
+const img = new Image();
+img.onload = function() {
+  mapImg = img;
+  mapW = img.width; mapH = img.height;
+  mapCanvas.width = mapW * MAP_SCALE;
+  mapCanvas.height = mapH * MAP_SCALE;
+  mCtx.imageSmoothingEnabled = false;
+  mCtx.drawImage(img, 0, 0, mapCanvas.width, mapCanvas.height);
+
+  const tmp = document.createElement('canvas');
+  tmp.width=mapW; tmp.height=mapH;
+  const tCtx=tmp.getContext('2d');
+  tCtx.drawImage(img,0,0);
+  const d = tCtx.getImageData(0,0,mapW,mapH).data;
+  mapBinary = new Uint8Array(mapW*mapH);
+  for(let i=0;i<mapW*mapH;i++) mapBinary[i] = d[i*4]>128 ? 1 : 0;
+  buildDistanceTransforms();
+  document.getElementById('status').textContent = `Mapa: ${mapW}×${mapH}px gotowa — transformaty gotowe`;
+};
+img.onerror = ()=>document.getElementById('status').textContent='⚠ Błąd ładowania mapy';
+img.src = 'data:image/png;base64,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';
+
+// ── Distance Transform (Chamfer) ─────────────────────────────────
+// distWhite[y*w+x] = odległość do najbliższego BIAŁEGO piksela mapy
+// distBlack[y*w+x] = odległość do najbliższego CZARNEGO piksela mapy
+let distWhite = null;
+let distBlack = null;
+
+function buildDistanceTransforms() {
+  const w = mapW, h = mapH;
+  distWhite = new Float32Array(w * h).fill(9999);
+  distBlack = new Float32Array(w * h).fill(9999);
+
+  // Inicjalizacja: 0 na pikselach docelowych
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const i = y * w + x;
+    if (mapBinary[i] === 1) distWhite[i] = 0;
+    else distBlack[i] = 0;
+  }
+
+  // Forward pass (góra-lewo → dół-prawo)
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const i = y * w + x;
+    if (y > 0) {
+      const n = (y-1)*w+x;
+      distWhite[i] = Math.min(distWhite[i], distWhite[n] + 1);
+      distBlack[i] = Math.min(distBlack[i], distBlack[n] + 1);
+    }
+    if (x > 0) {
+      const n = y*w+(x-1);
+      distWhite[i] = Math.min(distWhite[i], distWhite[n] + 1);
+      distBlack[i] = Math.min(distBlack[i], distBlack[n] + 1);
+    }
+  }
+
+  // Backward pass (dół-prawo → góra-lewo)
+  for (let y = h-1; y >= 0; y--) for (let x = w-1; x >= 0; x--) {
+    const i = y * w + x;
+    if (y < h-1) {
+      const n = (y+1)*w+x;
+      distWhite[i] = Math.min(distWhite[i], distWhite[n] + 1);
+      distBlack[i] = Math.min(distBlack[i], distBlack[n] + 1);
+    }
+    if (x < w-1) {
+      const n = y*w+(x+1);
+      distWhite[i] = Math.min(distWhite[i], distWhite[n] + 1);
+      distBlack[i] = Math.min(distBlack[i], distBlack[n] + 1);
+    }
+  }
+}
+
+// Chamfer score: niższy = lepsze dopasowanie
+// Biały pixel rysunku → kara = distWhite na mapie (im dalej od chmury, tym gorzej)
+// Czarny pixel rysunku → kara = distBlack na mapie (im dalej od powietrza, tym gorzej)
+// Zwraca wartość 0..1 gdzie 1 = idealne dopasowanie
+function scoreAt(ox, oy) {
+  let totalPenalty = 0;
+  let count = 0;
+  for (let y = 0; y < GRID; y++) for (let x = 0; x < GRID; x++) {
+    const mx = ox + x, my = oy + y;
+    if (mx < 0 || mx >= mapW || my < 0 || my >= mapH) { totalPenalty += 5; count++; continue; }
+    const i = my * mapW + mx;
+    const drawVal = gridState[y][x];
+    // Kara to odległość — ograniczamy do max 5 żeby nie dominowało
+    const penalty = drawVal === 1 ? Math.min(distWhite[i], 5) : Math.min(distBlack[i], 5);
+    totalPenalty += penalty;
+    count++;
+  }
+  // Normalizujemy: 0 kary = 1.0, max kara (5*count) = 0.0
+  return 1 - totalPenalty / (5 * count);
+}
+
+// ── Find best match ───────────────────────────────────────────────
+function findMatch() {
+  if (!mapBinary) { document.getElementById('status').textContent='⚠ Mapa jeszcze się ładuje...'; return; }
+
+  // Count white pixels drawn
+  let whites = 0;
+  for(let y=0;y<GRID;y++) for(let x=0;x<GRID;x++) if(gridState[y][x]===1) whites++;
+  if(whites===0) { document.getElementById('status').textContent='⚠ Najpierw narysuj chmurę!'; return; }
+
+  document.getElementById('status').textContent = 'Szukam... ⏳';
+
+  setTimeout(()=>{
+    // Wyciągnij bounding box białych pikseli — ignoruj pozycję na siatce
+    let minX=GRID, maxX=-1, minY=GRID, maxY=-1;
+    for(let y=0;y<GRID;y++) for(let x=0;x<GRID;x++) {
+      if(gridState[y][x]===1) {
+        minX=Math.min(minX,x); maxX=Math.max(maxX,x);
+        minY=Math.min(minY,y); maxY=Math.max(maxY,y);
+      }
+    }
+    const pw = maxX - minX + 1; // szerokość wzorca
+    const ph = maxY - minY + 1; // wysokość wzorca
+
+    // Wypakuj wzorzec do małej tablicy [ph][pw]
+    const pattern = [];
+    for(let y=0;y<ph;y++) {
+      const row = [];
+      for(let x=0;x<pw;x++) row.push(gridState[minY+y][minX+x]);
+      pattern.push(row);
+    }
+
+    // Szukaj najlepszego dopasowania wzorca na mapie
+    let best = -Infinity, bestX=0, bestY=0;
+    for(let ox=0; ox<=mapW-pw; ox++) {
+      for(let oy=0; oy<=mapH-ph; oy++) {
+        let totalPenalty=0, count=0;
+        for(let y=0;y<ph;y++) for(let x=0;x<pw;x++) {
+          const mx=ox+x, my=oy+y;
+          const i=my*mapW+mx;
+          const penalty = pattern[y][x]===1 ? Math.min(distWhite[i],5) : Math.min(distBlack[i],5);
+          totalPenalty+=penalty; count++;
+        }
+        const s = 1 - totalPenalty/(5*count);
+        if(s>best){best=s;bestX=ox;bestY=oy;}
+      }
+    }
+
+    const pct = Math.max(0, Math.round(best*100));
+
+    // Rysuj wynik na mapie
+    mCtx.clearRect(0,0,mapCanvas.width,mapCanvas.height);
+    mCtx.drawImage(img,0,0,mapCanvas.width,mapCanvas.height);
+    mCtx.strokeStyle='#64f796'; mCtx.lineWidth=2;
+    mCtx.strokeRect(bestX*MAP_SCALE, bestY*MAP_SCALE, pw*MAP_SCALE, ph*MAP_SCALE);
+    mCtx.fillStyle='rgba(100,247,150,0.15)';
+    mCtx.fillRect(bestX*MAP_SCALE, bestY*MAP_SCALE, pw*MAP_SCALE, ph*MAP_SCALE);
+    // Nakładka wzorca
+    for(let y=0;y<ph;y++) for(let x=0;x<pw;x++) {
+      if(pattern[y][x]===1) {
+        mCtx.fillStyle='rgba(126,184,247,0.5)';
+        mCtx.fillRect((bestX+x)*MAP_SCALE,(bestY+y)*MAP_SCALE,MAP_SCALE,MAP_SCALE);
+      }
+    }
+
+    const mcX = bestX*12, mcZ = bestY*12;
+    document.getElementById('resultX').textContent = `X = ${mcX}`;
+    document.getElementById('resultSub').textContent = `Z ≈ ${mcZ}  |  wzorzec: ${pw}×${ph}px  |  score: ${pct}%`;
+    document.getElementById('scoreFill').style.width = pct+'%';
+    document.getElementById('resultBox').style.display='block';
+    document.getElementById('status').textContent = `Gotowe! Dopasowanie: ${pct}%`;
+  }, 30);
+}
+
+initGrid();
+</script>
+</body>
+</html>
