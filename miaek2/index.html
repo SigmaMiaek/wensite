@@ -459,7 +459,7 @@
   /* CHANGELOG */
   .cl-entry {
     display: grid;
-    grid-template-columns: 110px 70px 1fr;
+    grid-template-columns: 110px minmax(60px, auto) 1fr;
     gap: 16px;
     align-items: start;
     padding: 20px 0;
@@ -492,10 +492,11 @@
     font-family: 'Bangers', cursive;
     font-size: 14px;
     letter-spacing: 2px;
-    padding: 3px 10px;
+    padding: 3px 8px;
     border: 2px solid;
     text-align: center;
-    white-space: nowrap;
+    word-break: break-word;
+    hyphens: auto;
   }
 
   .cl-badge.new { color: var(--yellow); border-color: var(--yellow); background: rgba(255,229,0,0.1); }
@@ -1276,7 +1277,7 @@
     document.getElementById('cl-expand-wrap').style.display = 'none';
   }
 
-  fetch('changelog.txt')
+  fetch('changelog.txt?v=' + Date.now())
     .then(r => r.ok ? r.text() : Promise.reject('brak pliku'))
     .then(text => initChangelog(parseChangelog(text)))
     .catch(() => {
