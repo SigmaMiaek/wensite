@@ -1,4 +1,4 @@
-Date: 06.03.2025
+Date: 06.03.2026
 Nagłówek Pl: 📋 Nowy wygląd strony
 Nagłówek En: 📋 New website look
 Pl: Nowy wygląd strony serwera.
@@ -14,7 +14,7 @@ En: Server fully migrated to new hosting. Better performance, lower ping, improv
 Typ: MIGRACJA
 Typ En: MIGRATION
 
-Date: 21.01.2025
+Date: 21.01.2026
 Nagłówek Pl: 🖥️ Otwarcie serwera testowego
 Nagłówek En: 🖥️ Test server opened
 Pl: Otwarcie serwera testowego na nowym hostingu. Testy stabilności i wydajności przed pełną migracją.
@@ -22,7 +22,7 @@ En: Test server opened on the new hosting. Stability and performance tests befor
 Typ: TEST
 Typ En: TEST
 
-Date: 13.01.2025
+Date: 13.01.2026
 Nagłówek Pl: ⚡ Start serwera
 Nagłówek En: ⚡ Server launch
 Pl: Pierwszy serwer anarchii Hytale w Polsce oficjalnie ruszył. Witamy na play.0xrules.com:29115
