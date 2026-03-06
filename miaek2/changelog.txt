@@ -1,0 +1,23 @@
+Date: 13.02.2025
+Nagłówek Pl: 🚀 Przeniesienie na nowy hosting
+Nagłówek En: 🚀 Moved to new hosting
+Pl: Serwer został w pełni przeniesiony na nowy hosting. Lepsza wydajność, mniejszy ping, większa stabilność.
+En: Server fully migrated to new hosting. Better performance, lower ping, improved stability.
+Typ: MIGRACJA
+Typ En: MIGRATION
+
+Date: 21.01.2025
+Nagłówek Pl: 🖥️ Otwarcie serwera testowego
+Nagłówek En: 🖥️ Test server opened
+Pl: Otwarcie serwera testowego na nowym hostingu. Testy stabilności i wydajności przed pełną migracją.
+En: Test server opened on the new hosting. Stability and performance tests before full migration.
+Typ: TEST
+Typ En: TEST
+
+Date: 13.01.2025
+Nagłówek Pl: ⚡ Start serwera
+Nagłówek En: ⚡ Server launch
+Pl: Pierwszy serwer anarchii Hytale w Polsce oficjalnie ruszył. Witamy na play.0xrules.com:29115
+En: The first Hytale anarchy server in Poland officially launched. Welcome to play.0xrules.com:29115
+Typ: START
+Typ En: START
