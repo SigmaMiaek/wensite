@@ -225,36 +225,22 @@
   .hero-title {
     font-family: 'Bangers', cursive;
     font-size: clamp(60px, 15vw, 180px);
-    line-height: 0.9;
+    line-height: 0.95;
     letter-spacing: 6px;
     position: relative;
     display: inline-block;
   }
 
-  .hero-title .line1 {
-    display: block;
-    color: var(--white);
-    text-shadow:
-      4px 4px 0 var(--purple),
-      8px 8px 0 rgba(98,0,204,0.4);
-  }
-
   .hero-title .line2 {
     display: block;
     color: var(--yellow);
-    text-shadow:
-      4px 4px 0 var(--purple),
-      8px 8px 0 rgba(194,0,255,0.4);
-    transform: skewX(-8deg);
-    display: inline-block;
+    text-shadow: 4px 4px 0 var(--purple), 8px 8px 0 rgba(194,0,255,0.4);
   }
 
   .hero-title .line3 {
     display: block;
     color: var(--red);
-    text-shadow:
-      4px 4px 0 var(--purple),
-      8px 8px 0 var(--yellow);
+    text-shadow: 4px 4px 0 var(--purple), 8px 8px 0 var(--yellow);
   }
 
   /* HALFTONE DOTS decoration */
@@ -457,118 +443,105 @@
   }
 
   /* RULES GRID */
-  .rules-grid {
+  /* CHANGELOG */
+  .cl-entry {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 0;
-    max-width: 1200px;
-    margin: 60px auto 0;
-    border: 5px solid var(--black);
-  }
-
-  .rule-card {
-    background: var(--white);
-    border: 5px solid var(--black);
-    padding: 30px;
+    grid-template-columns: 110px 70px 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 20px 0;
+    border-bottom: 2px solid rgba(194,0,255,0.2);
     position: relative;
-    overflow: hidden;
-    transition: all 0.2s;
   }
 
-  .rule-card:nth-child(2) { background: var(--red); }
-  .rule-card:nth-child(3) { background: var(--purple); color: var(--white); }
-  .rule-card:nth-child(4) { background: var(--yellow); }
-  .rule-card:nth-child(5) { background: #0D0010; border-color: var(--yellow); }
-  .rule-card:nth-child(6) { background: var(--orange); }
+  .cl-entry:last-child { border-bottom: none; }
 
-  .rule-card:hover {
-    transform: translate(-4px, -4px);
-    z-index: 10;
-    box-shadow: 8px 8px 0 var(--black);
-  }
-
-  .rule-num {
-    font-size: 80px;
-    opacity: 0.15;
+  .cl-entry::before {
+    content: '';
     position: absolute;
-    top: -10px;
-    right: 10px;
-    line-height: 1;
-    color: var(--black);
-    font-family: 'Bangers', cursive;
+    left: 175px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(194,0,255,0.4), transparent);
   }
 
-  .rule-card:nth-child(3) .rule-title { color: var(--white); }
-  .rule-card:nth-child(3) .rule-text { color: rgba(255,248,220,0.9); }
-  .rule-card:nth-child(3) .rule-num { color: var(--white); }
-
-  .rule-icon {
-    font-size: 36px;
-    margin-bottom: 12px;
-    display: block;
-  }
-
-  .rule-title {
-    font-size: 28px;
-    color: var(--black);
-    margin-bottom: 8px;
-    letter-spacing: 2px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .rule-card:nth-child(5) .rule-title { color: var(--white); }
-
-  .rule-text {
+  .cl-date {
     font-family: 'Special Elite', cursive;
+    font-size: 12px;
+    color: rgba(255,248,220,0.4);
+    letter-spacing: 1px;
+    padding-top: 4px;
+    white-space: nowrap;
+  }
+
+  .cl-badge {
+    font-family: 'Bangers', cursive;
     font-size: 14px;
-    color: var(--black);
+    letter-spacing: 2px;
+    padding: 3px 10px;
+    border: 2px solid;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .cl-badge.new { color: var(--yellow); border-color: var(--yellow); background: rgba(255,229,0,0.1); }
+  .cl-badge.fix { color: #00e5ff; border-color: #00e5ff; background: rgba(0,229,255,0.08); }
+  .cl-badge.update { color: var(--red); border-color: var(--red); background: rgba(200,0,255,0.1); }
+  .cl-badge.hot { color: #ff6b00; border-color: #ff6b00; background: rgba(255,107,0,0.1); }
+
+  .cl-title {
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .cl-text {
+    font-family: 'Special Elite', cursive;
+    font-size: 13px;
+    color: rgba(255,248,220,0.55);
     line-height: 1.6;
+  }
+
+  .cl-list-hidden { display: none; }
+
+  .cl-fade {
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, #0D0010);
+    margin-top: -60px;
     position: relative;
     z-index: 2;
   }
 
-  .rule-card:nth-child(5) .rule-text { color: var(--white); }
-
-  /* SPEECH BUBBLE */
-  .speech-bubble {
-    position: relative;
-    background: var(--white);
-    border: 4px solid var(--black);
-    border-radius: 20px;
-    padding: 20px 30px;
-    font-family: 'Bangers', cursive;
-    font-size: 28px;
-    color: var(--black);
-    letter-spacing: 2px;
-    display: inline-block;
+  .cl-expand-wrap {
     text-align: center;
-    box-shadow: 5px 5px 0 var(--black);
+    padding-top: 10px;
   }
 
-  .speech-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -24px;
-    left: 40px;
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 24px solid var(--black);
+  .cl-expand-btn {
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    letter-spacing: 3px;
+    padding: 10px 36px;
+    background: transparent;
+    border: 3px solid var(--yellow);
+    color: var(--yellow);
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--purple);
+    transition: all 0.15s;
   }
 
-  .speech-bubble::before {
-    content: '';
-    position: absolute;
-    bottom: -18px;
-    left: 42px;
-    width: 0;
-    height: 0;
-    border-left: 18px solid transparent;
-    border-right: 7px solid transparent;
-    border-top: 22px solid var(--white);
-    z-index: 1;
+  .cl-expand-btn:hover {
+    background: rgba(255,229,0,0.1);
+    transform: translate(-2px,-2px);
+    box-shadow: 6px 6px 0 var(--purple);
+  }
+
+  @media (max-width: 600px) {
+    .cl-entry { grid-template-columns: 1fr; gap: 6px; }
+    .cl-entry::before { display: none; }
   }
 
   /* EXPLOSION / ZAP badges */
@@ -809,30 +782,41 @@
     opacity: 0.4;
   }
 
-  /* COMIC TEXT EFFECTS */
-  @keyframes flicker {
-    0%, 95%, 100% { opacity: 1; }
-    96% { opacity: 0.4; }
-    98% { opacity: 0.8; }
+  .scroll-arrow {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+    text-decoration: none;
   }
 
-  @keyframes slideIn {
-    from { transform: translateX(-100px) rotate(-5deg); opacity: 0; }
-    to { transform: translateX(0) rotate(-5deg); opacity: 1; }
+  .scroll-arrow:hover {
+    opacity: 1;
+    transform: translateX(-50%) translateY(4px);
   }
 
-  @keyframes bounce-in {
-    0% { transform: scale(0) rotate(-10deg); }
-    60% { transform: scale(1.2) rotate(3deg); }
-    100% { transform: scale(1) rotate(0); }
+  .scroll-arrow span {
+    font-family: 'Bangers', cursive;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--yellow);
   }
 
-  .hero-title {
-    animation: bounce-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  .scroll-arrow svg {
+    animation: arrowBounce 1.6s ease-in-out infinite;
   }
 
-  .sticker {
-    animation: slideIn 0.6s 0.3s both;
+  @keyframes arrowBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
   }
 
   /* ZAP shape */
@@ -973,13 +957,22 @@
       </a>
     </div>
   </div>
+
+  <a class="scroll-arrow" href="#changelog">
+    <span data-lang="pl">SCROLL</span>
+    <span data-lang="en">SCROLL</span>
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <polyline points="6,10 16,22 26,10" stroke="#FFE500" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
 </section>
 
 <!-- DIVIDER -->
 <div class="panel-divider"></div>
 
 <!-- ANARCHY INFO SECTION -->
-<section class="anarchy-section" id="info">
+<section class="anarchy-section" id="changelog">
   <!-- graffiti tags -->
   <span class="graffiti-tag" style="top:20px;right:60px;-webkit-text-stroke-color:#C800FF;font-size:60px;">POLSKA</span>
   <span class="graffiti-tag" style="bottom:40px;left:40px;-webkit-text-stroke-color:#FFE500;font-size:80px;">FREE</span>
@@ -999,101 +992,79 @@
     <rect width="300" height="300" fill="url(#hg)"/>
   </svg>
 
-  <div style="text-align:center;position:relative;z-index:5;">
-    <div class="speech-bubble" style="margin-bottom:60px;transform:rotate(-1deg);">
-      <span data-lang="pl">CO TO JEST ANARCHIA?</span>
-      <span data-lang="en">WHAT IS ANARCHY?</span>
-    </div>
-  </div>
-
   <div class="section-title">
     <span class="outline">
-      <span data-lang="pl">ZASADY</span>
-      <span data-lang="en">RULES</span>
+      <span data-lang="pl">UPDATE</span>
+      <span data-lang="en">UPDATE</span>
     </span>
     <span class="filled">
-      <span data-lang="pl">SERWERA</span>
-      <span data-lang="en">OF SERVER</span>
+      <span data-lang="pl">LOG</span>
+      <span data-lang="en">LOG</span>
     </span>
   </div>
 
-  <div class="rules-grid">
-    <div class="rule-card">
-      <span class="rule-num">1</span>
-      <span class="rule-icon">🔥</span>
-      <div class="rule-title">
-        <span data-lang="pl">BRAK ZASAD</span>
-        <span data-lang="en">NO RULES</span>
+  <div class="changelog-wrap" style="max-width:800px;margin:60px auto 0;position:relative;z-index:5;">
+    <div class="changelog-list" id="changelog-list">
+
+      <div class="cl-entry">
+        <div class="cl-date">13.02.2025</div>
+        <div class="cl-badge hot">
+          <span data-lang="pl">MIGRACJA</span><span data-lang="en">MIGRATION</span>
+        </div>
+        <div class="cl-content">
+          <div class="cl-title">
+            <span data-lang="pl">🚀 Przeniesienie na nowy hosting</span>
+            <span data-lang="en">🚀 Moved to new hosting</span>
+          </div>
+          <p class="cl-text">
+            <span data-lang="pl">Serwer został w pełni przeniesiony na nowy hosting. Lepsza wydajność, mniejszy ping, większa stabilność.</span>
+            <span data-lang="en">Server fully migrated to new hosting. Better performance, lower ping, improved stability.</span>
+          </p>
+        </div>
       </div>
-      <p class="rule-text">
-        <span data-lang="pl">To jest serwer anarchii. Nikt Ci nie mówi co robić. Graj jak chcesz, buduj co chcesz, niszcz co chcesz.</span>
-        <span data-lang="en">This is an anarchy server. Nobody tells you what to do. Play how you want, build what you want, destroy what you want.</span>
-      </p>
+
+      <div class="cl-entry">
+        <div class="cl-date">21.01.2025</div>
+        <div class="cl-badge update">
+          <span data-lang="pl">TEST</span><span data-lang="en">TEST</span>
+        </div>
+        <div class="cl-content">
+          <div class="cl-title">
+            <span data-lang="pl">🖥️ Otwarcie serwera testowego</span>
+            <span data-lang="en">🖥️ Test server opened</span>
+          </div>
+          <p class="cl-text">
+            <span data-lang="pl">Otwarcie serwera testowego na nowym hostingu. Testy stabilności i wydajności przed pełną migracją.</span>
+            <span data-lang="en">Test server opened on the new hosting. Stability and performance tests before full migration.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="cl-entry">
+        <div class="cl-date">13.01.2025</div>
+        <div class="cl-badge new">
+          <span data-lang="pl">START</span><span data-lang="en">START</span>
+        </div>
+        <div class="cl-content">
+          <div class="cl-title">
+            <span data-lang="pl">⚡ Start serwera</span>
+            <span data-lang="en">⚡ Server launch</span>
+          </div>
+          <p class="cl-text">
+            <span data-lang="pl">Pierwszy serwer anarchii Hytale w Polsce oficjalnie ruszył. Witamy na play.0xrules.com:29115</span>
+            <span data-lang="en">The first Hytale anarchy server in Poland officially launched. Welcome to play.0xrules.com:29115</span>
+          </p>
+        </div>
+      </div>
+
     </div>
 
-    <div class="rule-card">
-      <span class="rule-num">2</span>
-      <span class="rule-icon">💀</span>
-      <div class="rule-title">
-        <span data-lang="pl">PVP ZAWSZE</span>
-        <span data-lang="en">PVP ALWAYS</span>
-      </div>
-      <p class="rule-text">
-        <span data-lang="pl">PVP jest włączone wszędzie i zawsze. Spawncamp, griefing, raiding — wszystko jest dozwolone. Bądź gotowy na wszystko.</span>
-        <span data-lang="en">PVP is enabled everywhere, always. Spawncamp, griefing, raiding — everything is allowed. Be ready for anything.</span>
-      </p>
-    </div>
-
-    <div class="rule-card">
-      <span class="rule-num">3</span>
-      <span class="rule-icon">⚒️</span>
-      <div class="rule-title">
-        <span data-lang="pl">GRIEFING OK</span>
-        <span data-lang="en">GRIEFING OK</span>
-      </div>
-      <p class="rule-text">
-        <span data-lang="pl">Możesz niszczyć budowle innych graczy. Strzeż swojej bazy, albo zapłać cenę.</span>
-        <span data-lang="en">You can destroy other players' builds. Guard your base or pay the price.</span>
-      </p>
-    </div>
-
-    <div class="rule-card">
-      <span class="rule-num">4</span>
-      <span class="rule-icon">🌍</span>
-      <div class="rule-title">
-        <span data-lang="pl">NIEOGRANICZONY ŚWIAT</span>
-        <span data-lang="en">INFINITE WORLD</span>
-      </div>
-      <p class="rule-text">
-        <span data-lang="pl">Mapa jest nieograniczona. Idź dalej, eksploruj, odkrywaj. Im dalej od spawnu, tym bezpieczniej.</span>
-        <span data-lang="en">The map is unlimited. Go further, explore, discover. The farther from spawn, the safer.</span>
-      </p>
-    </div>
-
-    <div class="rule-card">
-      <span class="rule-num">5</span>
-      <span class="rule-icon">🏆</span>
-      <div class="rule-title">
-        <span data-lang="pl">HISTORIA</span>
-        <span data-lang="en">HISTORY</span>
-      </div>
-      <p class="rule-text">
-        <span data-lang="pl">Jesteś częścią historii. Pierwszy serwer anarchii Hytale w Polsce. Twoje działania zostawią ślad na zawsze.</span>
-        <span data-lang="en">You are part of history. The first Hytale anarchy server in Poland. Your actions will leave a permanent mark.</span>
-      </p>
-    </div>
-
-    <div class="rule-card">
-      <span class="rule-num">6</span>
-      <span class="rule-icon">🤝</span>
-      <div class="rule-title">
-        <span data-lang="pl">SPOŁECZNOŚĆ</span>
-        <span data-lang="en">COMMUNITY</span>
-      </div>
-      <p class="rule-text">
-        <span data-lang="pl">Discord to jedyne miejsce gdzie obowiązują zasady społeczności. In-game — robisz co chcesz.</span>
-        <span data-lang="en">Discord is the only place with community rules. In-game — you do whatever you want.</span>
-      </p>
+    <div class="cl-expand-wrap" id="cl-expand-wrap" style="display:none;">
+      <div class="cl-fade"></div>
+      <button class="cl-expand-btn" id="cl-expand-btn" onclick="expandChangelog()">
+        <span data-lang="pl">▼ POKAŻ WIĘCEJ</span>
+        <span data-lang="en">▼ SHOW MORE</span>
+      </button>
     </div>
   </div>
 </section>
@@ -1263,6 +1234,22 @@
     setTimeout(() => el.style.color = '', 1000);
   }
 
+  // CHANGELOG expand
+  const SHOW_LIMIT = 3;
+  function initChangelog() {
+    const entries = document.querySelectorAll('.cl-entry');
+    const wrap = document.getElementById('cl-expand-wrap');
+    if (entries.length > SHOW_LIMIT) {
+      entries.forEach((e, i) => { if (i >= SHOW_LIMIT) e.classList.add('cl-list-hidden'); });
+      wrap.style.display = 'block';
+    }
+  }
+  function expandChangelog() {
+    document.querySelectorAll('.cl-list-hidden').forEach(e => e.classList.remove('cl-list-hidden'));
+    document.getElementById('cl-expand-wrap').style.display = 'none';
+  }
+  initChangelog();
+
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
@@ -1279,6 +1266,8 @@
     const bg = document.querySelector('.bg-graffiti');
     if (bg) bg.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(-8deg)`;
   });
+
+
 </script>
 </body>
 </html>
