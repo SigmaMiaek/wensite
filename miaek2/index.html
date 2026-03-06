@@ -1024,7 +1024,7 @@
 
     <div class="cl-expand-wrap" id="cl-expand-wrap" style="display:none;">
       <div class="cl-fade"></div>
-      <button class="cl-expand-btn" id="cl-expand-btn" onclick="expandChangelog()">
+      <button class="cl-expand-btn" id="cl-expand-btn" onclick="toggleChangelog()">
         <span data-lang="pl">▼ POKAŻ WIĘCEJ</span>
         <span data-lang="en">▼ SHOW MORE</span>
       </button>
@@ -1272,10 +1272,30 @@
     }
   }
 
-  function expandChangelog() {
-    document.querySelectorAll('.cl-list-hidden').forEach(e => e.classList.remove('cl-list-hidden'));
-    document.getElementById('cl-expand-wrap').style.display = 'none';
+  function toggleChangelog() {
+    const hidden = document.querySelectorAll('.cl-list-hidden');
+    const btn = document.getElementById('cl-expand-btn');
+    const fade = document.querySelector('.cl-fade');
+    const lang = document.body.classList.contains('en') ? 'en' : 'pl';
+    if (hidden.length > 0) {
+      hidden.forEach(e => e.classList.remove('cl-list-hidden'));
+      btn.innerHTML = lang === 'en'
+        ? '<span data-lang="pl">▲ ZWIŃ</span><span data-lang="en">▲ COLLAPSE</span>'
+        : '<span data-lang="pl">▲ ZWIŃ</span><span data-lang="en">▲ COLLAPSE</span>';
+      if (fade) fade.style.display = 'none';
+    } else {
+      document.querySelectorAll('.cl-entry').forEach((e, i) => {
+        if (i >= SHOW_LIMIT) e.classList.add('cl-list-hidden');
+      });
+      btn.innerHTML = lang === 'en'
+        ? '<span data-lang="pl">▼ POKAŻ WIĘCEJ</span><span data-lang="en">▼ SHOW MORE</span>'
+        : '<span data-lang="pl">▼ POKAŻ WIĘCEJ</span><span data-lang="en">▼ SHOW MORE</span>';
+      if (fade) fade.style.display = '';
+      document.getElementById('cl-expand-wrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   }
+
+  function expandChangelog() { toggleChangelog(); }
 
   fetch('changelog.txt?v=' + Date.now())
     .then(r => r.ok ? r.text() : Promise.reject('brak pliku'))
