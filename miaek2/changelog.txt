@@ -1,8 +1,8 @@
 Date: 06.03.2026
 Nagłówek Pl: 📋 Nowy wygląd strony
 Nagłówek En: 📋 New website look
-Pl: Nowy wygląd strony serwera.
-En: New look for the server website.
+Pl: Strona serwera została zaktualizowana. Poprawiono wygląd i dodano drobne ulepszenia.
+En: The server website has been updated. The appearance has been improved and minor enhancements have been added.
 Typ: AKTUALIZACJA
 Typ En: UPDATE
 
