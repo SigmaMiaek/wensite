@@ -1,3 +1,11 @@
+Date: 06.03.2025
+Nagłówek Pl: 📋 Nowy wygląd strony
+Nagłówek En: 📋 New website look
+Pl: Nowy wygląd strony serwera.
+En: New look for the server website.
+Typ: AKTUALIZACJA
+Typ En: UPDATE
+
 Date: 13.02.2025
 Nagłówek Pl: 🚀 Przeniesienie na nowy hosting
 Nagłówek En: 🚀 Moved to new hosting
