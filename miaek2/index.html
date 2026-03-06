@@ -366,8 +366,18 @@
     box-shadow: 9px 9px 0 var(--black);
   }
 
-  .btn-primary {
-    background: var(--purple);
+  .btn-donate {
+    background: var(--yellow);
+    color: var(--black);
+    box-shadow: 6px 6px 0 var(--purple);
+    transform: rotate(-1deg);
+    text-shadow: none;
+  }
+
+  .btn-donate:hover {
+    transform: rotate(-1deg) translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--purple);
+  }
     color: var(--white);
     box-shadow: 6px 6px 0 var(--black);
     transform: rotate(1deg);
@@ -954,9 +964,9 @@
       <a href="https://discord.gg/Qha4HyAFRW" target="_blank" class="btn btn-discord">
         ⚡ DISCORD
       </a>
-      <a href="#info" class="btn btn-primary">
-        <span class="lang-inline" data-lang="pl">CZYTAJ WIĘCEJ</span>
-        <span class="lang-inline" data-lang="en">READ MORE</span>
+      <a href="https://mathost.eu/donate/8938f209-58d9-490b-8eb0-6b2192843845" target="_blank" class="btn btn-donate">
+        <span class="lang-inline" data-lang="pl">💛 DONATE</span>
+        <span class="lang-inline" data-lang="en">💛 DONATE</span>
       </a>
     </div>
   </div>
@@ -1198,6 +1208,13 @@
     <div class="join-discord">
       <a href="https://discord.gg/Qha4HyAFRW" target="_blank">
         ⚡ DISCORD ⚡
+      </a>
+    </div>
+
+    <div style="margin-top:20px;">
+      <a href="https://mathost.eu/donate/8938f209-58d9-490b-8eb0-6b2192843845" target="_blank" class="btn btn-donate" style="font-size:clamp(16px,3vw,28px);padding:14px 40px;box-shadow:8px 8px 0 var(--purple);">
+        <span data-lang="pl">💛 WESPRZYJ SERWER — DONATE</span>
+        <span data-lang="en">💛 SUPPORT THE SERVER — DONATE</span>
       </a>
     </div>
 
