@@ -1018,58 +1018,7 @@
 
   <div class="changelog-wrap" style="max-width:800px;margin:60px auto 0;position:relative;z-index:5;">
     <div class="changelog-list" id="changelog-list">
-
-      <div class="cl-entry">
-        <div class="cl-date">13.02.2025</div>
-        <div class="cl-badge hot">
-          <span data-lang="pl">MIGRACJA</span><span data-lang="en">MIGRATION</span>
-        </div>
-        <div class="cl-content">
-          <div class="cl-title">
-            <span data-lang="pl">🚀 Przeniesienie na nowy hosting</span>
-            <span data-lang="en">🚀 Moved to new hosting</span>
-          </div>
-          <p class="cl-text">
-            <span data-lang="pl">Serwer został w pełni przeniesiony na nowy hosting. Lepsza wydajność, mniejszy ping, większa stabilność.</span>
-            <span data-lang="en">Server fully migrated to new hosting. Better performance, lower ping, improved stability.</span>
-          </p>
-        </div>
-      </div>
-
-      <div class="cl-entry">
-        <div class="cl-date">21.01.2025</div>
-        <div class="cl-badge update">
-          <span data-lang="pl">TEST</span><span data-lang="en">TEST</span>
-        </div>
-        <div class="cl-content">
-          <div class="cl-title">
-            <span data-lang="pl">🖥️ Otwarcie serwera testowego</span>
-            <span data-lang="en">🖥️ Test server opened</span>
-          </div>
-          <p class="cl-text">
-            <span data-lang="pl">Otwarcie serwera testowego na nowym hostingu. Testy stabilności i wydajności przed pełną migracją.</span>
-            <span data-lang="en">Test server opened on the new hosting. Stability and performance tests before full migration.</span>
-          </p>
-        </div>
-      </div>
-
-      <div class="cl-entry">
-        <div class="cl-date">13.01.2025</div>
-        <div class="cl-badge new">
-          <span data-lang="pl">START</span><span data-lang="en">START</span>
-        </div>
-        <div class="cl-content">
-          <div class="cl-title">
-            <span data-lang="pl">⚡ Start serwera</span>
-            <span data-lang="en">⚡ Server launch</span>
-          </div>
-          <p class="cl-text">
-            <span data-lang="pl">Pierwszy serwer anarchii Hytale w Polsce oficjalnie ruszył. Witamy na play.0xrules.com:29115</span>
-            <span data-lang="en">The first Hytale anarchy server in Poland officially launched. Welcome to play.0xrules.com:29115</span>
-          </p>
-        </div>
-      </div>
-
+      <!-- wpisy ładowane z changelog.txt -->
     </div>
 
     <div class="cl-expand-wrap" id="cl-expand-wrap" style="display:none;">
@@ -1254,21 +1203,86 @@
     setTimeout(() => el.style.color = '', 1000);
   }
 
-  // CHANGELOG expand
+  // CHANGELOG - czyta z changelog.txt
   const SHOW_LIMIT = 3;
-  function initChangelog() {
-    const entries = document.querySelectorAll('.cl-entry');
+
+  // badge typ -> CSS klasa
+  const badgeClass = {
+    'start': 'new', 'nowe': 'new', 'new': 'new',
+    'fix': 'fix', 'naprawa': 'fix',
+    'test': 'update', 'update': 'update', 'aktualizacja': 'update',
+    'migracja': 'hot', 'migration': 'hot', 'hot': 'hot'
+  };
+
+  function getBadgeClass(typ) {
+    return badgeClass[typ.toLowerCase()] || 'new';
+  }
+
+  function parseChangelog(text) {
+    const blocks = text.trim().split(/\n\s*\n/);
+    return blocks.map(block => {
+      const lines = block.trim().split('\n');
+      const entry = {};
+      lines.forEach(line => {
+        const sep = line.indexOf(':');
+        if (sep === -1) return;
+        const key = line.slice(0, sep).trim().toLowerCase();
+        const val = line.slice(sep + 1).trim();
+        entry[key] = val;
+      });
+      return entry;
+    }).filter(e => e['date']);
+  }
+
+  function renderEntry(e) {
+    const cls = getBadgeClass(e['typ'] || '');
+    return `
+      <div class="cl-entry">
+        <div class="cl-date">${e['date'] || ''}</div>
+        <div class="cl-badge ${cls}">
+          <span data-lang="pl">${e['typ'] || ''}</span>
+          <span data-lang="en">${e['typ en'] || e['typ'] || ''}</span>
+        </div>
+        <div class="cl-content">
+          <div class="cl-title">
+            <span data-lang="pl">${e['nagłówek pl'] || e['naglowek pl'] || ''}</span>
+            <span data-lang="en">${e['nagłówek en'] || e['naglowek en'] || ''}</span>
+          </div>
+          <p class="cl-text">
+            <span data-lang="pl">${e['pl'] || ''}</span>
+            <span data-lang="en">${e['en'] || ''}</span>
+          </p>
+        </div>
+      </div>`;
+  }
+
+  function initChangelog(entries) {
+    const list = document.getElementById('changelog-list');
     const wrap = document.getElementById('cl-expand-wrap');
+    list.innerHTML = entries.map(renderEntry).join('');
+    // odśwież lang
+    const lang = document.body.classList.contains('en') ? 'en' : 'pl';
+    setLang(lang);
     if (entries.length > SHOW_LIMIT) {
-      entries.forEach((e, i) => { if (i >= SHOW_LIMIT) e.classList.add('cl-list-hidden'); });
+      list.querySelectorAll('.cl-entry').forEach((el, i) => {
+        if (i >= SHOW_LIMIT) el.classList.add('cl-list-hidden');
+      });
       wrap.style.display = 'block';
     }
   }
+
   function expandChangelog() {
     document.querySelectorAll('.cl-list-hidden').forEach(e => e.classList.remove('cl-list-hidden'));
     document.getElementById('cl-expand-wrap').style.display = 'none';
   }
-  initChangelog();
+
+  fetch('changelog.txt')
+    .then(r => r.ok ? r.text() : Promise.reject('brak pliku'))
+    .then(text => initChangelog(parseChangelog(text)))
+    .catch(() => {
+      document.getElementById('changelog-list').innerHTML =
+        '<p style="font-family:\'Special Elite\',cursive;color:rgba(255,248,220,0.4);text-align:center;padding:20px;">Brak pliku changelog.txt</p>';
+    });
 
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
