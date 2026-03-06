@@ -6,7 +6,7 @@ En: New look for the server website.
 Typ: AKTUALIZACJA
 Typ En: UPDATE
 
-Date: 13.02.2025
+Date: 13.02.2026
 Nagłówek Pl: 🚀 Przeniesienie na nowy hosting
 Nagłówek En: 🚀 Moved to new hosting
 Pl: Serwer został w pełni przeniesiony na nowy hosting. Lepsza wydajność, mniejszy ping, większa stabilność.
