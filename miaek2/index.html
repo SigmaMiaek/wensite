@@ -212,14 +212,17 @@
     background: var(--yellow);
     color: var(--black);
     font-family: 'Permanent Marker', cursive;
-    font-size: 14px;
+    font-size: clamp(10px, 2.5vw, 14px);
     padding: 4px 12px;
     transform: rotate(-1deg);
     border: 3px solid var(--black);
     box-shadow: 3px 3px 0 var(--black);
     margin-bottom: 20px;
     letter-spacing: 1px;
-    white-space: nowrap;
+    white-space: normal;
+    max-width: 90vw;
+    text-align: center;
+    line-height: 1.5;
   }
 
   .hero-title {
