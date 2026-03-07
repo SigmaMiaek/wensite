@@ -1,732 +1,1328 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>0xRULES - Pierwszy Polski Serwer Anarchii w Hytale</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <meta name="description" content="Dołącz do 0xRULES - Pierwszego polskiego serwera anarchii w Hytale. Żadnych zasad, żadnych resetów, czysta rozgrywka vanilla. Doświadcz prawdziwej wolności na play.0xrules.com:29115">
-    <meta name="keywords" content="Hytale serwer anarchii, Hytale server, serwer anarchii, Hytale bez zasad, Hytale 2b2t, 0xRULES, Hytale multiplayer, Hytale PvP, Hytale griefing, vanilla Hytale serwer, polski serwer Hytale, pierwszy polski serwer Hytale">
-    <meta name="author" content="0xRULES">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://0xRULES.com/">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "GameServer",
-      "name": "0xRULES",
-      "description": "Pierwszy polski serwer anarchii w Hytale. Żadnych zasad, żadnych resetów, czysta rozgrywka vanilla.",
-      "url": "https://0xRULES.com",
-      "game": { "@type": "VideoGame", "name": "Hytale" },
-      "playMode": "MultiPlayer"
-    }
-    </script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0xRules , Pierwszy Serwer Anarchii Hytale w Polsce</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Oswald:wght@700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C800FF;
+    --blue: #8B00E8;
+    --yellow: #FFE500;
+    --black: #0A0808;
+    --white: #FFF8DC;
+    --orange: #FFB800;
+    --purple: #6200CC;
+    --green: #FFE500;
+  }
 
-        :root {
-            --primary: #00ff41;
-            --primary-dark: #00cc33;
-            --bg-dark: #0a0a0a;
-            --text: #e0e0e0;
-            --border: rgba(0, 255, 65, 0.2);
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+  body {
+    background: #0D0010;
+    color: var(--white);
+    font-family: 'Bangers', cursive;
+    overflow-x: hidden;
+    cursor: default;
+  }
 
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(circle at 20% 50%, rgba(0,255,65,0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0,255,65,0.03) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
+  /* HALFTONE DOT OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 12px 12px;
+    pointer-events: none;
+    z-index: 1;
+  }
 
-        /* ── HEADER ── */
-        header {
-            background: rgba(17,17,17,0.8);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--border);
-            padding: 2rem;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-        }
+  /* NOISE TEXTURE */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.4;
+  }
 
-        header.scrolled { padding: 1rem 2rem; background: rgba(17,17,17,0.95); }
-        header.scrolled .logo { font-size: 2rem; }
-        header.scrolled .tagline { font-size: 0.85rem; margin-top: 0.3rem; }
-        header.scrolled .nav-menu { margin-top: 1rem; gap: 0.6rem; }
-        header.scrolled .nav-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
+  /* LANGUAGE SWITCHER */
+  .lang-switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 4px;
+    background: var(--black);
+    border: 3px solid var(--yellow);
+    padding: 4px;
+    box-shadow: 4px 4px 0 var(--purple);
+    transform: rotate(1deg);
+  }
 
-        .staff-btn {
-            position: absolute;
-            top: 1rem;
-            left: 2rem;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--primary);
-            padding: 0.7rem 1.5rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-            font-weight: 500;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-block;
-        }
+  .lang-btn {
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--white);
+    transition: all 0.15s;
+    position: relative;
+  }
 
-        .staff-btn:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0,255,65,0.3);
-            transform: translateY(-2px);
-            background: rgba(0,255,65,0.05);
-        }
+  .lang-btn.active {
+    background: var(--yellow);
+    color: var(--black);
+    text-shadow: none;
+  }
 
-        .lang-switcher {
-            position: absolute;
-            top: 1rem;
-            right: 2rem;
-            display: flex;
-            gap: 0.5rem;
-            background: rgba(0,0,0,0.3);
-            padding: 0.4rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
+  .lang-btn:hover:not(.active) {
+    background: rgba(255,229,0,0.2);
+  }
 
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: var(--text);
-            padding: 0.4rem 0.8rem;
-            font-family: inherit;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent);
+  }
 
-        .lang-btn:hover {
-            color: var(--primary);
-            background: rgba(0,255,65,0.1);
-        }
+  .nav-logo {
+    font-family: 'Bangers', cursive;
+    font-size: 32px;
+    letter-spacing: 4px;
+    color: var(--yellow);
+    text-shadow: 3px 3px 0 var(--black), -1px -1px 0 var(--purple);
+    transform: skewX(-5deg);
+  }
 
-        .lang-btn.active {
-            background: var(--primary);
-            color: #000;
-            font-weight: 700;
-        }
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: 100px;
+  }
 
-        .logo {
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 0.5rem;
-            transition: all 0.4s ease;
-        }
+  /* COMIC PANEL BORDERS */
+  .comic-border {
+    position: absolute;
+    inset: 0;
+    border: 8px solid var(--black);
+    z-index: 10;
+    pointer-events: none;
+  }
 
-        .tagline {
-            font-size: 1.1rem;
-            margin-top: 0.8rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.3rem;
-            font-weight: 500;
-            transition: all 0.4s ease;
-        }
+  /* BIG BG TEXT GRAFFITI */
+  .bg-graffiti {
+    position: absolute;
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(80px, 18vw, 240px);
+    color: transparent;
+    -webkit-text-stroke: 3px rgba(232,0,45,0.15);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-8deg);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 3;
+    letter-spacing: -10px;
+  }
 
-        .nav-menu {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-            transition: all 0.4s ease;
-        }
+  /* ANGLED BG STRIPES */
+  .stripes {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 40px,
+      rgba(232,0,45,0.04) 40px,
+      rgba(232,0,45,0.04) 80px
+    );
+    z-index: 3;
+  }
 
-        .nav-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--primary);
-            padding: 0.7rem 1.5rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-            font-weight: 500;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-        }
+  /* SPEED LINES */
+  .speedlines {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    pointer-events: none;
+  }
 
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0,255,65,0.1), transparent);
-            transition: left 0.5s ease;
-        }
+  .speedlines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      transparent 0deg,
+      rgba(232,0,45,0.03) 2deg,
+      transparent 4deg,
+      transparent 10deg,
+      rgba(0,51,204,0.03) 12deg,
+      transparent 14deg,
+      transparent 20deg,
+      rgba(232,0,45,0.03) 22deg,
+      transparent 24deg,
+      transparent 30deg,
+      rgba(255,215,0,0.02) 32deg,
+      transparent 34deg
+    );
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
 
-        .nav-btn:hover::before { left: 100%; }
-        .nav-btn:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0,255,65,0.3);
-            transform: translateY(-2px);
-        }
+  .hero-content {
+    position: relative;
+    z-index: 20;
+    text-align: center;
+    padding: 40px 20px 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-        /* ── CONTAINER ── */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            position: relative;
-            z-index: 1;
-        }
+  /* STICKER LABELS */
+  .sticker {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(10px, 2.5vw, 14px);
+    padding: 4px 12px;
+    transform: rotate(-1deg);
+    border: 3px solid var(--black);
+    box-shadow: 3px 3px 0 var(--black);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    white-space: normal;
+    max-width: 90vw;
+    text-align: center;
+    line-height: 1.5;
+  }
 
-        /* ── SECTION ── */
-        .section {
-            background: rgba(17,17,17,0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            margin: 3rem 0;
-            padding: 3rem;
-            border-radius: 16px;
-            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-        }
+  .hero-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(60px, 15vw, 180px);
+    line-height: 0.95;
+    letter-spacing: 6px;
+    position: relative;
+    display: inline-block;
+  }
 
-        .section:hover {
-            border-color: rgba(0,255,65,0.4);
-            box-shadow: 0 8px 32px rgba(0,255,65,0.1);
-            transform: translateY(-4px);
-        }
+  .hero-title .line2 {
+    display: block;
+    color: var(--yellow);
+    text-shadow: 4px 4px 0 var(--purple), 8px 8px 0 rgba(194,0,255,0.4);
+  }
 
-        h2 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.1rem;
-            position: relative;
-            display: inline-block;
-        }
+  .hero-title .line3 {
+    display: block;
+    color: var(--red);
+    text-shadow: 4px 4px 0 var(--purple), 8px 8px 0 var(--yellow);
+  }
 
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -8px; left: 0;
-            width: 60%; height: 3px;
-            background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
-        }
+  /* HALFTONE DOTS decoration */
+  .dots-deco {
+    position: absolute;
+    pointer-events: none;
+    z-index: 15;
+  }
 
-        /* ── SERVER IP ── */
-        .server-ip {
-            background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, rgba(0,255,65,0.02) 100%);
-            border: 2px solid var(--primary);
-            padding: 2rem;
-            text-align: center;
-            font-size: 2rem;
-            margin: 2rem 0;
-            letter-spacing: 0.2rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-            border-radius: 12px;
-            font-weight: 600;
-            color: var(--primary);
-            position: relative;
-            overflow: hidden;
-        }
+  .dots-deco svg circle {
+    fill: var(--red);
+  }
 
-        .server-ip::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 0; height: 0;
-            border-radius: 50%;
-            background: rgba(0,255,65,0.1);
-            transform: translate(-50%,-50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
+  /* WEB LINES decoration */
+  .web-corner {
+    position: absolute;
+    opacity: 0.3;
+    z-index: 12;
+  }
 
-        .server-ip:hover::before { width: 600px; height: 600px; }
-        .server-ip:hover {
-            background: linear-gradient(135deg, rgba(0,255,65,0.1) 0%, rgba(0,255,65,0.05) 100%);
-            transform: scale(1.02);
-            box-shadow: 0 0 40px rgba(0,255,65,0.3);
-        }
-        .server-ip:active { transform: scale(0.98); }
+  .hero-sub {
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(16px, 3vw, 28px);
+    color: var(--yellow);
+    text-shadow: 2px 2px 0 var(--black);
+    margin-top: 16px;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
 
-        .copy-hint {
-            text-align: center;
-            font-size: 0.85rem;
-            color: rgba(0,255,65,0.5);
-            margin-top: -1rem;
-            margin-bottom: 1rem;
-        }
+  /* IP BOX */
+  .ip-box {
+    margin-top: 40px;
+    display: inline-block;
+    position: relative;
+  }
 
-        /* ── DISCORD ── */
-        .discord-btn {
-            display: block;
-            background: linear-gradient(135deg, rgba(88,101,242,0.2) 0%, rgba(88,101,242,0.05) 100%);
-            border: 2px solid #5865F2;
-            color: #5865F2;
-            padding: 1.2rem 2rem;
-            font-family: inherit;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            text-decoration: none;
-            margin: 0 auto 2rem auto;
-            text-align: center;
-            max-width: 400px;
-        }
+  .ip-box-inner {
+    background: var(--black);
+    border: 5px solid var(--yellow);
+    box-shadow: 8px 8px 0 var(--purple), 12px 12px 0 var(--yellow);
+    padding: 16px 40px;
+    font-size: clamp(22px, 5vw, 42px);
+    letter-spacing: 4px;
+    color: var(--yellow);
+    text-shadow: 2px 2px 0 var(--black);
+    font-family: 'Oswald', sans-serif;
+    position: relative;
+    transform: skewX(-3deg);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
 
-        .discord-btn:hover {
-            background: linear-gradient(135deg, rgba(88,101,242,0.35) 0%, rgba(88,101,242,0.15) 100%);
-            box-shadow: 0 0 24px rgba(88,101,242,0.4);
-            transform: translateY(-2px);
-            color: #8b9dff;
-        }
+  .ip-box-inner:hover {
+    transform: skewX(-3deg) translate(-2px, -2px);
+    box-shadow: 10px 10px 0 var(--purple), 14px 14px 0 var(--yellow);
+    color: var(--white);
+  }
 
-        /* ── WARNING ── */
-        .warning {
-            background: linear-gradient(135deg, rgba(255,0,0,0.1) 0%, rgba(255,0,0,0.05) 100%);
-            border: 2px solid rgba(255,0,0,0.5);
-            padding: 2rem;
-            margin: 2rem 0;
-            color: #ff4444;
-            text-align: center;
-            font-weight: 600;
-            border-radius: 12px;
-            font-size: 1.1rem;
-        }
+  .ip-label {
+    position: absolute;
+    top: -18px;
+    left: 10px;
+    background: var(--purple);
+    color: var(--white);
+    font-size: 12px;
+    letter-spacing: 3px;
+    padding: 2px 10px;
+    border: 2px solid var(--black);
+    font-family: 'Oswald', sans-serif;
+  }
 
-        /* ── FEATURES ── */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
+  .ip-copied {
+    display: none;
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Permanent Marker', cursive;
+    font-size: 14px;
+    color: var(--green);
+    text-shadow: 1px 1px 0 var(--black);
+    white-space: nowrap;
+  }
 
-        .feature {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
+  .ip-copied.show { display: block; }
 
-        .feature:hover {
-            background: rgba(0,255,65,0.05);
-            border-color: var(--primary);
-            box-shadow: 0 8px 24px rgba(0,255,65,0.15);
-            transform: translateY(-4px);
-        }
+  /* BUTTONS */
+  .btn-group {
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-        .feature h3 { color: var(--primary); margin-bottom: 0.8rem; font-size: 1.3rem; font-weight: 600; }
+  .btn {
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    letter-spacing: 3px;
+    padding: 14px 36px;
+    border: 4px solid var(--black);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.15s;
+    position: relative;
+    text-shadow: 2px 2px 0 var(--black);
+  }
 
-        /* ── RULES ── */
-        .rules { list-style: none; margin-top: 1.5rem; }
+  .btn-discord {
+    background: #5865F2;
+    color: var(--white);
+    box-shadow: 6px 6px 0 var(--black);
+    transform: rotate(-1deg);
+  }
 
-        .rules li {
-            padding: 1rem 1.5rem;
-            background: rgba(0,0,0,0.3);
-            margin: 0.8rem 0;
-            border-left: 3px solid var(--primary);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
+  .btn-discord:hover {
+    transform: rotate(-1deg) translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--black);
+  }
 
-        .rules li:hover {
-            background: rgba(0,255,65,0.05);
-            padding-left: 2rem;
-            box-shadow: 0 4px 16px rgba(0,255,65,0.1);
-        }
+  .btn-donate {
+    background: var(--yellow);
+    color: var(--black);
+    box-shadow: 6px 6px 0 var(--purple);
+    transform: rotate(-1deg);
+    text-shadow: none;
+  }
 
-        /* ── TERMINAL ── */
-        .terminal {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            font-family: 'Courier New', monospace;
-            margin: 1.5rem 0;
-            border-radius: 8px;
-        }
+  .btn-donate:hover {
+    transform: rotate(-1deg) translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--purple);
+  }
+    color: var(--white);
+    box-shadow: 6px 6px 0 var(--black);
+    transform: rotate(1deg);
+  }
 
-        .terminal-line { margin: 0.5rem 0; color: var(--text); }
-        .terminal-prompt { color: var(--primary); font-weight: 600; }
+  .btn-primary:hover {
+    transform: rotate(1deg) translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--black);
+  }
 
-        /* ── STATS ── */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
+  /* SECTION DIVIDER - comic panel line */
+  .panel-divider {
+    height: 12px;
+    background: var(--black);
+    border-top: 4px solid var(--white);
+    border-bottom: 4px solid var(--white);
+    position: relative;
+    overflow: hidden;
+  }
 
-        .stat { text-align: center; flex: 1; min-width: 150px; }
+  .panel-divider::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--red) 0px,
+      var(--red) 40px,
+      var(--purple) 40px,
+      var(--purple) 80px,
+      var(--yellow) 80px,
+      var(--yellow) 120px,
+      var(--black) 120px,
+      var(--black) 160px
+    );
+    opacity: 0.8;
+  }
 
-        .stat-number {
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+  /* ANARCHY SECTION */
+  .anarchy-section {
+    position: relative;
+    padding: 80px 40px;
+    background: #0D0010;
+    overflow: hidden;
+  }
 
-        .stat-label {
-            font-size: 1rem;
-            color: var(--primary);
-            margin-top: 0.5rem;
-            font-weight: 500;
-            letter-spacing: 0.1rem;
-        }
+  .anarchy-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(194,0,255,0.1) 2px, transparent 2px);
+    background-size: 20px 20px;
+    pointer-events: none;
+  }
 
-        /* ── COPY NOTIFICATION ── */
-        .copy-notification {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%,-50%);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: #000;
-            padding: 2rem 3rem;
-            border-radius: 16px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            z-index: 10000;
-            box-shadow: 0 20px 60px rgba(0,255,65,0.4);
-            animation: fadeInOut 1.5s ease;
-        }
+  .section-title {
+    font-size: clamp(40px, 8vw, 100px);
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    line-height: 1;
+  }
 
-        @keyframes fadeInOut {
-            0%   { opacity: 0; transform: translate(-50%,-50%) scale(0.8); }
-            20%  { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-            80%  { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-            100% { opacity: 0; transform: translate(-50%,-50%) scale(0.8); }
-        }
+  .section-title .outline {
+    -webkit-text-stroke: 3px var(--purple);
+    color: transparent;
+    display: block;
+  }
 
-        /* ── FOOTER ── */
-        footer {
-            background: rgba(17,17,17,0.8);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-top: 4rem;
-        }
+  .section-title .filled {
+    color: var(--yellow);
+    text-shadow: 4px 4px 0 var(--purple);
+    display: block;
+    transform: skewX(-5deg);
+    display: inline-block;
+  }
 
-        /* ── MOBILE ── */
-        @media (max-width: 768px) {
-            header { padding: 1rem; }
-            header.scrolled { padding: 0.5rem 1rem; }
-            .logo { font-size: 1.8rem; letter-spacing: 0.3rem; }
-            header.scrolled .logo { font-size: 1.3rem; }
-            .tagline { font-size: 0.7rem; margin-top: 0.3rem; letter-spacing: 0.15rem; }
-            header.scrolled .tagline { font-size: 0.65rem; margin-top: 0.2rem; }
-            .nav-menu { gap: 0.4rem; margin-top: 0.8rem; }
-            header.scrolled .nav-menu { margin-top: 0.5rem; gap: 0.3rem; }
-            .nav-btn { padding: 0.5rem 0.8rem; font-size: 0.7rem; letter-spacing: 0.05rem; }
-            header.scrolled .nav-btn { padding: 0.4rem 0.6rem; font-size: 0.65rem; }
-            .server-ip { font-size: 1.1rem; padding: 1.5rem; }
-            h2 { font-size: 2rem; }
-            .section { padding: 2rem; }
-            .staff-btn {
-                position: relative; top: auto; left: auto;
-                margin: 0 auto 0.8rem auto;
-                display: block; width: fit-content;
-                padding: 0.5rem 1rem; font-size: 0.75rem;
-            }
-            .lang-switcher {
-                position: relative;
-                top: auto; right: auto;
-                margin: 0 auto 0.8rem auto;
-                justify-content: center;
-            }
-        }
-    </style>
+  /* RULES GRID */
+  /* CHANGELOG */
+  .cl-entry {
+    display: grid;
+    grid-template-columns: 110px minmax(60px, auto) 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 20px 0;
+    border-bottom: 2px solid rgba(194,0,255,0.2);
+    position: relative;
+  }
+
+  .cl-entry:last-child { border-bottom: none; }
+
+  .cl-entry::before {
+    content: '';
+    position: absolute;
+    left: 175px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(194,0,255,0.4), transparent);
+  }
+
+  .cl-date {
+    font-family: 'Special Elite', cursive;
+    font-size: 12px;
+    color: rgba(255,248,220,0.4);
+    letter-spacing: 1px;
+    padding-top: 4px;
+    white-space: nowrap;
+  }
+
+  .cl-badge {
+    font-family: 'Bangers', cursive;
+    font-size: 14px;
+    letter-spacing: 2px;
+    padding: 3px 8px;
+    border: 2px solid;
+    text-align: center;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .cl-badge.new { color: var(--yellow); border-color: var(--yellow); background: rgba(255,229,0,0.1); }
+  .cl-badge.fix { color: #00e5ff; border-color: #00e5ff; background: rgba(0,229,255,0.08); }
+  .cl-badge.update { color: var(--red); border-color: var(--red); background: rgba(200,0,255,0.1); }
+  .cl-badge.hot { color: #ff6b00; border-color: #ff6b00; background: rgba(255,107,0,0.1); }
+
+  .cl-title {
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .cl-text {
+    font-family: 'Special Elite', cursive;
+    font-size: 13px;
+    color: rgba(255,248,220,0.55);
+    line-height: 1.6;
+  }
+
+  .cl-list-hidden { display: none; }
+
+  .cl-fade {
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, #0D0010);
+    margin-top: -60px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cl-expand-wrap {
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .cl-expand-btn {
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    letter-spacing: 3px;
+    padding: 10px 36px;
+    background: transparent;
+    border: 3px solid var(--yellow);
+    color: var(--yellow);
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--purple);
+    transition: all 0.15s;
+  }
+
+  .cl-expand-btn:hover {
+    background: rgba(255,229,0,0.1);
+    transform: translate(-2px,-2px);
+    box-shadow: 6px 6px 0 var(--purple);
+  }
+
+  @media (max-width: 600px) {
+    .cl-entry { grid-template-columns: 1fr; gap: 6px; }
+    .cl-entry::before { display: none; }
+  }
+
+  /* EXPLOSION / ZAP badges */
+  .explosion {
+    display: inline-block;
+    position: relative;
+    font-family: 'Bangers', cursive;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 8px 16px;
+  }
+
+  .explosion-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    clip-path: polygon(50% 0%, 61% 30%, 98% 20%, 75% 50%, 98% 80%, 61% 70%, 50% 100%, 39% 70%, 2% 80%, 25% 50%, 2% 20%, 39% 30%);
+    background: var(--yellow);
+  }
+
+  /* FEATURES SECTION */
+  .features-section {
+    background: #140020;
+    padding: 80px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .features-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(194,0,255,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(194,0,255,0.07) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* WEB PATTERN BACKGROUND */
+  .web-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    z-index: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(194,0,255,0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 50%, rgba(255,229,0,0.2) 0%, transparent 60%);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 60px auto 0;
+    position: relative;
+    z-index: 5;
+  }
+
+  .feat-card {
+    border: 4px solid;
+    padding: 30px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .feat-card:nth-child(1) { border-color: var(--red); }
+  .feat-card:nth-child(2) { border-color: var(--blue); }
+  .feat-card:nth-child(3) { border-color: var(--yellow); }
+  .feat-card:nth-child(4) { border-color: var(--purple); }
+
+  .feat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  .feat-card:nth-child(1)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(232,0,45,0.1), transparent 70%);
+    pointer-events: none;
+  }
+
+  .feat-card:hover {
+    transform: translateY(-6px);
+  }
+
+  .feat-num {
+    font-size: 60px;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .feat-card:nth-child(2) .feat-num { color: var(--blue); }
+  .feat-card:nth-child(3) .feat-num { color: var(--yellow); }
+  .feat-card:nth-child(4) .feat-num { color: var(--purple); }
+
+  .feat-title {
+    font-size: 30px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+
+  .feat-text {
+    font-family: 'Special Elite', cursive;
+    font-size: 13px;
+    color: rgba(245,240,232,0.7);
+    line-height: 1.7;
+  }
+
+  /* GRAFFITI TAG decoration */
+  .graffiti-tag {
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(30px, 5vw, 60px);
+    color: transparent;
+    -webkit-text-stroke: 2px;
+    transform: rotate(-15deg);
+    display: inline-block;
+    opacity: 0.3;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  /* JOIN SECTION */
+  .join-section {
+    padding: 100px 40px;
+    background: #0D0010;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .join-section::before {
+    content: '!!';
+    position: absolute;
+    font-size: 600px;
+    font-family: 'Bangers', cursive;
+    color: transparent;
+    -webkit-text-stroke: 3px rgba(232,0,45,0.07);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .join-title {
+    font-size: clamp(50px, 12vw, 140px);
+    line-height: 0.9;
+    position: relative;
+    z-index: 5;
+  }
+
+  .join-title span:first-child {
+    display: block;
+    color: var(--yellow);
+    text-shadow: 5px 5px 0 var(--purple);
+  }
+
+  .join-title span:last-child {
+    display: block;
+    color: var(--white);
+    text-shadow: 5px 5px 0 var(--purple);
+    transform: skewX(-6deg);
+    display: inline-block;
+  }
+
+  .join-discord {
+    margin-top: 50px;
+    position: relative;
+    z-index: 5;
+    display: inline-block;
+  }
+
+  .join-discord a {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(20px, 4vw, 36px);
+    letter-spacing: 4px;
+    padding: 20px 60px;
+    background: #5865F2;
+    color: var(--white);
+    border: 5px solid var(--black);
+    box-shadow: 10px 10px 0 var(--black);
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.15s;
+    text-shadow: 2px 2px 0 var(--black);
+    transform: rotate(-1deg);
+  }
+
+  .join-discord a:hover {
+    transform: rotate(-1deg) translate(-4px,-4px);
+    box-shadow: 14px 14px 0 var(--black);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #0D0010;
+    border-top: 6px solid var(--yellow);
+    padding: 30px 40px;
+    text-align: center;
+    font-family: 'Special Elite', cursive;
+    font-size: 13px;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 2px;
+  }
+
+  footer strong {
+    color: var(--yellow);
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    letter-spacing: 3px;
+  }
+
+  /* CRACK EFFECT */
+  .crack-line {
+    position: absolute;
+    background: var(--red);
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 15;
+  }
+
+  /* HALFTONE DOTS SVG pattern */
+  .halftone-area {
+    position: absolute;
+    pointer-events: none;
+    z-index: 6;
+    opacity: 0.4;
+  }
+
+  .scroll-arrow {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+    text-decoration: none;
+  }
+
+  .scroll-arrow:hover {
+    opacity: 1;
+    transform: translateX(-50%) translateY(4px);
+  }
+
+  .scroll-arrow span {
+    font-family: 'Bangers', cursive;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--yellow);
+  }
+
+  .scroll-arrow svg {
+    animation: arrowBounce 1.6s ease-in-out infinite;
+  }
+
+  @keyframes arrowBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* ZAP shape */
+  .zap-badge {
+    position: absolute;
+    font-family: 'Bangers', cursive;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--black);
+    background: var(--yellow);
+    padding: 6px 14px;
+    clip-path: polygon(0 0, 100% 0, 95% 50%, 100% 100%, 0 100%, 5% 50%);
+    border: 2px solid var(--black);
+    z-index: 30;
+    white-space: nowrap;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    nav { padding: 12px 20px; }
+    .anarchy-section, .features-section, .join-section { padding: 60px 20px; }
+    .lang-switch { top: 10px; right: 10px; }
+    .btn { font-size: 18px; padding: 12px 24px; }
+  }
+
+  /* HIDE/SHOW language content */
+  [data-lang] { display: none; }
+  [data-lang="pl"] { display: block; }
+  .lang-inline[data-lang] { display: none; }
+  .lang-inline[data-lang="pl"] { display: inline; }
+
+  body.en [data-lang="pl"] { display: none; }
+  body.en [data-lang="en"] { display: block; }
+  body.en .lang-inline[data-lang="pl"] { display: none; }
+  body.en .lang-inline[data-lang="en"] { display: inline; }
+  body.pl [data-lang="en"] { display: none; }
+</style>
 </head>
-<body>
-    <header>
-        <a href="/staff" class="staff-btn">👥 <span data-lang-pl="Ekipa" data-lang-en="Staff">Ekipa</span></a>
-        <div class="lang-switcher">
-            <button class="lang-btn active" onclick="setLang('pl')" data-lang="pl">PL</button>
-            <button class="lang-btn" onclick="setLang('en')" data-lang="en">EN</button>
-        </div>
-        <div class="logo">0xRULES</div>
-        <div class="tagline" data-lang-pl="Pierwszy polski serwer anarchii w Hytale" data-lang-en="The first Polish anarchy server in Hytale">Pierwszy polski serwer anarchii w Hytale</div>
-        <div class="nav-menu">
-            <button class="nav-btn" onclick="scrollTo('about')" data-lang-pl="O serwerze" data-lang-en="About">O serwerze</button>
-            <button class="nav-btn" onclick="scrollTo('features')" data-lang-pl="Funkcje" data-lang-en="Features">Funkcje</button>
-            <button class="nav-btn" onclick="scrollTo('rules')" data-lang-pl="Zasady" data-lang-en="Rules">Zasady</button>
-            <button class="nav-btn" onclick="scrollTo('survival')" data-lang-pl="Poradnik" data-lang-en="Guide">Poradnik</button>
-            <button class="nav-btn" onclick="scrollTo('support')" data-lang-pl="Wsparcie" data-lang-en="Support">Wsparcie</button>
-            <button class="nav-btn" onclick="scrollTo('join')" data-lang-pl="Dołącz" data-lang-en="Join">Dołącz</button>
-        </div>
-    </header>
+<body class="pl">
 
-    <div class="container">
-        <div class="server-ip" onclick="copyIP()">
-            play.0xrules.com:29115
-        </div>
-        <p class="copy-hint" data-lang-pl="↑ kliknij aby skopiować IP ↑" data-lang-en="↑ click to copy IP ↑">↑ kliknij aby skopiować IP ↑</p>
+<!-- LANGUAGE SWITCHER -->
+<div class="lang-switch">
+  <button class="lang-btn active" onclick="setLang('pl')" id="btn-pl">PL</button>
+  <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+</div>
 
-        <a href="https://discord.com/invite/RURykQbqbt" target="_blank" class="discord-btn">
-            💬 <span data-lang-pl="Dołącz na Discorda" data-lang-en="Join our Discord">Dołącz na Discorda</span>
-        </a>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">0xRULES</div>
+</nav>
 
-        <div class="warning" data-lang-pl="⚠ UWAGA: BRAK ZASAD — BRAK ADMINISTRACJI — BRAK OCHRONY ⚠" data-lang-en="⚠ WARNING: NO RULES — NO STAFF — NO PROTECTION ⚠">
-            ⚠ UWAGA: BRAK ZASAD — BRAK ADMINISTRACJI — BRAK OCHRONY ⚠
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="comic-border"></div>
+  <div class="stripes"></div>
+  <div class="speedlines"></div>
 
-        <div class="section" id="about">
-            <h2 data-lang-pl="O serwerze" data-lang-en="About">O serwerze</h2>
-            <p>
-                <span data-lang-pl="<strong>0xRULES to pierwszy polski serwer anarchii w Hytale</strong> i jeden z pierwszych na całym świecie. Inspirowany legendarnym 2b2t, gdzie jedynym limitem jest Twoja wyobraźnia i granice samej gry. Masz szansę być jednym z pierwszych i stać się częścią historii od samego początku." data-lang-en="<strong>0xRULES is the first Polish anarchy server in Hytale</strong> and one of the first in the world. Inspired by the legendary 2b2t, where the only limit is your imagination and the boundaries of the game itself. You have a chance to be one of the first and become part of history from the very beginning.">
-                    <strong>0xRULES to pierwszy polski serwer anarchii w Hytale</strong> i jeden z pierwszych na całym świecie. Inspirowany legendarnym 2b2t, gdzie jedynym limitem jest Twoja wyobraźnia i granice samej gry. Masz szansę być jednym z pierwszych i stać się częścią historii od samego początku.
-                </span>
-            </p>
-            <div class="terminal">
-                <div class="terminal-line"><span class="terminal-prompt">root@0xrules:~$</span> status --check</div>
-                <div class="terminal-line" data-lang-pl="[OK] Serwer działa w trybie anarchii" data-lang-en="[OK] Server running in anarchy mode">[OK] Serwer działa w trybie anarchii</div>
-                <div class="terminal-line" data-lang-pl="[OK] Brak zasad" data-lang-en="[OK] No rules">[OK] Brak zasad</div>
-                <div class="terminal-line" data-lang-pl="[OK] Vanilla Hytale" data-lang-en="[OK] Vanilla Hytale">[OK] Vanilla Hytale</div>
-                <div class="terminal-line" data-lang-pl="[OK] Mapa nigdy nie zostanie zresetowana" data-lang-en="[OK] Map will never be reset">[OK] Mapa nigdy nie zostanie zresetowana</div>
-            </div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">0</div>
-                    <div class="stat-label" data-lang-pl="ZASAD" data-lang-en="RULES">ZASAD</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label" data-lang-pl="ANARCHIA" data-lang-en="ANARCHY">ANARCHIA</div>
-                </div>
-            </div>
-        </div>
+  <!-- Halftone dots decoration -->
+  <svg class="halftone-area" style="top:5%;left:5%;width:200px;height:200px;" viewBox="0 0 200 200">
+    <defs>
+      <pattern id="dots1" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+        <circle cx="8" cy="8" r="4" fill="#C800FF" opacity="0.4"/>
+      </pattern>
+    </defs>
+    <rect width="200" height="200" fill="url(#dots1)"/>
+  </svg>
 
-        <div class="section" id="features">
-            <h2 data-lang-pl="Funkcje" data-lang-en="Features">Funkcje</h2>
-            <div class="features">
-                <div class="feature">
-                    <h3 data-lang-pl="» Vanilla Hytale" data-lang-en="» Vanilla Hytale">» Vanilla Hytale</h3>
-                    <p data-lang-pl="Czysty Hytale bez żadnych modyfikacji rozgrywki. Tylko Ty i gra." data-lang-en="Pure Hytale with no gameplay modifications. Just you and the game.">Czysty Hytale bez żadnych modyfikacji rozgrywki. Tylko Ty i gra.</p>
-                </div>
-                <div class="feature">
-                    <h3 data-lang-pl="» Brak resetów" data-lang-en="» No Resets">» Brak resetów</h3>
-                    <p data-lang-pl="Mapa nigdy nie zostanie zresetowana. Twoje budowle przetrwają wieki." data-lang-en="The map will never be reset. Your builds will survive for ages.">Mapa nigdy nie zostanie zresetowana. Twoje budowle przetrwają wieki.</p>
-                </div>
-                <div class="feature">
-                    <h3 data-lang-pl="» Totalna anarchia" data-lang-en="» Total Anarchy">» Totalna anarchia</h3>
-                    <p data-lang-pl="Żadnych zasad. Żadnych banów za rozgrywkę. Pełna swoboda." data-lang-en="No rules. No bans for gameplay. Complete freedom.">Żadnych zasad. Żadnych banów za rozgrywkę. Pełna swoboda.</p>
-                </div>
-                <div class="feature">
-                    <h3 data-lang-pl="» Brak administracji" data-lang-en="» No Staff">» Brak administracji</h3>
-                    <p data-lang-pl="Administratorzy nie ingerują w rozgrywkę. To Twój świat." data-lang-en="Administrators don't interfere with gameplay. This is your world.">Administratorzy nie ingerują w rozgrywkę. To Twój świat.</p>
-                </div>
-                <div class="feature">
-                    <h3 data-lang-pl="» Historia" data-lang-en="» History">» Historia</h3>
-                    <p data-lang-pl="Każde działanie zostawia ślad. Zostań częścią legendy od pierwszego dnia." data-lang-en="Every action leaves a mark. Become part of the legend from day one.">Każde działanie zostawia ślad. Zostań częścią legendy od pierwszego dnia.</p>
-                </div>
-                <div class="feature">
-                    <h3 data-lang-pl="» Frakcje" data-lang-en="» Factions">» Frakcje</h3>
-                    <p data-lang-pl="Buduj imperium, dołącz do istniejących frakcji lub działaj solo." data-lang-en="Build an empire, join existing factions or go solo.">Buduj imperium, dołącz do istniejących frakcji lub działaj solo.</p>
-                </div>
-            </div>
-        </div>
+  <svg class="halftone-area" style="bottom:10%;right:5%;width:160px;height:160px;" viewBox="0 0 160 160">
+    <defs>
+      <pattern id="dots2" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+        <circle cx="7" cy="7" r="3.5" fill="#FFE500" opacity="0.4"/>
+      </pattern>
+    </defs>
+    <rect width="160" height="160" fill="url(#dots2)"/>
+  </svg>
 
-        <div class="section" id="rules">
-            <h2 data-lang-pl="Zasady" data-lang-en="Rules">Zasady</h2>
-            <p data-lang-pl="Na 0xRULES istnieje tylko jedna zasada:" data-lang-en="On 0xRULES there is only one rule:">Na 0xRULES istnieje tylko jedna zasada:</p>
-            <ul class="rules">
-                <li data-lang-pl="<strong>1.</strong> Zakaz używania exploitów, które mogą crashować serwer" data-lang-en="<strong>1.</strong> No exploits that can crash the server"><strong>1.</strong> Zakaz używania exploitów, które mogą crashować serwer</li>
-            </ul>
-            <p style="margin-top:1.5rem;" data-lang-pl="Wszystko inne jest dozwolone:" data-lang-en="Everything else is allowed:">Wszystko inne jest dozwolone:</p>
-            <ul class="rules">
-                <li data-lang-pl="✓ Griefing" data-lang-en="✓ Griefing">✓ Griefing</li>
-                <li data-lang-pl="✓ Raiding" data-lang-en="✓ Raiding">✓ Raiding</li>
-                <li data-lang-pl="✓ PvP" data-lang-en="✓ PvP">✓ PvP</li>
-                <li data-lang-pl="✓ Hackowanie" data-lang-en="✓ Hacking">✓ Hackowanie</li>
-                <li data-lang-pl="✓ Kradzieże" data-lang-en="✓ Stealing">✓ Kradzieże</li>
-                <li data-lang-pl="✓ Wszystko co mieści się w mechanikach gry" data-lang-en="✓ Anything within game mechanics">✓ Wszystko co mieści się w mechanikach gry</li>
-            </ul>
-        </div>
+  <!-- Speed lines / web lines top-left -->
+  <svg class="web-corner" style="top:0;left:0;width:300px;height:300px;" viewBox="0 0 300 300">
+    <g stroke="#C800FF" stroke-width="1.5" fill="none" opacity="0.5">
+      <line x1="0" y1="0" x2="300" y2="300"/>
+      <line x1="0" y1="0" x2="150" y2="300"/>
+      <line x1="0" y1="0" x2="300" y2="150"/>
+      <line x1="0" y1="0" x2="80" y2="300"/>
+      <line x1="0" y1="0" x2="300" y2="80"/>
+      <circle cx="0" cy="0" r="80" stroke-dasharray="4 8"/>
+      <circle cx="0" cy="0" r="150" stroke-dasharray="4 8"/>
+      <circle cx="0" cy="0" r="220" stroke-dasharray="4 8"/>
+    </g>
+  </svg>
 
-        <div class="section" id="survival">
-            <h2 data-lang-pl="Poradnik przetrwania" data-lang-en="Survival Guide">Poradnik przetrwania</h2>
-            <p>
-                <span data-lang-pl="<strong>Nowi gracze:</strong> Spawn to najniebezpieczniejsze miejsce na serwerze. Nikt Ci nie pomoże. Nikt nie da Ci jedzenia. Jedyną pewnością jest śmierć." data-lang-en="<strong>New players:</strong> Spawn is the most dangerous place on the server. No one will help you. No one will give you food. The only certainty is death.">
-                    <strong>Nowi gracze:</strong> Spawn to najniebezpieczniejsze miejsce na serwerze. Nikt Ci nie pomoże. Nikt nie da Ci jedzenia. Jedyną pewnością jest śmierć.
-                </span>
-            </p>
-            <div class="terminal">
-                <div class="terminal-line"><span class="terminal-prompt">gracz@0xrules:~$</span> porady --przetrwanie</div>
-                <div class="terminal-line" data-lang-pl="[!] Nie ufaj nikomu" data-lang-en="[!] Trust no one">[!] Nie ufaj nikomu</div>
-                <div class="terminal-line" data-lang-pl="[!] Uciekaj ze spawnu tak szybko jak to możliwe" data-lang-en="[!] Escape spawn as fast as possible">[!] Uciekaj ze spawnu tak szybko jak to możliwe</div>
-                <div class="terminal-line" data-lang-pl="[!] Ukrywaj swoje koordynaty" data-lang-en="[!] Hide your coordinates">[!] Ukrywaj swoje koordynaty</div>
-                <div class="terminal-line" data-lang-pl="[!] Buduj bazy tysiące bloków od spawnu" data-lang-en="[!] Build bases thousands of blocks from spawn">[!] Buduj bazy tysiące bloków od spawnu</div>
-                <div class="terminal-line" data-lang-pl="[!] Twórz zapasy w wielu lokalizacjach" data-lang-en="[!] Create backup stashes in multiple locations">[!] Twórz zapasy w wielu lokalizacjach</div>
-                <div class="terminal-line" data-lang-pl="[!] Wszystko może zostać zniszczone" data-lang-en="[!] Everything can be destroyed">[!] Wszystko może zostać zniszczone</div>
-            </div>
-        </div>
+  <!-- Speed lines bottom-right -->
+  <svg class="web-corner" style="bottom:0;right:0;width:250px;height:250px;" viewBox="0 0 250 250">
+    <g stroke="#FFE500" stroke-width="1.5" fill="none" opacity="0.5">
+      <line x1="250" y1="250" x2="0" y2="0"/>
+      <line x1="250" y1="250" x2="100" y2="0"/>
+      <line x1="250" y1="250" x2="0" y2="100"/>
+      <circle cx="250" cy="250" r="80" stroke-dasharray="4 8"/>
+      <circle cx="250" cy="250" r="150" stroke-dasharray="4 8"/>
+    </g>
+  </svg>
 
-        <div class="section" id="support">
-            <h2 data-lang-pl="Wsparcie serwera" data-lang-en="Support the Server">Wsparcie serwera</h2>
-            <p>
-                <span data-lang-pl="Utrzymanie serwera anarchii kosztuje pieniądze. Jeśli chcesz wesprzeć 0xRULES, możesz przekazać donację przez PayPal. <strong>Żadnych przywilejów, żadnych przewag, żadnych rang.</strong> Tylko czyste wsparcie dla chaosu." data-lang-en="Running an anarchy server costs money. If you want to support 0xRULES, you can donate via PayPal. <strong>No perks, no advantages, no ranks.</strong> Just pure support for the chaos.">
-                    Utrzymanie serwera anarchii kosztuje pieniądze. Jeśli chcesz wesprzeć 0xRULES, możesz przekazać donację przez PayPal. <strong>Żadnych przywilejów, żadnych przewag, żadnych rang.</strong> Tylko czyste wsparcie dla chaosu.
-                </span>
-            </p>
-            <div style="text-align:center; margin-top:2rem;">
-                <form action="https://www.paypal.com/donate" method="post" target="_top" style="display:inline-block;">
-                    <input type="hidden" name="hosted_button_id" value="DXAWCA6H7JKXU" />
-                    <input type="image" src="https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Wesprzyj przez PayPal" style="cursor:pointer;" />
-                    <img alt="" border="0" src="https://www.paypal.com/en_PL/i/scr/pixel.gif" width="1" height="1" />
-                </form>
-            </div>
-            <p style="text-align:center; margin-top:1.5rem; color:var(--primary); font-size:0.9rem;" data-lang-pl="Wszystkie donacje przeznaczane są na koszty hostingu serwera" data-lang-en="All donations go directly to server hosting costs">Wszystkie donacje przeznaczane są na koszty hostingu serwera</p>
-        </div>
+  <div class="bg-graffiti">ANARCHIA</div>
 
-        <div class="section" id="join">
-            <h2 data-lang-pl="Dołącz do legendy" data-lang-en="Join the Legend">Dołącz do legendy</h2>
-            <p>
-                <span data-lang-pl="0xRULES to nie tylko serwer - to doświadczenie. Miejsce, gdzie historia jest pisana przez graczy, gdzie każde działanie ma konsekwencje, a każda budowla może stać się legendą lub ruiną. Dołącz do <strong>pierwszego polskiego serwera anarchii w Hytale</strong> już dziś i bądź jednym z pierwszych!" data-lang-en="0xRULES is not just a server - it's an experience. A place where history is written by players, where every action has consequences, and every build can become a legend or a ruin. Join the <strong>first Polish anarchy server in Hytale</strong> today and be one of the first!">
-                    0xRULES to nie tylko serwer - to doświadczenie. Miejsce, gdzie historia jest pisana przez graczy, gdzie każde działanie ma konsekwencje, a każda budowla może stać się legendą lub ruiną. Dołącz do <strong>pierwszego polskiego serwera anarchii w Hytale</strong> już dziś i bądź jednym z pierwszych!
-                </span>
-            </p>
-            <div class="server-ip" style="margin-top:2rem; font-size:1.5rem;" onclick="copyIP()">
-                IP: play.0xrules.com:29115
-            </div>
-            <p style="text-align:center; margin-top:1rem; color:var(--primary);" data-lang-pl="Skopiuj IP i dołącz do pierwszego polskiego serwera anarchii w Hytale" data-lang-en="Copy the IP and join the first Polish anarchy server in Hytale">Skopiuj IP i dołącz do pierwszego polskiego serwera anarchii w Hytale</p>
-            <a href="https://discord.com/invite/RURykQbqbt" target="_blank" class="discord-btn" style="margin-top:2rem; margin-bottom:0;">
-                💬 <span data-lang-pl="Dołącz na Discorda" data-lang-en="Join our Discord">Dołącz na Discorda</span>
-            </a>
-        </div>
+  <div class="hero-content">
+    <div class="sticker">
+      <span class="lang-inline" data-lang="pl">⚡ PIERWSZY SERWER ANARCHII HYTALE W POLSCE ⚡</span>
+      <span class="lang-inline" data-lang="en">⚡ FIRST HYTALE ANARCHY SERVER IN POLAND ⚡</span>
     </div>
 
-    <footer>
-        <p data-lang-pl="0xRULES © 2026 | Pierwszy polski serwer anarchii w Hytale" data-lang-en="0xRULES © 2026 | The first Polish anarchy server in Hytale">0xRULES © 2026 | Pierwszy polski serwer anarchii w Hytale</p>
-        <p style="margin-top:0.5rem; color:var(--primary);" data-lang-pl="Inspirowany legendą 2b2t" data-lang-en="Inspired by the legend of 2b2t">Inspirowany legendą 2b2t</p>
-    </footer>
+    <h1 class="hero-title">
+      <span class="line2">0xRULES</span>
+      <span class="line3">HYTALE</span>
+    </h1>
 
-    <script>
-        // Language switcher
-        let currentLang = 'pl';
+    <p class="hero-sub">
+      <span class="lang-inline" data-lang="pl">Brak zasad. Brak granic. Czysta anarchia.</span>
+      <span class="lang-inline" data-lang="en">No rules. No limits. Pure anarchy.</span>
+    </p>
 
-        function setLang(lang) {
-            currentLang = lang;
-            localStorage.setItem('preferred-lang', lang);
-            
-            // Update buttons
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.lang === lang);
-            });
-            
-            // Update all translatable elements
-            document.querySelectorAll('[data-lang-pl]').forEach(el => {
-                const text = el.getAttribute(`data-lang-${lang}`);
-                if (text) {
-                    if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'H2' || el.tagName === 'H3' || el.tagName === 'LI') {
-                        el.innerHTML = text;
-                    } else {
-                        el.textContent = text;
-                    }
-                }
-            });
-            
-            // Update notification text
-            if (lang === 'en') {
-                window.copyNotificationText = 'IP copied!';
-            } else {
-                window.copyNotificationText = 'IP skopiowane!';
-            }
-        }
+    <div class="ip-box">
+      <div class="ip-box-inner" onclick="copyIP(this)">
+        <span class="ip-label">SERVER IP</span>
+        play.0xrules.com:29115
+      </div>
+      <div class="ip-copied" id="ip-copied">
+        <span class="lang-inline" data-lang="pl">✓ Skopiowano!</span>
+        <span class="lang-inline" data-lang="en">✓ Copied!</span>
+      </div>
+    </div>
 
-        // Load saved language
-        window.copyNotificationText = 'IP skopiowane!';
-        const savedLang = localStorage.getItem('preferred-lang');
-        if (savedLang && savedLang !== 'pl') {
-            setLang(savedLang);
-        }
+    <div class="btn-group">
+      <a href="https://discord.gg/Qha4HyAFRW" target="_blank" class="btn btn-discord">
+        ⚡ DISCORD
+      </a>
+      <a href="https://mathost.eu/donate/8938f209-58d9-490b-8eb0-6b2192843845" target="_blank" class="btn btn-donate">
+        <span class="lang-inline" data-lang="pl">💛 DONATE</span>
+        <span class="lang-inline" data-lang="en">💛 DONATE</span>
+      </a>
+    </div>
+  </div>
 
-        // Header shrink
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    const h = document.querySelector('header');
-                    const s = window.pageYOffset;
-                    if (s > 150) h.classList.add('scrolled');
-                    else if (s < 100) h.classList.remove('scrolled');
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
+  <a class="scroll-arrow" href="#changelog">
+    <span data-lang="pl">SCROLL</span>
+    <span data-lang="en">SCROLL</span>
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <polyline points="6,10 16,22 26,10" stroke="#FFE500" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 
-        // Smooth scroll
-        function scrollTo(id) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const offset = document.querySelector('header').offsetHeight + 20;
-            window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - offset, behavior: 'smooth' });
-        }
+</section>
 
-        // Copy IP
-        function copyIP() {
-            const ip = 'play.0xrules.com:29115';
-            const show = () => {
-                const n = document.createElement('div');
-                n.className = 'copy-notification';
-                n.textContent = window.copyNotificationText || 'IP skopiowane!';
-                document.body.appendChild(n);
-                setTimeout(() => n.remove(), 1500);
-            };
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(ip).then(show).catch(() => fallback(ip, show));
-            } else { fallback(ip, show); }
-        }
+<!-- DIVIDER -->
+<div class="panel-divider"></div>
 
-        function fallback(text, cb) {
-            const t = document.createElement('textarea');
-            t.value = text;
-            t.style.cssText = 'position:fixed;opacity:0';
-            document.body.appendChild(t);
-            t.focus(); t.select();
-            try { document.execCommand('copy'); cb(); } catch(e) {}
-            document.body.removeChild(t);
-        }
-    </script>
+<!-- ANARCHY INFO SECTION -->
+<section class="anarchy-section" id="changelog">
+  <!-- graffiti tags -->
+  <span class="graffiti-tag" style="top:20px;right:60px;-webkit-text-stroke-color:#C800FF;font-size:60px;">POLSKA</span>
+  <span class="graffiti-tag" style="bottom:40px;left:40px;-webkit-text-stroke-color:#FFE500;font-size:80px;">FREE</span>
+
+  <!-- Halftone panel dots top right -->
+  <svg style="position:absolute;top:0;right:0;width:300px;height:300px;opacity:0.15;pointer-events:none;" viewBox="0 0 300 300">
+    <defs>
+      <radialGradient id="hg">
+        <stop offset="0%" stop-color="#E8002D"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+      <pattern id="halftone-big" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+        <circle cx="10" cy="10" r="6" fill="#C800FF"/>
+      </pattern>
+    </defs>
+    <rect width="300" height="300" fill="url(#halftone-big)"/>
+    <rect width="300" height="300" fill="url(#hg)"/>
+  </svg>
+
+  <div class="section-title">
+    <span class="outline">
+      <span data-lang="pl">UPDATE</span>
+      <span data-lang="en">UPDATE</span>
+    </span>
+    <span class="filled">
+      <span data-lang="pl">LOG</span>
+      <span data-lang="en">LOG</span>
+    </span>
+  </div>
+
+  <div class="changelog-wrap" style="max-width:800px;margin:60px auto 0;position:relative;z-index:5;">
+    <div class="changelog-list" id="changelog-list">
+      <!-- wpisy ładowane z changelog.txt -->
+    </div>
+
+    <div class="cl-expand-wrap" id="cl-expand-wrap" style="display:none;">
+      <div class="cl-fade"></div>
+      <button class="cl-expand-btn" id="cl-expand-btn" onclick="toggleChangelog()">
+        <span data-lang="pl">▼ POKAŻ WIĘCEJ</span>
+        <span data-lang="en">▼ SHOW MORE</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="panel-divider"></div>
+
+<!-- FEATURES SECTION -->
+<section class="features-section">
+  <div class="web-bg"></div>
+
+  <!-- Hash lines decoration -->
+  <svg style="position:absolute;left:0;top:0;width:200px;height:400px;opacity:0.1;pointer-events:none;" viewBox="0 0 200 400">
+    <defs>
+      <pattern id="hatch" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="10" stroke="#C800FF" stroke-width="2"/>
+      </pattern>
+    </defs>
+    <rect width="200" height="400" fill="url(#hatch)"/>
+  </svg>
+
+  <div class="section-title" style="position:relative;z-index:5;">
+    <span class="outline" style="-webkit-text-stroke-color:var(--blue);">
+      <span data-lang="pl">DLACZEGO</span>
+      <span data-lang="en">WHY JOIN</span>
+    </span>
+    <span class="filled" style="text-shadow:4px 4px 0 var(--blue);">
+      <span data-lang="pl">MY?</span>
+      <span data-lang="en">US?</span>
+    </span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-num">01</div>
+      <div class="feat-title">
+        <span data-lang="pl">PIERWSI W PL</span>
+        <span data-lang="en">FIRST IN PL</span>
+      </div>
+      <p class="feat-text">
+        <span data-lang="pl">Jesteśmy pierwszym i jedynym serwerem anarchii Hytale w Polsce. Pisz historię razem z nami od samego początku.</span>
+        <span data-lang="en">We are the first and only Hytale anarchy server in Poland. Write history with us from the very beginning.</span>
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-num">02</div>
+      <div class="feat-title">
+        <span data-lang="pl">24/7 ONLINE</span>
+        <span data-lang="en">24/7 ONLINE</span>
+      </div>
+      <p class="feat-text">
+        <span data-lang="pl">Serwer działa non-stop. Żadnych restartów bez ogłoszenia. Twoja baza jest zawsze dostępna.</span>
+        <span data-lang="en">The server runs non-stop. No restarts without announcement. Your base is always accessible.</span>
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-num">03</div>
+      <div class="feat-title">
+        <span data-lang="pl">AKTYWNY DISCORD</span>
+        <span data-lang="en">ACTIVE DISCORD</span>
+      </div>
+      <p class="feat-text">
+        <span data-lang="pl">Społeczność anarchistów, memy, plotki o bazie rywali, plany sojuszy. Dołącz do chaosu na Discordzie.</span>
+        <span data-lang="en">Community of anarchists, memes, rival base gossip, alliance plans. Join the chaos on Discord.</span>
+      </p>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-num">04</div>
+      <div class="feat-title">
+        <span data-lang="pl">HYTALE NATIVE</span>
+        <span data-lang="en">HYTALE NATIVE</span>
+      </div>
+      <p class="feat-text">
+        <span data-lang="pl">Prawdziwy serwer Hytale , nie emulator. Korzystamy z pełnego potencjału gry od pierwszego dnia.</span>
+        <span data-lang="en">A real Hytale server , not an emulator. We use the full potential of the game from day one.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="panel-divider"></div>
+
+<!-- JOIN SECTION -->
+<section class="join-section">
+  <!-- Halftone corner -->
+  <svg style="position:absolute;top:0;left:0;width:250px;height:250px;opacity:0.08;pointer-events:none;" viewBox="0 0 250 250">
+    <defs>
+      <radialGradient id="rg2" cx="0%" cy="0%">
+        <stop offset="0%" stop-color="#FFE500"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+      <pattern id="dots3" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
+        <circle cx="9" cy="9" r="5" fill="#FFE500"/>
+      </pattern>
+    </defs>
+    <rect width="250" height="250" fill="url(#dots3)"/>
+    <rect width="250" height="250" fill="url(#rg2)"/>
+  </svg>
+
+  <div style="position:relative;z-index:5;">
+    <h2 class="join-title">
+      <span>
+        <span data-lang="pl">DOŁĄCZ</span>
+        <span data-lang="en">JOIN</span>
+      </span>
+      <span>
+        <span data-lang="pl">TERAZ!</span>
+        <span data-lang="en">NOW!</span>
+      </span>
+    </h2>
+
+    <p style="font-family:'Permanent Marker',cursive;font-size:clamp(14px,2.5vw,22px);color:rgba(245,240,232,0.6);margin-top:20px;text-shadow:1px 1px 0 #000;">
+      <span data-lang="pl">Serwer czeka. Anarchia czeka. TY czekasz?</span>
+      <span data-lang="en">The server waits. Anarchy waits. Are YOU waiting?</span>
+    </p>
+
+    <div class="ip-box" style="margin-top:40px;">
+      <div class="ip-box-inner" onclick="copyIP(this)">
+        <span class="ip-label">SERVER IP</span>
+        play.0xrules.com:29115
+      </div>
+    </div>
+
+    <div class="join-discord">
+      <a href="https://discord.gg/Qha4HyAFRW" target="_blank">
+        ⚡ DISCORD ⚡
+      </a>
+    </div>
+
+    <div style="margin-top:20px;">
+      <a href="https://mathost.eu/donate/8938f209-58d9-490b-8eb0-6b2192843845" target="_blank" class="btn btn-donate" style="font-size:clamp(16px,3vw,28px);padding:14px 40px;box-shadow:8px 8px 0 var(--purple);">
+        <span data-lang="pl">💛 WESPRZYJ SERWER , DONATE</span>
+        <span data-lang="en">💛 SUPPORT THE SERVER , DONATE</span>
+      </a>
+    </div>
+
+    <p style="margin-top:30px;font-family:'Special Elite',cursive;font-size:13px;color:rgba(245,240,232,0.3);letter-spacing:2px;">
+      discord.gg/Qha4HyAFRW
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>0xRULES</strong><br><br>
+  <span data-lang="pl">Pierwszy Serwer Anarchii Hytale w Polsce · play.0xrules.com:29115</span>
+  <span data-lang="en">First Hytale Anarchy Server in Poland · play.0xrules.com:29115</span>
+  <br>
+  <span style="font-size:11px;opacity:0.5;">© 2026 0xRules · Hytale is a trademark of Hypixel Studios</span>
+</footer>
+
+<script>
+  // Language switch
+  function setLang(lang) {
+    document.body.classList.remove('pl', 'en');
+    document.body.classList.add(lang);
+    document.getElementById('btn-pl').classList.toggle('active', lang === 'pl');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
+
+  // Copy IP
+  function copyIP(el) {
+    const ip = 'play.0xrules.com:29115';
+    navigator.clipboard.writeText(ip).catch(() => {});
+    const copied = document.getElementById('ip-copied');
+    if (!copied) return;
+    copied.classList.add('show');
+    setTimeout(() => copied.classList.remove('show'), 2000);
+    el.style.color = 'var(--yellow)';
+    setTimeout(() => el.style.color = '', 1000);
+  }
+
+  // CHANGELOG - czyta z changelog.txt
+  const SHOW_LIMIT = 3;
+
+  // badge typ -> CSS klasa
+  const badgeClass = {
+    'start': 'new', 'nowe': 'new', 'new': 'new',
+    'fix': 'fix', 'naprawa': 'fix',
+    'test': 'update', 'update': 'update', 'aktualizacja': 'update',
+    'migracja': 'hot', 'migration': 'hot', 'hot': 'hot'
+  };
+
+  function getBadgeClass(typ) {
+    return badgeClass[typ.toLowerCase()] || 'new';
+  }
+
+  function parseChangelog(text) {
+    const blocks = text.trim().split(/\n\s*\n/);
+    return blocks.map(block => {
+      const lines = block.trim().split('\n');
+      const entry = {};
+      lines.forEach(line => {
+        const sep = line.indexOf(':');
+        if (sep === -1) return;
+        const key = line.slice(0, sep).trim().toLowerCase();
+        const val = line.slice(sep + 1).trim();
+        entry[key] = val;
+      });
+      return entry;
+    }).filter(e => e['date']);
+  }
+
+  function renderEntry(e) {
+    const cls = getBadgeClass(e['typ'] || '');
+    return `
+      <div class="cl-entry">
+        <div class="cl-date">${e['date'] || ''}</div>
+        <div class="cl-badge ${cls}">
+          <span data-lang="pl">${e['typ'] || ''}</span>
+          <span data-lang="en">${e['typ en'] || e['typ'] || ''}</span>
+        </div>
+        <div class="cl-content">
+          <div class="cl-title">
+            <span data-lang="pl">${e['nagłówek pl'] || e['naglowek pl'] || ''}</span>
+            <span data-lang="en">${e['nagłówek en'] || e['naglowek en'] || ''}</span>
+          </div>
+          <p class="cl-text">
+            <span data-lang="pl">${e['pl'] || ''}</span>
+            <span data-lang="en">${e['en'] || ''}</span>
+          </p>
+        </div>
+      </div>`;
+  }
+
+  function initChangelog(entries) {
+    const list = document.getElementById('changelog-list');
+    const wrap = document.getElementById('cl-expand-wrap');
+    list.innerHTML = entries.map(renderEntry).join('');
+    // odśwież lang
+    const lang = document.body.classList.contains('en') ? 'en' : 'pl';
+    setLang(lang);
+    if (entries.length > SHOW_LIMIT) {
+      list.querySelectorAll('.cl-entry').forEach((el, i) => {
+        if (i >= SHOW_LIMIT) el.classList.add('cl-list-hidden');
+      });
+      wrap.style.display = 'block';
+    }
+  }
+
+  function toggleChangelog() {
+    const hidden = document.querySelectorAll('.cl-list-hidden');
+    const btn = document.getElementById('cl-expand-btn');
+    const fade = document.querySelector('.cl-fade');
+    const lang = document.body.classList.contains('en') ? 'en' : 'pl';
+    if (hidden.length > 0) {
+      hidden.forEach(e => e.classList.remove('cl-list-hidden'));
+      btn.innerHTML = lang === 'en'
+        ? '<span data-lang="pl">▲ ZWIŃ</span><span data-lang="en">▲ COLLAPSE</span>'
+        : '<span data-lang="pl">▲ ZWIŃ</span><span data-lang="en">▲ COLLAPSE</span>';
+      if (fade) fade.style.display = 'none';
+    } else {
+      document.querySelectorAll('.cl-entry').forEach((e, i) => {
+        if (i >= SHOW_LIMIT) e.classList.add('cl-list-hidden');
+      });
+      btn.innerHTML = lang === 'en'
+        ? '<span data-lang="pl">▼ POKAŻ WIĘCEJ</span><span data-lang="en">▼ SHOW MORE</span>'
+        : '<span data-lang="pl">▼ POKAŻ WIĘCEJ</span><span data-lang="en">▼ SHOW MORE</span>';
+      if (fade) fade.style.display = '';
+      document.getElementById('cl-expand-wrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  function expandChangelog() { toggleChangelog(); }
+
+  fetch('changelog.txt?v=' + Date.now())
+    .then(r => r.ok ? r.text() : Promise.reject('brak pliku'))
+    .then(text => initChangelog(parseChangelog(text)))
+    .catch(() => {
+      document.getElementById('changelog-list').innerHTML =
+        '<p style="font-family:\'Special Elite\',cursive;color:rgba(255,248,220,0.4);text-align:center;padding:20px;">Brak pliku changelog.txt</p>';
+    });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Parallax subtle on hero
+  document.addEventListener('mousemove', e => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    const bg = document.querySelector('.bg-graffiti');
+    if (bg) bg.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(-8deg)`;
+  });
+
+
+</script>
 </body>
 </html>
